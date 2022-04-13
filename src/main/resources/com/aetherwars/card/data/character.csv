@@ -2,7 +2,7 @@ id	name	type	description	imagepath	attack	health	mana	attackup	healthup
 1	Creeper	OVERWORLD	A creeper is a common hostile mob that silently approaches players and explodes.	card/image/character/Creeper.png	10	2	4	1	1
 2	Sheep	OVERWORLD	Sheep are common passive mobs that supply wool and mutton and are found in many of the grassy biomes.	card/image/character/Sheep.png	1	1	1	0	0
 3	Zombie	OVERWORLD	Zombies are common undead hostile mobs that deal melee damage and attack in groups.	card/image/character/Zombie.png	3	3	2	2	2
-4	Skeleton	OVERWORLD	A skeleton is a common undead hostile mob equipped with a bow.	card/image/character/Skeleton.png	4	4	3	3	1
+4	Skeleton	OVERWORLD	A skeleton is a dcommon undead hostile mob equipped with a bow.	card/image/character/Skeleton.png	4	4	3	3	1
 5	Enderman	END	An enderman is a neutral mob found in all four dimensions. Endermen can teleport and pick up blocks.	card/image/character/Enderman.png	8	6	5	4	3
 6	Villager	OVERWORLD	Villagers are passive mobs that inhabit villages, work at their professions, breed, and interact with each other.	card/image/character/Villager.png	2	4	2	1	2
 7	Wither Skeleton	NETHER	Wither skeletons are tall variants of skeletons equipped with stone swords and found in nether fortresses.	card/image/character/Wither Skeleton.png	8	10	6	3	4
