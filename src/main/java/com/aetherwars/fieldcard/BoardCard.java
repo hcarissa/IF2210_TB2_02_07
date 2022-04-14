@@ -1,4 +1,4 @@
-package com.aetherwars.model;
+package com.aetherwars.fieldcard;
 
 public class BoardCard {
     private int position;
