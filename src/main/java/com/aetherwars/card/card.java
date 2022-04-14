@@ -1,14 +1,13 @@
 package com.aetherwars.card;
 import java.nio.file.Paths;
 
-public abstract class Card
-{
+public abstract class Card{
     protected String name;
     protected String description;
     protected Type type;
     protected String imagePath;
 
-    public card()
+    public Card()
     {
         this.name = "";
         this.description = "";
@@ -16,7 +15,7 @@ public abstract class Card
         this.imagePath = "";
     }
     
-    public card (String name, String description, Type type, String imagePath)
+    public Card (String name, String description, Type type, String imagePath)
     {
         this.name = name;
         this.description = description;
@@ -46,7 +45,6 @@ public abstract class Card
 
     public abstract CardType getCardType();
 
-    @Override
     public void printInfo()
     {
         System.out.println("Name       : " + this.name);

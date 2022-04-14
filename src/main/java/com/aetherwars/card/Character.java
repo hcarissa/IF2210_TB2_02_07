@@ -42,6 +42,7 @@ public class Character extends Card {
         return CardType.CHARACTER;
     }
 
+    @Override
     public void printInfo() {
         super.printInfo();
         System.out.println("Attack: " + this.attack);
