@@ -4,6 +4,7 @@ import com.aetherwars.model.Player;
 
 public class Board{
     private int turn;
+    private int round; // kalau di spek turn
     private Phase phase;
     private Player p1;
     private Player p2;
@@ -25,6 +26,7 @@ public class Board{
             this.p2.draw();
         }
         turn = 1; // dimulai dari giliran player1
+        round = 1;
         phase = Phase.DRAW;
     }
 
@@ -61,6 +63,7 @@ public class Board{
         }
         else {
             turn = 1;
+            round++;
         }
     }
 
