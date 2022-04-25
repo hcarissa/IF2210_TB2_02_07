@@ -1,20 +1,16 @@
 package com.aetherwars.board;
 
-import com.aetherwars.model.Player;
+import com.aetherwars.player.*;
 
-public class Board{
+public class Board {
     private int turn;
     private int round; // kalau di spek turn
     private Phase phase;
     private Player p1;
     private Player p2;
-    private int deck; // jumlah kartu yang ada di deck player aktif
-    private int mana; // value mana dari player yang sedang aktif
 
     // health point, mana, deck, hand udah ada di masing-masing player
     // deskripsi dari setiap kartu ada di Cards
-    //private PlayerBoard b1;
-    //private PlayerBoard b2;
 
     public Board(Player p1, Player p2) {
         this.p1 = p1;
@@ -22,8 +18,8 @@ public class Board{
 
         // masing-masing player ambil 3 kartu dari deck
         for (int i = 0; i < 3; i++) {
-            this.p1.draw();
-            this.p2.draw();
+            this.p1.draw(3);
+            this.p2.draw(3);
         }
         turn = 1; // dimulai dari giliran player1
         round = 1;
@@ -47,16 +43,6 @@ public class Board{
         }
     }
 
-    public void setDeck() {
-        // TO DO
-        // this.deck = getActivePlayer().getDeck();
-    }
-
-    public void setMana() {
-        // TO DO
-        // this.mana = getActivePlayer().getMana();
-    }
-
     public void switchTurn() {
         if (turn == 1) {
             turn = 2;
@@ -71,5 +57,4 @@ public class Board{
         phase = nextPhase;
     }
 
-    // display controller menyusul
 }

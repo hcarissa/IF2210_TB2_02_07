@@ -25,7 +25,7 @@ import javafx.scene.control.Button;
 
 public class BoardController {
     @ FXML
-    private Label p1_name, p2_name, turn;
+    private Label p1_name, p2_name, turn, deckCount, mana;
     @ FXML
     private Button next;
     @ FXML
@@ -39,6 +39,8 @@ public class BoardController {
         this.p1_name = new Label("Player 1");
         this.p2_name = new Label("Player 2");
         this.turn = new Label("Turn 1");
+        //this.deckCount = new Label("Deck: " + String.valueOf(board.getActivePlayer().getDeckSize()) + "/60");
+        //this.mana = new Label("Mana: " + String.valueOf(board.getActivePlayer().getMana()));
         this.next = new Button(">>");
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
