@@ -6,10 +6,10 @@ public class CardCollection {
     private List<Card> CardCollection;
 
     public CardCollection(){
-        CardCollection = new ArrayList<Card>;
+        CardCollection = new ArrayList<Card>();
     }
 
-    public addCard(Card cd){
+    public void addCard(Card cd){
         CardCollection.add(cd);
     }
 
