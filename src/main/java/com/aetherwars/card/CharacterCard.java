@@ -16,8 +16,8 @@ public class CharacterCard extends Card {
         this.characterType = CharacterType.OVERWORLD;
     }
 
-    public CharacterCard(String name, String description, CardType cardtype, String imagePath, int attackUp, int healthUp, int baseAttack, int baseHealth, CharacterType characterType) {
-        super(name, description, cardtype, imagePath);
+    public CharacterCard(String name, String description, String imagePath, int attackUp, int healthUp, int baseAttack, int baseHealth, CharacterType characterType) {
+        super(name, description, CardType.CHARACTER, imagePath);
         this.attackUp = attackUp;
         this.healthUp = healthUp;
         this.baseAttack = baseAttack;

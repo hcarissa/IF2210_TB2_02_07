@@ -45,34 +45,35 @@ public class SummonedCharacter extends FieldCard implements ISummoned {
             System.out.printf("- %s (%s)\n", spell.getName(), spell.getSpellType());
         }
         System.out.printf("Status: %d/%d [%d]\n", this.exp, this.needsExp, this.lvl);
+        System.out.printf("Is Dead: %s\n", this.isDead);
     }
 
-    public static void main(String[] args) {
-        System.out.println("- SummonedCharacter -");
+    // public static void main(String[] args) {
+    //     System.out.println("- SummonedCharacter -");
 
-        // initialize spells
-        SpellPotion spellPotion = new SpellPotion("Potion1", "", Type.END, "", 11, 12, 13, 14);
-        SpellLevel spellLevel = new SpellLevel("Level1", "", Type.END, "", 21, 22, 23);
-        SpellSwap spellSwap = new SpellSwap("Swap1", "", Type.END, "", 31, 32, 33, 34);
-        SpellMorph spellMorph = new SpellMorph("Morph1", "", Type.END, "", 41);
+    //     // initialize spells
+    //     SpellPotion spellPotion = new SpellPotion("Potion1", "", Type.END, "", 11, 12, 13, 14);
+    //     SpellLevel spellLevel = new SpellLevel("Level1", "", Type.END, "", 21, 22, 23);
+    //     SpellSwap spellSwap = new SpellSwap("Swap1", "", Type.END, "", 31, 32, 33, 34);
+    //     SpellMorph spellMorph = new SpellMorph("Morph1", "", Type.END, "", 41);
 
-        // initialize SummonedCharacter
-        CharacterCard charCard = new CharacterCard("Rava", "Ini Deskripsi", Type.OVERWORLD,"background.jpg", 20, 80);
-        SummonedCharacter sumChar = new SummonedCharacter(1, charCard);
+    //     // initialize SummonedCharacter
+    //     CharacterCard charCard = new CharacterCard("Rava", "Ini Deskripsi", Type.OVERWORLD,"background.jpg", 20, 80, 2, 4, 1, 2);
+    //     SummonedCharacter sumChar = new SummonedCharacter(1, charCard);
         
-        // spells operation
-        sumChar.addSpell(spellPotion);
-        sumChar.addSpell(spellLevel);
-        sumChar.addSpell(spellSwap);
-        sumChar.addSpell(spellMorph);
+    //     // spells operation
+    //     sumChar.addSpell(spellPotion);
+    //     sumChar.addSpell(spellLevel);
+    //     sumChar.addSpell(spellSwap);
+    //     sumChar.addSpell(spellMorph);
 
-        // earn exp operation
-        sumChar.earnExp(6); // 2/5 [3]
-        sumChar.earnExp(7); // 4/7 [4]
+    //     // earn exp operation
+    //     sumChar.earnExp(6); // 2/5 [3]
+    //     sumChar.earnExp(7); // 4/7 [4]
 
-        // rendering SummonedCharacter
-        sumChar.render();
+    //     // rendering SummonedCharacter
+    //     sumChar.render();
 
-        System.out.println("- Done -");
-    }
+    //     System.out.println("- Done -");
+    // }
 }

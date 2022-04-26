@@ -7,6 +7,7 @@ interface IFieldCard {
     public int getNeedsExp();
     public int getTotalExp();
     public int getLvl();
+    public boolean getIsDead();
 
     // operation
     public void earnExp(int exp);

@@ -9,8 +9,8 @@ public abstract class SpellCard extends Card {
         this.mana = 0;
     }
 
-    public SpellCard(String name, String description, CardType type, String imagePath, int mana) {
-        super(name, description, type, imagePath);
+    public SpellCard(String name, String description, String imagePath, int mana) {
+        super(name, description, CardType.SPELL, imagePath);
         this.mana = mana;
     }
 

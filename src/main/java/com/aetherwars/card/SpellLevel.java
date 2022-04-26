@@ -11,8 +11,8 @@ public class SpellLevel extends SpellCard {
         this.exp = 0;
     }
 
-    public SpellLevel(String name, String description, CardType type, String imagePath, int mana, int level, int exp) {
-        super(name, description, type, imagePath, mana);
+    public SpellLevel(String name, String description, String imagePath, int mana, int level, int exp) {
+        super(name, description, imagePath, mana);
         this.level = level;
         this.exp = exp;
     }

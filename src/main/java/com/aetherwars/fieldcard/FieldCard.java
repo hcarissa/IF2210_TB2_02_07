@@ -5,12 +5,14 @@ public class FieldCard {
     protected int exp;
     protected int needsExp;
     protected int lvl;
+    protected boolean isDead;
 
     public FieldCard(int position) {
         this.position = position;
         this.exp = 0;
         this.needsExp = 1;
         this.lvl = 1;
+        this.isDead = false;
     }
 
     // getter
@@ -60,6 +62,9 @@ public class FieldCard {
     }
     public int getLvl(){
         return this.lvl;
+    }
+    public boolean getIsDead() {
+        return this.isDead;
     }
 
     public void earnExp(int exp) {

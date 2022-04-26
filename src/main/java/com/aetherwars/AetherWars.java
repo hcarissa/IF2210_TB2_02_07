@@ -13,9 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import com.aetherwars.card.Type;
-import com.aetherwars.card.CharacterCard;
-import com.aetherwars.card.Card;
+import com.aetherwars.card.*;
 import com.aetherwars.player.*;
 import com.aetherwars.board.*;
 import com.aetherwars.util.CSVReader;
