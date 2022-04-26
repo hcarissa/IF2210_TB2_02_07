@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aetherwars.Controller">
    <children>
       <ImageView fitHeight="497.0" fitWidth="902.0" layoutX="-6.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -21,7 +21,7 @@
             <Image url="@card/image/character/player1.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="805.0" layoutY="245.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="44.0" text="&gt;&gt;" textFill="#122ee3">
+      <Button layoutX="805.0" layoutY="245.0" mnemonicParsing="false" onAction="#changePhase" prefHeight="13.0" prefWidth="44.0" text="&gt;&gt;" textFill="#122ee3">
          <font>
             <Font name="Lucida Sans Unicode" size="12.0" />
          </font></Button>
@@ -64,10 +64,10 @@
       <Rectangle id="player2B" arcHeight="5.0" arcWidth="5.0" fill="#306494" height="64.0" layoutX="651.0" layoutY="75.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
       <Rectangle id="player2D" arcHeight="5.0" arcWidth="5.0" fill="#306494" height="64.0" layoutX="651.0" layoutY="144.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
       <Rectangle id="player2E" arcHeight="5.0" arcWidth="5.0" fill="#306494" height="64.0" layoutX="583.0" layoutY="112.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="19.0" layoutX="25.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="191.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="19.0" layoutX="216.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="191.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="19.0" layoutX="407.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="191.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="19.0" layoutX="598.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="191.0" />
+      <Rectangle fx:id="drawTab" arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="19.0" layoutX="25.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="191.0" />
+      <Rectangle fx:id="planTab" arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="19.0" layoutX="216.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="191.0" />
+      <Rectangle fx:id="attackTab" arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="19.0" layoutX="407.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="191.0" />
+      <Rectangle fx:id="endTab" arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="19.0" layoutX="598.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="191.0" />
       <Text fill="WHITE" layoutX="128.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A">
          <font>
             <Font name="Gadugi Bold" size="14.0" />
