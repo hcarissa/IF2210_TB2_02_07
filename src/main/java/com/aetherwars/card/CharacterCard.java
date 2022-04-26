@@ -1,35 +1,57 @@
 package com.aetherwars.card;
 
 public class CharacterCard extends Card {
-    private int attack;
-    private int health;
+    private int attackUp;
+    private int healthUp;
+    private int baseAttack;
+    private int baseHealth;
 
     public CharacterCard() {
         super();
-        this.attack = 0;
-        this.health = 0;
+        this.attackUp = 0;
+        this.healthUp = 0;
+        this.baseAttack = 0;
+        this.baseHealth = 0;
     }
 
-    public CharacterCard(String name, String description, Type type, String imagePath, int attack, int health) {
+    public CharacterCard(String name, String description, Type type, String imagePath, int attack, int health, int attackUp, int healthUp, int baseAttack, int baseHealth) {
         super(name, description, type, imagePath);
-        this.attack = attack;
-        this.health = health;
+        this.attackUp = attackUp;
+        this.healthUp = healthUp;
+        this.baseAttack = baseAttack;
+        this.baseHealth = baseHealth;
     }
 
-    public int getAttack() {
-        return this.attack;
+    public int getAttackUp() {
+        return attackUp;
     }
 
-    public int getHealth() {
-        return this.health;
+    public void setAttackUp(int attackUp) {
+        this.attackUp = attackUp;
     }
 
-    public void setAttack(int attack) {
-        this.attack = attack;
+    public int getHealthUp() {
+        return healthUp;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public void setHealthUp(int healthUp) {
+        this.healthUp = healthUp;
+    }
+
+    public int getBaseAttack() {
+        return baseAttack;
+    }
+
+    public void setBaseAttack(int baseAttack) {
+        this.baseAttack = baseAttack;
+    }
+
+    public int getBaseHealth() {
+        return baseHealth;
+    }
+
+    public void setBaseHealth(int baseHealth) {
+        this.baseHealth = baseHealth;
     }
 
     @Override
@@ -45,8 +67,10 @@ public class CharacterCard extends Card {
     @Override
     public void printInfo() {
         super.printInfo();
-        System.out.println("Attack: " + this.attack);
-        System.out.println("Health: " + this.health);
+        System.out.println("Attack Up: " + this.attackUp);
+        System.out.println("Health Up: " + this.healthUp);  
+        System.out.println("Base Attack: " + this.baseAttack);
+        System.out.println("Base Health: " + this.baseHealth);
     }
 
 
