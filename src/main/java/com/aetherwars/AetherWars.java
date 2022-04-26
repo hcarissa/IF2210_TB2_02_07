@@ -16,10 +16,15 @@ import javafx.stage.Stage;
 import com.aetherwars.card.Type;
 import com.aetherwars.card.CharacterCard;
 import com.aetherwars.card.Card;
+import com.aetherwars.player.*;
+import com.aetherwars.board.*;
 import com.aetherwars.util.CSVReader;
 
 public class AetherWars extends Application {
   private static final String CHARACTER_CSV_FILE_PATH = "card/data/character.csv";
+
+  private Controller ctrl;
+  private Player p1, p2;
 
   public void loadCards() throws IOException, URISyntaxException {
     File characterCSVFile = new File(getClass().getResource(CHARACTER_CSV_FILE_PATH).toURI());
@@ -34,22 +39,14 @@ public class AetherWars extends Application {
 
   @Override
   public void start(Stage stage) {
-//    Text text = new Text();
-//    text.setText("Loading...");
-//    text.setX(50);
-//    text.setY(50);
-//
-//    Group root = new Group();
-//    root.getChildren().add(text);
-//
-//    Scene scene = new Scene(root, 1280, 720);
-//
-//    stage.setTitle("Minecraft: Aether Wars");
-//    stage.setScene(scene);
-//    stage.show();
+    p1 = new Player("Player 1", 60);
+    p2 = new Player("Player 2", 60);
+
     Parent root = null;
     try {
-      root = FXMLLoader.load(getClass().getResource("AetherWars.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("AetherWars.fxml"));
+      root = loader.load();
+      ctrl = loader.getController();
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -64,6 +61,8 @@ public class AetherWars extends Application {
     } catch (Exception e) {
 //      text.setText("Failed to load cards: " + e);
     }
+
+    ctrl.setBoard(new Board(p1, p2));
   }
 
   public static void main(String[] args) {

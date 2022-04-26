@@ -8,12 +8,15 @@ import javafx.fxml.FXML;
 import com.aetherwars.board.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 public class Controller {
     private Board board;
 
     @FXML
     private Rectangle drawTab, planTab, attackTab, endTab;
+    @FXML
+    private Text health1, health2;
 
     @FXML
     private Color active = new Color(1.0, 0.2431, 0.1216, 1.0);
@@ -57,7 +60,19 @@ public class Controller {
 
     @FXML
     void initialize() {
-
+        this.drawTab.setFill(active);
     }
 
+    public void setBoard(Board b) {
+        this.board = b;
+    }
+
+    public void updateHP(int i, int hp) {
+        if (i == 1) {
+            this.health1.setText(String.valueOf(hp));
+        }
+        else {
+            this.health2.setText(String.valueOf(hp));
+        }
+    }
 }
