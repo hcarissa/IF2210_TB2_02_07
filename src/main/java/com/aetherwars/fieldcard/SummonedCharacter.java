@@ -3,6 +3,16 @@ import com.aetherwars.card.*;
 import java.util.List;
 import java.util.ArrayList;
 
+// TODO
+// - Attack to another card/enemy's HP
+// - Spells effect to card
+    // Potion (TEMP)
+    // Level (PERM)
+    // Swap (TEMP)
+    // Morph (PERM)
+// - attackUp & healthUp if level up
+// - kalo health=0 (dead) gimana?
+
 public class SummonedCharacter implements ISummoned {
     private int position;
     private CharacterCard character;
