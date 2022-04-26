@@ -10,6 +10,7 @@ public class Deck {
     private CardCollection potionCollection;
     private CardCollection swapCollection;
 
+    
     public Deck(CardCollection charCollection, CardCollection levelCollection, CardCollection morphCollection, CardCollection swapCollection, CardCollection potionCollection){
         this.charCollection = charCollection;
         this.levelCollection = levelCollection;
@@ -21,6 +22,11 @@ public class Deck {
     }
 
     public Deck() {
+        this.charCollection = new CardCollection();
+        this.levelCollection = new CardCollection();
+        this.morphCollection = new CardCollection();
+        this.swapCollection = new CardCollection();
+        this.potionCollection = new CardCollection();
         this.deckOfCards = new LinkedList<Card>();
         fillDeck();
     }
@@ -41,34 +47,43 @@ public class Deck {
         return (this.deckOfCards.remove());
     }
 
+    
     public void fillDeck(){
         CardCollection finalCards = new CardCollection();
         Random r = new Random();
         // char 25, level 5, morph 5, swap 10, potion 15
         for(int i = 0; i < 25; i++){
-            int rand = r.nextInt(charCollection.getSize());
-            finalCards.addCard(charCollection.getCardIdx(rand));
+            if(!deckOfCards.isEmpty()){
+                finalCards.addCard(charCollection.getCardIdx(r.nextInt(charCollection.getSize())));
+            }
         }
         for(int i = 0; i < 5; i++){
-            int rand = r.nextInt(levelCollection.getSize());
-            finalCards.addCard(levelCollection.getCardIdx(rand));
+            if(!deckOfCards.isEmpty()){
+                finalCards.addCard(levelCollection.getCardIdx(r.nextInt(levelCollection.getSize())));
+            }
+
         }
         for(int i = 0; i < 5; i++){
-            int rand = r.nextInt(morphCollection.getSize());
-            finalCards.addCard(morphCollection.getCardIdx(rand));
+            if(!deckOfCards.isEmpty()){
+                finalCards.addCard(morphCollection.getCardIdx(r.nextInt(morphCollection.getSize())));
+            }
         }
         for(int i = 0; i < 10; i++){
-            int rand = r.nextInt(swapCollection.getSize());
-            finalCards.addCard(swapCollection.getCardIdx(rand));
+            if(!deckOfCards.isEmpty()){
+                finalCards.addCard(swapCollection.getCardIdx(r.nextInt(swapCollection.getSize())));
+            }
         }
         for(int i = 0; i < 15; i++){
-            int rand = r.nextInt(potionCollection.getSize());
-            finalCards.addCard(potionCollection.getCardIdx(rand));
+            if(!deckOfCards.isEmpty()){
+                finalCards.addCard(potionCollection.getCardIdx(r.nextInt(potionCollection.getSize())));
+            }
         }
         finalCards.shuffle();
         deckOfCards = new LinkedList<Card>();
         for(int i = 0; i < 60; i++){
-            deckOfCards.add(finalCards.getCardIdx(i));
+            if(!deckOfCards.isEmpty()){
+                deckOfCards.add(finalCards.getCardIdx(i));
+            }
         }
     }
 
