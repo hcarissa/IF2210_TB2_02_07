@@ -4,13 +4,13 @@ import java.util.*;
 
 public class SummonedCharacter {
     private int position;
-    private Character character;
+    private CharacterCard character;
     private List<? extends SpellCard> activeSpells;
     private int exp;
     private int needsExp;
     private int lvl;
 
-    public SummonedCharacter(int position, Character character) {
+    public SummonedCharacter(int position, CharacterCard character) {
         this.position = position;
         this.character = character;
         this.exp = 0;
