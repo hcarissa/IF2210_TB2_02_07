@@ -1,16 +1,16 @@
 package com.aetherwars.card;
 
-public class Character extends Card {
+public class CharacterCard extends Card {
     private int attack;
     private int health;
 
-    public Character() {
+    public CharacterCard() {
         super();
         this.attack = 0;
         this.health = 0;
     }
 
-    public Character(String name, String description, Type type, String imagePath, int attack, int health) {
+    public CharacterCard(String name, String description, Type type, String imagePath, int attack, int health) {
         super(name, description, type, imagePath);
         this.attack = attack;
         this.health = health;

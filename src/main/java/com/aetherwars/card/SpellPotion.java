@@ -1,6 +1,6 @@
 package com.aetherwars.card;
 
-public class SpellPotion extends Spell {
+public class SpellPotion extends SpellCard {
     private int attack;
     private int health;
     private int duration;

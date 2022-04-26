@@ -13,6 +13,9 @@
   - Beralih ke fase selanjutnya.
   Beberapa aksi terbatas pada fase tertentu. Lihat bagian Gameplay untuk lebih jelasnya.
 */
+package com.aetherwars.player;
+import com.aetherwars.card.Card;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.LinkedList;
@@ -90,20 +93,20 @@ public class Player {
     // TODO: implement
   }
 
-  public static void main(String[] args) {
-    Player p = new Player("Player 1", 40);
-    p.addCard(new Card());
-    p.addCard(new Card());
-    p.addCard(new Card());
-    p.addCard(new Card());
-    p.addCard(new Card());
-    p.addCard(new Card());
-    System.out.println(p.deck.size());
-    System.out.println(p.hand.size());
-    p.draw(6);
-    System.out.println(p.deck.size());
-    System.out.println(p.hand.size());
-    // System.out.println(p.deck.size());
-    // p.draw(1);
-  }
+//  public static void main(String[] args) {
+//    Player p = new Player("Player 1", 40);
+//    p.addCard(new Card());
+//    p.addCard(new Card());
+//    p.addCard(new Card());
+//    p.addCard(new Card());
+//    p.addCard(new Card());
+//    p.addCard(new Card());
+//    System.out.println(p.deck.size());
+//    System.out.println(p.hand.size());
+//    p.draw(6);
+//    System.out.println(p.deck.size());
+//    System.out.println(p.hand.size());
+//    // System.out.println(p.deck.size());
+//    // p.draw(1);
+//  }
 }

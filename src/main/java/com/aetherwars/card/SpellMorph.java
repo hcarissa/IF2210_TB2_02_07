@@ -1,6 +1,6 @@
 package com.aetherwars.card;
 
-public class SpellMorph extends Spell {
+public class SpellMorph extends SpellCard {
 
     public SpellMorph() {
         super();

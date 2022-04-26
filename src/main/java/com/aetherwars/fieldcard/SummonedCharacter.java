@@ -5,7 +5,7 @@ import java.util.*;
 public class SummonedCharacter {
     private int position;
     private Character character;
-    private List<? extends Spell> activeSpells;
+    private List<? extends SpellCard> activeSpells;
     private int exp;
     private int needsExp;
     private int lvl;
@@ -13,7 +13,6 @@ public class SummonedCharacter {
     public SummonedCharacter(int position, Character character) {
         this.position = position;
         this.character = character;
-        this.activeSpells = new ArrayList<? extends Spell>();
         this.exp = 0;
         this.needsExp = 1;
         this.lvl = 1;
@@ -59,6 +58,7 @@ public class SummonedCharacter {
         else if (this.lvl == 10) {
             return (81 + this.exp);
         }
+        return -1;
     }
     public int getLvl() {
         return this.lvl;

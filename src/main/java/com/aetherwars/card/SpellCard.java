@@ -1,15 +1,15 @@
 package com.aetherwars.card;
 
-public abstract class Spell extends Card {
+public abstract class SpellCard extends Card {
     private int mana;
 
-    public Spell()
+    public SpellCard()
     {
         super();
         this.mana = 0;
     }
 
-    public Spell(String name, String description, Type type, String imagePath, int mana) {
+    public SpellCard(String name, String description, Type type, String imagePath, int mana) {
         super(name, description, type, imagePath);
         this.mana = mana;
     }
