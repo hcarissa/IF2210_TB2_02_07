@@ -1,4 +1,5 @@
 package com.aetherwars.fieldcard;
+import com.aetherwars.card.*;
 import java.util.*;
 
 public class SummonedCharacter {
