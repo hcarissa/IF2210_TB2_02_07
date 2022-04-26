@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -31,10 +32,6 @@
             <Image url="@card/image/character/player2.jpg" />
          </image>
       </ImageView>
-      <Rectangle id="healthBar" arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="13.0" layoutX="25.0" layoutY="24.0" stroke="BLACK" strokeType="INSIDE" width="350.0" />
-      <Rectangle id="healthBar2" arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="13.0" layoutX="500.0" layoutY="24.0" stroke="BLACK" strokeType="INSIDE" width="350.0" />
-      <Rectangle id="healthBarHP" arcHeight="5.0" arcWidth="5.0" fill="#ff3e1f" height="13.0" layoutX="25.0" layoutY="24.0" stroke="BLACK" strokeType="INSIDE" width="324.0" />
-      <Rectangle id="healthBarHP2" arcHeight="5.0" arcWidth="5.0" fill="#ff3e1f" height="13.0" layoutX="572.0" layoutY="24.0" stroke="BLACK" strokeType="INSIDE" width="278.0" />
       <Text fill="WHITE" layoutX="25.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player1">
          <font>
             <Font name="Gadugi Bold" size="18.0" />
@@ -159,7 +156,7 @@
             <Font name="Gadugi Bold" size="18.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7ebef" height="162.0" layoutX="382.0" layoutY="294.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="112.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7ebef" height="162.0" layoutX="382.0" layoutY="294.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="119.0" />
       <HBox layoutX="30.0" layoutY="315.0" prefHeight="114.0" prefWidth="347.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7ebef" height="114.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="69.0" />
@@ -205,5 +202,7 @@
             </Text>
          </children>
       </Pane>
+      <ProgressBar fx:id="healthBar1" layoutX="24.0" layoutY="22.0" prefHeight="18.0" prefWidth="350.0" progress="1.0" />
+      <ProgressBar fx:id="healthBar2" layoutX="500.0" layoutY="22.0" prefHeight="18.0" prefWidth="350.0" progress="1.0" rotate="180.0" />
    </children>
 </AnchorPane>

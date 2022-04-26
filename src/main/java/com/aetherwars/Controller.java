@@ -2,10 +2,13 @@ package com.aetherwars;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import com.aetherwars.board.*;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -14,9 +17,11 @@ public class Controller {
     private Board board;
 
     @FXML
-    private Rectangle drawTab, planTab, attackTab, endTab, healthBar1, healthBar2;
+    private Rectangle drawTab, planTab, attackTab, endTab;
     @FXML
     private Text health1, health2, turn, deckCount, mana;
+    @FXML
+    private ProgressBar healthBar1, healthBar2;
 
     @FXML
     private Color active = new Color(1.0, 0.2431, 0.1216, 1.0);
@@ -62,6 +67,8 @@ public class Controller {
     @FXML
     void initialize() {
         this.drawTab.setFill(active);
+        this.healthBar1.setStyle("-fx-accent: #ff3e1f");
+        this.healthBar2.setStyle("-fx-accent: #ff3e1f");
     }
 
     public void setBoard(Board b) {
@@ -71,11 +78,13 @@ public class Controller {
     public void updateHP(int i, int hp) {
         if (i == 1) {
             this.health1.setText(String.valueOf(hp));
+            this.healthBar1.setProgress((double)hp/80);
             //this.healthBar1.setWidth((hp/80) * 350);
         }
         else {
             this.health2.setText(String.valueOf(hp));
-            //this.healthBar1.setWidth((hp/80) * 350);
+            this.healthBar2.setProgress((double)hp/80);
+            //this.healthBar2.setWidth((hp/80) * 350);
         }
     }
 
