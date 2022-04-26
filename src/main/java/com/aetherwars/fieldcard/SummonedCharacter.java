@@ -1,12 +1,12 @@
 package com.aetherwars.fieldcard;
 
-public class BoardCard {
+public class SummonedCharacter {
     private int position;
     private int currExp;
     private int needsExp;
     private int currLvl;
 
-    public BoardCard(int position) {
+    public SummonedCharacter(int position) {
         this.position = position;
         this.currExp = 0;
         this.needsExp = 1;
