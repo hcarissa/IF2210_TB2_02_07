@@ -13,12 +13,12 @@
    <children>
       <ImageView fitHeight="497.0" fitWidth="902.0" layoutX="-6.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/com/aetherwars/card/image/character/background.jpg" />
+            <Image url="@card/image/character/background.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="69.0" fitWidth="60.0" layoutX="29.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/com/aetherwars/card/image/character/player1.jpg" />
+            <Image url="@card/image/character/player1.jpg" />
          </image>
       </ImageView>
       <Button layoutX="805.0" layoutY="245.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="44.0" text="&gt;&gt;" textFill="#122ee3">
@@ -27,7 +27,7 @@
          </font></Button>
       <ImageView fitHeight="71.0" fitWidth="60.0" layoutX="790.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/com/aetherwars/card/image/character/player2.jpg" />
+            <Image url="@card/image/character/player2.jpg" />
          </image>
       </ImageView>
       <Rectangle id="healthBar" arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="13.0" layoutX="25.0" layoutY="24.0" stroke="BLACK" strokeType="INSIDE" width="350.0" />
