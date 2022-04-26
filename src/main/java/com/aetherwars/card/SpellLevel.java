@@ -1,37 +1,21 @@
 package com.aetherwars.card;
 
 public class SpellLevel extends SpellCard {
-    private int level;
-    private int exp;
+    private LevelSwitch levelSwitch;
 
     public SpellLevel() {
         super();
-        this.level = 0;
-        this.exp = 0;
+        this.levelSwitch = LevelSwitch.UP;
     }
 
-    public SpellLevel(String name, String description, String imagePath, int mana, int level, int exp) {
-        super(name, description, imagePath, mana);
-        this.level = level;
-        this.exp = exp;
+    public SpellLevel(String name, String description, String imagePath, LevelSwitch levelSwitch) {
+        super(name, description, imagePath, 0);
+        this.levelSwitch = levelSwitch;
     }
 
-    public int getlevel() {
-        return this.level;
+    public LevelSwitch getLevelSwitch() {
+        return this.levelSwitch;
     }
-
-    public int getexp() {
-        return this.exp;
-    }
-
-    public void setlevel(int level) {
-        this.level = level;
-    }
-
-    public void setexp(int exp) {
-        this.exp = exp;
-    }
-
 
     @Override
     public String getImagePath() {
