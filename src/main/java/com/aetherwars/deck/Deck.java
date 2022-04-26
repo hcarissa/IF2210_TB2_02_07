@@ -29,7 +29,7 @@ public class Deck {
 
     public void fillDeck(){
         CardCollection finalCards = new CardCollection();
-        Random r = new.Random();
+        Random r = new Card.Random();
         // char 25, level 5, morph 5, swap 10, potion 15
         for(int i = 0; i < 25; i++){
             int rand = r.nextInt(charCollection.getSize());
@@ -52,7 +52,7 @@ public class Deck {
             finalCards.addCard(potionCollection.getCardIdx(rand));
         }
         finalCards.shuffle();
-        deckOfCards = new LinkedList<Cards>;
+        deckOfCards = new LinkedList<Cards>();
         for(int i = 0; i < 60; i++){
             deckOfCards.add(finalCards.getCardIdx(i));
         }

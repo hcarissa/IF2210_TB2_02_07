@@ -26,7 +26,7 @@ public class SummonedCharacter {
         return this.currLvl;
     }
 
-    public earnExp(int expEarned) {
+    public void earnExp(int expEarned) {
         this.currExp += expEarned;
         if (getCurrExp() >= getNeedsExp()) {
             this.currExp -= getNeedsExp();
