@@ -118,7 +118,36 @@ public class SummonedCharacter {
         }
     }
 
+    public void render() {
+//          position;
+//         CharacterCard character;
+//         List<? extends SpellCard> activeSpells;
+//          exp;
+//          needsExp;
+//          lvl;
+        System.out.printf("Position: %d\n", this.position);
+        System.out.printf("Name: %s\n", this.character.getName());
+        System.out.printf("Desc: %s\n", this.character.getDescription());
+        System.out.printf("Type: %s\n", this.character.getType());
+        System.out.printf("Path: %s\n", this.character.getImagePath());
+        System.out.printf("Attack: %d\n", this.character.getAttack());
+        System.out.printf("Health: %d\n", this.character.getHealth());
+
+        System.out.printf("Active Spells:\n");
+        // for(SpellCard spell : this.activeSpells) {
+        //     System.out.printf("- %s:\n", spell.getName());
+        // }
+        System.out.printf("CurrExp/NeedsExp: %d/%d\n", this.exp, this.needsExp);
+        System.out.printf("Level: %d\n", this.lvl);
+    }
+
     public static void main(String[] args) {
-        System.out.println("Hadir");
+        System.out.println("- SummonedCharacter -");
+
+        CharacterCard charCard = new CharacterCard("Rava", "Ini Deskripsi", Type.OVERWORLD,"background.jpg", 20, 80);
+        SummonedCharacter sumChar = new SummonedCharacter(1, charCard);
+        sumChar.render();
+
+        System.out.println("- Done -");
     }
 }
