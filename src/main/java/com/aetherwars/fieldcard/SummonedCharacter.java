@@ -1,11 +1,12 @@
 package com.aetherwars.fieldcard;
 import com.aetherwars.card.*;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 
-public class SummonedCharacter {
+public class SummonedCharacter implements ISummoned {
     private int position;
     private CharacterCard character;
-    private List<? extends SpellCard> activeSpells;
+    private List<SpellCard> activeSpells;
     private int exp;
     private int needsExp;
     private int lvl;
@@ -13,6 +14,7 @@ public class SummonedCharacter {
     public SummonedCharacter(int position, CharacterCard character) {
         this.position = position;
         this.character = character;
+        this.activeSpells = new ArrayList<SpellCard>();
         this.exp = 0;
         this.needsExp = 1;
         this.lvl = 1;
@@ -20,6 +22,9 @@ public class SummonedCharacter {
 
     public int getPosition() {
         return this.position;
+    }
+    public List<SpellCard> getActiveSpells() {
+        return this.activeSpells;
     }
     public int getExp() {
         return this.exp;
@@ -58,7 +63,9 @@ public class SummonedCharacter {
         else if (this.lvl == 10) {
             return (81 + this.exp);
         }
-        return -1;
+        else {
+            return -1;
+        }
     }
     public int getLvl() {
         return this.lvl;
@@ -113,18 +120,18 @@ public class SummonedCharacter {
             this.needsExp = 19;
             this.lvl = 10;
         }
-        else {
+        else if (totalExp >= 100){
             this.exp = 19;
+            this.needsExp = 19;
+            this.lvl = 10;
         }
     }
 
+    public void addSpell(SpellCard spell) {
+        this.activeSpells.add(spell);
+    }
+
     public void render() {
-//          position;
-//         CharacterCard character;
-//         List<? extends SpellCard> activeSpells;
-//          exp;
-//          needsExp;
-//          lvl;
         System.out.printf("Position: %d\n", this.position);
         System.out.printf("Name: %s\n", this.character.getName());
         System.out.printf("Desc: %s\n", this.character.getDescription());
@@ -134,18 +141,36 @@ public class SummonedCharacter {
         System.out.printf("Health: %d\n", this.character.getHealth());
 
         System.out.printf("Active Spells:\n");
-        // for(SpellCard spell : this.activeSpells) {
-        //     System.out.printf("- %s:\n", spell.getName());
-        // }
-        System.out.printf("CurrExp/NeedsExp: %d/%d\n", this.exp, this.needsExp);
-        System.out.printf("Level: %d\n", this.lvl);
+        for(SpellCard spell : this.activeSpells) {
+            System.out.printf("- %s (%s)\n", spell.getName(), spell.getSpellType());
+        }
+        System.out.printf("Status: %d/%d [%d]\n", this.exp, this.needsExp, this.lvl);
     }
 
     public static void main(String[] args) {
         System.out.println("- SummonedCharacter -");
 
+        // initialize spells
+        SpellPotion spellPotion = new SpellPotion("Potion1", "", Type.END, "", 11, 12, 13, 14);
+        SpellLevel spellLevel = new SpellLevel("Level1", "", Type.END, "", 21, 22, 23);
+        SpellSwap spellSwap = new SpellSwap("Swap1", "", Type.END, "", 31, 32, 33, 34);
+        SpellMorph spellMorph = new SpellMorph("Morph1", "", Type.END, "", 41);
+
+        // initialize SummonedCharacter
         CharacterCard charCard = new CharacterCard("Rava", "Ini Deskripsi", Type.OVERWORLD,"background.jpg", 20, 80);
         SummonedCharacter sumChar = new SummonedCharacter(1, charCard);
+        
+        // spells operation
+        sumChar.addSpell(spellPotion);
+        sumChar.addSpell(spellLevel);
+        sumChar.addSpell(spellSwap);
+        sumChar.addSpell(spellMorph);
+
+        // earn exp operation
+        sumChar.earnExp(6); // 2/5 [3]
+        sumChar.earnExp(7); // 4/7 [4]
+
+        // rendering SummonedCharacter
         sumChar.render();
 
         System.out.println("- Done -");
