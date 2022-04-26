@@ -4,7 +4,6 @@ public class SpellLevel extends SpellCard {
     private int level;
     private int exp;
 
-    
     public SpellLevel() {
         super();
         this.level = 0;
