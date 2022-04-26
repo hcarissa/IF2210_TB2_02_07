@@ -4,18 +4,18 @@ import java.nio.file.Paths;
 public abstract class Card{
     protected String name;
     protected String description;
-    protected Type type;
+    protected CardType type;
     protected String imagePath;
 
     public Card()
     {
         this.name = "";
         this.description = "";
-        this.type = Type.OVERWORLD;
+        this.type = CardType.CHARACTER;
         this.imagePath = "";
     }
     
-    public Card (String name, String description, Type type, String imagePath)
+    public Card (String name, String description, CardType type, String imagePath)
     {
         this.name = name;
         this.description = description;
@@ -33,7 +33,7 @@ public abstract class Card{
         return this.description;
     }
 
-    public Type getType()
+    public CardType getType()
     {
         return this.type;
     }
@@ -49,7 +49,8 @@ public abstract class Card{
     {
         System.out.println("Name       : " + this.name);
         System.out.println("Description: " + this.description);
-        System.out.println("Type       : " + this.type);
+        System.out.println("Type Kartu : " + this.type);
+        System.out.println("Image Path : " + this.imagePath);
     }
 }
 

@@ -12,7 +12,7 @@ public class SpellSwap extends SpellCard {
         this.duration = 0;
     }
 
-    public SpellSwap(String name, String description, Type type, String imagePath, int mana, int attack, int health, int duration) {
+    public SpellSwap(String name, String description, CardType type, String imagePath, int mana, int attack, int health, int duration) {
         super(name, description, type, imagePath, mana);
         this.attack = attack;
         this.health = health;

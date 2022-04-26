@@ -5,6 +5,7 @@ public class CharacterCard extends Card {
     private int healthUp;
     private int baseAttack;
     private int baseHealth;
+    private CharacterType characterType;
 
     public CharacterCard() {
         super();
@@ -12,14 +13,16 @@ public class CharacterCard extends Card {
         this.healthUp = 0;
         this.baseAttack = 0;
         this.baseHealth = 0;
+        this.characterType = CharacterType.OVERWORLD;
     }
 
-    public CharacterCard(String name, String description, Type type, String imagePath, int attack, int health, int attackUp, int healthUp, int baseAttack, int baseHealth) {
-        super(name, description, type, imagePath);
+    public CharacterCard(String name, String description, CardType cardtype, String imagePath, int attackUp, int healthUp, int baseAttack, int baseHealth, CharacterType characterType) {
+        super(name, description, cardtype, imagePath);
         this.attackUp = attackUp;
         this.healthUp = healthUp;
         this.baseAttack = baseAttack;
         this.baseHealth = baseHealth;
+        this.characterType = characterType;
     }
 
     public int getAttackUp() {
@@ -52,6 +55,10 @@ public class CharacterCard extends Card {
 
     public void setBaseHealth(int baseHealth) {
         this.baseHealth = baseHealth;
+    }
+
+    public CharacterType getCharacterType() {
+        return characterType;
     }
 
     @Override

@@ -1,5 +1,5 @@
 package com.aetherwars.card;
 
-public enum Type {
+public enum CharacterType {
   OVERWORLD, NETHER, END
 };

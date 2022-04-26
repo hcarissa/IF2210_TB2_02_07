@@ -6,7 +6,7 @@ public class SpellMorph extends SpellCard {
         super();
     }
 
-    public SpellMorph(String name, String description, Type type, String imagePath, int mana) {
+    public SpellMorph(String name, String description, CardType type, String imagePath, int mana) {
         super(name, description, type, imagePath, mana);
     }
 
