@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="497.0" fitWidth="902.0" layoutX="-6.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../resources/com/aetherwars/card/image/character/background.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="69.0" fitWidth="60.0" layoutX="29.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../resources/com/aetherwars/card/image/character/player1.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="805.0" layoutY="245.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="44.0" text="&gt;&gt;" textFill="#122ee3">
+         <font>
+            <Font name="Lucida Sans Unicode" size="12.0" />
+         </font></Button>
+      <ImageView fitHeight="71.0" fitWidth="60.0" layoutX="790.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../resources/com/aetherwars/card/image/character/player2.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle id="healthBar" arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="13.0" layoutX="25.0" layoutY="24.0" stroke="BLACK" strokeType="INSIDE" width="350.0" />
+      <Rectangle id="healthBar2" arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="13.0" layoutX="500.0" layoutY="24.0" stroke="BLACK" strokeType="INSIDE" width="350.0" />
+      <Rectangle id="healthBarHP" arcHeight="5.0" arcWidth="5.0" fill="#ff3e1f" height="13.0" layoutX="25.0" layoutY="24.0" stroke="BLACK" strokeType="INSIDE" width="324.0" />
+      <Rectangle id="healthBarHP2" arcHeight="5.0" arcWidth="5.0" fill="#ff3e1f" height="13.0" layoutX="572.0" layoutY="24.0" stroke="BLACK" strokeType="INSIDE" width="278.0" />
+      <Text fill="WHITE" layoutX="25.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player1">
+         <font>
+            <Font name="Gadugi Bold" size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="789.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player2">
+         <font>
+            <Font name="Gadugi Bold" size="18.0" />
+         </font>
+      </Text>
+      <Rectangle id="player1A" arcHeight="5.0" arcWidth="5.0" fill="#306494" height="64.0" layoutX="103.0" layoutY="75.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+      <Text fill="WHITE" layoutX="418.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Turn">
+         <font>
+            <Font name="Gadugi Bold" size="16.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="427.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Rectangle id="player1C" arcHeight="5.0" arcWidth="5.0" fill="#306494" height="64.0" layoutX="103.0" layoutY="145.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+      <Rectangle id="player1B" arcHeight="5.0" arcWidth="5.0" fill="#306494" height="64.0" layoutX="170.0" layoutY="75.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+      <Rectangle id="player1D" arcHeight="5.0" arcWidth="5.0" fill="#306494" height="64.0" layoutX="170.0" layoutY="145.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+      <Rectangle id="player1E" arcHeight="5.0" arcWidth="5.0" fill="#306494" height="64.0" layoutX="237.0" layoutY="113.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+      <Rectangle id="player2A" arcHeight="5.0" arcWidth="5.0" fill="#306494" height="64.0" layoutX="721.0" layoutY="75.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+      <Rectangle id="player2C" arcHeight="5.0" arcWidth="5.0" fill="#306494" height="64.0" layoutX="721.0" layoutY="145.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+      <Rectangle id="player2B" arcHeight="5.0" arcWidth="5.0" fill="#306494" height="64.0" layoutX="651.0" layoutY="75.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+      <Rectangle id="player2D" arcHeight="5.0" arcWidth="5.0" fill="#306494" height="64.0" layoutX="651.0" layoutY="144.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+      <Rectangle id="player2E" arcHeight="5.0" arcWidth="5.0" fill="#306494" height="64.0" layoutX="583.0" layoutY="112.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="19.0" layoutX="25.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="191.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="19.0" layoutX="216.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="191.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="19.0" layoutX="407.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="191.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85a2d4" height="19.0" layoutX="598.0" layoutY="250.0" stroke="BLACK" strokeType="INSIDE" width="191.0" />
+      <Text fill="WHITE" layoutX="128.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="746.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="129.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="C">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="676.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="195.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="195.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="D">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="675.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="D">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="746.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="C">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="262.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="609.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="99.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DRAW">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="293.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLAN">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="473.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ATTACK">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="679.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="END">
+         <font>
+            <Font name="Gadugi Bold" size="14.0" />
+         </font>
+      </Text>
+      <Pane layoutX="25.0" layoutY="298.0" prefHeight="146.0" prefWidth="111.0">
+         <children>
+            <Text fill="WHITE" layoutX="56.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font name="Gadugi Bold" size="14.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
