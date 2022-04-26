@@ -1,6 +1,7 @@
 package com.aetherwars.card;
 
 public class CharacterCard extends Card {
+    private int id;
     private int attackUp;
     private int healthUp;
     private int baseAttack;
@@ -9,6 +10,7 @@ public class CharacterCard extends Card {
 
     public CharacterCard() {
         super();
+        this.id = 0;
         this.attackUp = 0;
         this.healthUp = 0;
         this.baseAttack = 0;
@@ -16,8 +18,9 @@ public class CharacterCard extends Card {
         this.characterType = CharacterType.OVERWORLD;
     }
 
-    public CharacterCard(String name, String description, String imagePath, int attackUp, int healthUp, int baseAttack, int baseHealth, CharacterType characterType) {
+    public CharacterCard(String name, String description, String imagePath, int attackUp, int healthUp, int baseAttack, int baseHealth, int id, CharacterType characterType) {
         super(name, description, CardType.CHARACTER, imagePath);
+        this.id = id;
         this.attackUp = attackUp;
         this.healthUp = healthUp;
         this.baseAttack = baseAttack;
@@ -25,6 +28,10 @@ public class CharacterCard extends Card {
         this.characterType = characterType;
     }
 
+    public int getId() {
+        return this.id;
+    }
+    
     public int getAttackUp() {
         return attackUp;
     }
@@ -74,6 +81,7 @@ public class CharacterCard extends Card {
     @Override
     public void printInfo() {
         super.printInfo();
+        System.out.println("Id: " + this.id);
         System.out.println("Attack Up: " + this.attackUp);
         System.out.println("Health Up: " + this.healthUp);  
         System.out.println("Base Attack: " + this.baseAttack);
