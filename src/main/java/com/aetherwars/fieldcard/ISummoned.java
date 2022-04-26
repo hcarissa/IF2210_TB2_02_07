@@ -3,6 +3,8 @@ import com.aetherwars.card.*;
 import java.util.List;
 interface ISummoned {
     // getter
+    public int getAttack();
+    public int getHealth();
     public List<SpellCard> getActiveSpells();
 
     // operation

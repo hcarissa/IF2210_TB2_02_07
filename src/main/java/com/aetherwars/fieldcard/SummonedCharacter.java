@@ -16,11 +16,23 @@ import java.util.ArrayList;
 public class SummonedCharacter extends FieldCard implements ISummoned {
     private CharacterCard character;
     private List<SpellCard> activeSpells;
+    private int attack;
+    private int health;
 
     public SummonedCharacter(int position, CharacterCard character) {
         super(position);
         this.character = character;
         this.activeSpells = new ArrayList<SpellCard>();
+        this.attack = character.getBaseAttack();
+        this.health = character.getBaseHealth();
+    }
+
+    public int getAttack() {
+        return this.attack;
+    }
+
+    public int getHealth() {
+        return this.health;
     }
 
     public List<SpellCard> getActiveSpells() {
@@ -33,12 +45,17 @@ public class SummonedCharacter extends FieldCard implements ISummoned {
 
     public void render() {
         System.out.printf("Position: %d\n", this.position);
+        System.out.printf("ID: %s\n", this.character.getId());
         System.out.printf("Name: %s\n", this.character.getName());
         System.out.printf("Desc: %s\n", this.character.getDescription());
-        System.out.printf("Type: %s\n", this.character.getType());
+        System.out.printf("CardType: %s\n", this.character.getType());
         System.out.printf("Path: %s\n", this.character.getImagePath());
-        // System.out.printf("Attack: %d\n", this.character.getAttack());
-        // System.out.printf("Health: %d\n", this.character.getHealth());
+
+        System.out.printf("Attack Up: %d\n", this.character.getAttackUp());
+        System.out.printf("Health Up: %d\n", this.character.getHealthUp());
+        System.out.printf("Base Attack: %d\n", this.character.getBaseAttack());
+        System.out.printf("Base Health: %d\n", this.character.getBaseHealth());
+        System.out.printf("CharacterType: %s\n", this.character.getCharacterType());
 
         System.out.printf("Active Spells:\n");
         for(SpellCard spell : this.activeSpells) {
@@ -48,32 +65,32 @@ public class SummonedCharacter extends FieldCard implements ISummoned {
         System.out.printf("Is Dead: %s\n", this.isDead);
     }
 
-    // public static void main(String[] args) {
-    //     System.out.println("- SummonedCharacter -");
+    public static void main(String[] args) {
+        System.out.println("- SummonedCharacter -");
 
-    //     // initialize spells
-    //     SpellPotion spellPotion = new SpellPotion("Potion1", "", Type.END, "", 11, 12, 13, 14);
-    //     SpellLevel spellLevel = new SpellLevel("Level1", "", Type.END, "", 21, 22, 23);
-    //     SpellSwap spellSwap = new SpellSwap("Swap1", "", Type.END, "", 31, 32, 33, 34);
-    //     SpellMorph spellMorph = new SpellMorph("Morph1", "", Type.END, "", 41);
+        // initialize spells
+        SpellPotion spellPotion = new SpellPotion("Potion1", "", "", 11, 12, 13, 14);
+        SpellLevel spellLevel = new SpellLevel("Level1", "", "", LevelSwitch.UP);
+        SpellSwap spellSwap = new SpellSwap("Swap1", "", "", 31, 32);
+        SpellMorph spellMorph = new SpellMorph("Morph1", "", "", 41, 1);
 
-    //     // initialize SummonedCharacter
-    //     CharacterCard charCard = new CharacterCard("Rava", "Ini Deskripsi", Type.OVERWORLD,"background.jpg", 20, 80, 2, 4, 1, 2);
-    //     SummonedCharacter sumChar = new SummonedCharacter(1, charCard);
+        // initialize SummonedCharacter
+        CharacterCard charCard = new CharacterCard("Rava", "Ini Deskripsi","background.jpg", 2, 4, 4, 8, 1, CharacterType.OVERWORLD);
+        SummonedCharacter sumChar = new SummonedCharacter(1, charCard);
         
-    //     // spells operation
-    //     sumChar.addSpell(spellPotion);
-    //     sumChar.addSpell(spellLevel);
-    //     sumChar.addSpell(spellSwap);
-    //     sumChar.addSpell(spellMorph);
+        // spells operation
+        sumChar.addSpell(spellPotion);
+        sumChar.addSpell(spellLevel);
+        sumChar.addSpell(spellSwap);
+        sumChar.addSpell(spellMorph);
 
-    //     // earn exp operation
-    //     sumChar.earnExp(6); // 2/5 [3]
-    //     sumChar.earnExp(7); // 4/7 [4]
+        // earn exp operation
+        sumChar.earnExp(6); // 2/5 [3]
+        sumChar.earnExp(7); // 4/7 [4]
 
-    //     // rendering SummonedCharacter
-    //     sumChar.render();
+        // rendering SummonedCharacter
+        sumChar.render();
 
-    //     System.out.println("- Done -");
-    // }
+        System.out.println("- Done -");
+    }
 }
