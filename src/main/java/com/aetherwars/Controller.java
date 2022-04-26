@@ -14,9 +14,9 @@ public class Controller {
     private Board board;
 
     @FXML
-    private Rectangle drawTab, planTab, attackTab, endTab;
+    private Rectangle drawTab, planTab, attackTab, endTab, healthBar1, healthBar2;
     @FXML
-    private Text health1, health2;
+    private Text health1, health2, turn, deckCount, mana;
 
     @FXML
     private Color active = new Color(1.0, 0.2431, 0.1216, 1.0);
@@ -55,6 +55,7 @@ public class Controller {
             this.drawTab.setFill(active);
             board.setPhase(Phase.DRAW);
             board.switchTurn();
+            updateTurn(board.getRound());
         }
     }
 
@@ -70,9 +71,24 @@ public class Controller {
     public void updateHP(int i, int hp) {
         if (i == 1) {
             this.health1.setText(String.valueOf(hp));
+            //this.healthBar1.setWidth((hp/80) * 350);
         }
         else {
             this.health2.setText(String.valueOf(hp));
+            //this.healthBar1.setWidth((hp/80) * 350);
         }
     }
+
+    public void updateTurn(int i) {
+        this.turn.setText(String.valueOf(i));
+    }
+
+    public void updateDeck() {
+        this.deckCount.setText(String.valueOf(board.getActivePlayer().getDeckCount() + "/60"));
+    }
+
+    public void updateMana() {
+        this.mana.setText(String.valueOf(board.getActivePlayer().getMana()) + "/");
+    }
+
 }

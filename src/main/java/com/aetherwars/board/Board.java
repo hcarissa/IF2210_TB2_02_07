@@ -30,6 +30,8 @@ public class Board {
         return turn;
     }
 
+    public int getRound() { return round; }
+
     public Phase getPhase() {
         return phase;
     }

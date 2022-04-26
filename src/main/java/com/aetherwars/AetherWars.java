@@ -39,8 +39,8 @@ public class AetherWars extends Application {
 
   @Override
   public void start(Stage stage) {
-    p1 = new Player("Player 1", 60);
-    p2 = new Player("Player 2", 60);
+    p1 = new Player("Player 1");
+    p2 = new Player("Player 2");
 
     Parent root = null;
     try {
