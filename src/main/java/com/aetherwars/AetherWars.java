@@ -50,6 +50,9 @@ public class AetherWars extends Application {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+
+    ctrl.setBoard(new Board(p1, p2));
+
     Scene scene = new Scene(root);
     stage.setTitle("Minecraft: Aether Wars");
     stage.setScene(scene);
@@ -61,8 +64,6 @@ public class AetherWars extends Application {
     } catch (Exception e) {
 //      text.setText("Failed to load cards: " + e);
     }
-
-    ctrl.setBoard(new Board(p1, p2));
   }
 
   public static void main(String[] args) {

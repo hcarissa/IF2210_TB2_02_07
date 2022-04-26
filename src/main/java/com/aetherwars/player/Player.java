@@ -35,7 +35,7 @@ public class Player {
     this.name = name;
     this.hp = 80;
     this.mana = 0;
-    this.deck = new Deck();
+    //this.deck = new Deck();
     this.hand = new ArrayList<Card>();
   }
   // methods
@@ -44,9 +44,10 @@ public class Player {
   public void draw(int n) {
     // method untuk mengambil n buah kartu dari deck dan menambahkan ke hand
     // bila deck habis atau hand penuh, tidak terjadi apa-apa
+    /*
     for (int i = 0; i < n && !this.deck.isEmpty() && this.hand.size() < 5; i++) {
       this.hand.add(this.deck.remove());
-    }
+    } */
   }
 
   // Melihat deskripsi dan atribut kartu hand maupun board
