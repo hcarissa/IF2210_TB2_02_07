@@ -80,6 +80,14 @@ public class Player {
     // TODO: implement
   }
 
+  public int getDeckCount() {
+    return this.deck.getSize();
+  }
+
+  public int getMana() {
+    return this.mana;
+  }
+
 //  public static void main(String[] args) {
 //    Player p = new Player("Player 1", 40);
 //    p.addCard(new Card());
