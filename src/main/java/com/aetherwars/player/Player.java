@@ -15,6 +15,7 @@
 */
 package com.aetherwars.player;
 import com.aetherwars.card.Card;
+import com.aetherwars.deck.Deck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,38 +27,24 @@ public class Player {
   private String name;
   private int hp;
   private int mana;
-  Queue<Card> deck; // berisi 40-60 kartu
-  private int deckSize;
+  Deck deck;
   private List<Card> hand;
   
   // constructor
-  public Player(String name, int deckSize) {
-    if (deckSize < 40 || deckSize > 60) {
-      System.out.println("Deck size must be between 40 and 60"); // TODO: might use exception
-      return;
-    } 
+  public Player(String name) {
     this.name = name;
     this.hp = 80;
     this.mana = 0;
-    this.deck = new LinkedList<>();
-    this.deckSize = deckSize;
+    this.deck = new Deck();
     this.hand = new ArrayList<Card>();
   }
   // methods
-  public void addCard(Card card) {
-    // menambahkan kartu ke deck
-    if (deck.size() >= deckSize) {
-      System.out.println("Deck is full"); // TODO: might use exception
-    } else {
-      deck.add(card);
-    }
-  }
 
   // Mengambil kartu baru
   public void draw(int n) {
     // method untuk mengambil n buah kartu dari deck dan menambahkan ke hand
     // bila deck habis atau hand penuh, tidak terjadi apa-apa
-    for (int i = 0; i < n && this.deck.size() > 0 && this.hand.size() < 5; i++) {
+    for (int i = 0; i < n && !this.deck.isEmpty() && this.hand.size() < 5; i++) {
       this.hand.add(this.deck.remove());
     }
   }

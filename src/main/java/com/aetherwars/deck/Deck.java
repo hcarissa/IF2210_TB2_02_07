@@ -9,11 +9,8 @@ public class Deck {
     private CardCollection morphCollection;
     private CardCollection potionCollection;
     private CardCollection swapCollection;
-    private boolean isEmpty;
-    private int size;
 
     public Deck(CardCollection charCollection, CardCollection levelCollection, CardCollection morphCollection, CardCollection swapCollection, CardCollection potionCollection){
-        this.size = 60;
         this.charCollection = charCollection;
         this.levelCollection = levelCollection;
         this.morphCollection = morphCollection;
@@ -21,11 +18,27 @@ public class Deck {
         this.potionCollection = potionCollection;
         this.deckOfCards = new LinkedList<Card>();
         fillDeck();
-        this.isEmpty = false;
     }
 
-    public void addCard(Card card){
+    public Deck() {
+        this.deckOfCards = new LinkedList<Card>();
+        fillDeck();
+    }
+
+    public boolean isEmpty() {
+        return (this.deckOfCards.size() == 0);
+    }
+
+    public int getSize() {
+        return (this.deckOfCards.size());
+    }
+
+    public void addCard(Card card) {
         deckOfCards.add(card);
+    }
+
+    public Card remove() {
+        return (this.deckOfCards.remove());
     }
 
     public void fillDeck(){
