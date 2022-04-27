@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.aetherwars.card.Card;
 import com.aetherwars.card.CardController;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -19,6 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 
@@ -32,11 +34,10 @@ public class Controller {
     @FXML
     private ProgressBar healthBar1, healthBar2;
     @FXML
-    //private GridPane hand;
     private HBox hand;
 
     @FXML
-    private Pane hoverPane;
+    private Pane hoverPane, cardDetail, cardDescription;
 
     @FXML
     private Color active = new Color(1.0, 0.2431, 0.1216, 1.0);
@@ -85,6 +86,9 @@ public class Controller {
         this.drawTab.setFill(active);
         this.healthBar1.setStyle("-fx-accent: #ff3e1f");
         this.healthBar2.setStyle("-fx-accent: #ff3e1f");
+        cardDetail.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+        cardDescription.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+        hoverPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
     }
 
     public void setBoard(Board b) {
@@ -125,14 +129,37 @@ public class Controller {
                 FXMLLoader cardloader = new FXMLLoader(getClass().getResource("CardView.fxml"));
                 Pane cardPane = cardloader.load();
                 CardController cardController = cardloader.getController();
-                // ganti ke handCards.get(i).geturl(), atau Cardnya jadiin parameter aja
-                cardController.setCard("/com/aetherwars/card/image/character/Drowned.png", "Creeper", "ATK+3");
+
+                cardController.setCard(handCards.get(i));
                 cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+                cardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                    if (newValue) {
+                        showHovered(cardController.getCard());
+                    } else {
+                        hoverPane.getChildren().clear();
+                    }
+                });
                 this.hand.getChildren().add(cardPane);
             }
         }
         catch (IOException e) {
             System.out.println(e);
         }
+    }
+
+    public void showHovered(Card c) {
+        Scale scale = new Scale(0.2, 0.2);
+        Image image = new Image(c.getImagePath());
+        ImageView img = new ImageView();
+        img.setImage(image);
+        img.getTransforms().add(scale);
+        this.hoverPane.getChildren().add(img);
+
+        Text desc = new Text("Ini Creeper, saya kurang tau juga sih dia siapa");
+        desc.setFont(Font.font ("Gadugi", 10));
+        desc.setFill(Color.BLACK);
+        cardDescription.getChildren().add(desc);
+
+        // Card Detail belum
     }
 }

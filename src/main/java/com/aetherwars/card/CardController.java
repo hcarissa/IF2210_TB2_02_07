@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 public class CardController {
+    private Card card;
     @FXML
     private ImageView img = new ImageView();
     @FXML
@@ -24,10 +25,16 @@ public class CardController {
 
     }
 
-    public void setCard(String url, String name, String attr) {
-        Image image = new Image(url);
+    public void setCard(Card c) {
+        this.card = c;
+        Image image = new Image(c.getImagePath());
         this.img.setImage(image);
-        this.name.setText(name);
-        this.attr.setText(attr);
+        this.name.setText(c.getName());
+        //this.attr.setText(attr);
     }
+
+    public Card getCard() {
+        return this.card;
+    }
+
 }
