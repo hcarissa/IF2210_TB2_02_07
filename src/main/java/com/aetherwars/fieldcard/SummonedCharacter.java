@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 // TODO
-// - Attack to another card/enemy's HP (ON TESTING)
+// - Attack to another card/enemy's HP (DONE)
 // - Spells effect to card
     // Potion (TEMP)
     // Level (PERM)
@@ -96,14 +96,17 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISummoned
         System.out.printf("Position: %d\n", this.position);
         System.out.printf("ID: %s\n", this.character.getId());
         System.out.printf("Name: %s\n", this.character.getName());
-        System.out.printf("Desc: %s\n", this.character.getDescription());
-        System.out.printf("CardType: %s\n", this.character.getType());
-        System.out.printf("Path: %s\n", this.character.getImagePath());
+        // System.out.printf("Desc: %s\n", this.character.getDescription());
+        // System.out.printf("CardType: %s\n", this.character.getType());
+        // System.out.printf("Path: %s\n", this.character.getImagePath());
 
-        System.out.printf("Attack Up: %d\n", this.character.getAttackUp());
-        System.out.printf("Health Up: %d\n", this.character.getHealthUp());
-        System.out.printf("Base Attack: %d\n", this.character.getBaseAttack());
-        System.out.printf("Base Health: %d\n", this.character.getBaseHealth());
+        // System.out.printf("Attack Up: %.2f\n", this.character.getAttackUp());
+        // System.out.printf("Health Up: %.2f\n", this.character.getHealthUp());
+        // System.out.printf("Base Attack: %.2f\n", this.character.getBaseAttack());
+        // System.out.printf("Base Health: %.2f\n", this.character.getBaseHealth());
+
+        System.out.printf("Attack: %.2f\n", this.getAttack());
+        System.out.printf("Health: %.2f\n", this.getHealth());
         System.out.printf("CharacterType: %s\n", this.character.getCharacterType());
 
         System.out.printf("Active Spells:\n");
@@ -124,21 +127,29 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISummoned
         SpellMorph spellMorph = new SpellMorph("Morph1", "", "", 41, 1);
 
         // initialize SummonedCharacter
-        CharacterCard charCard = new CharacterCard("Rava", "Ini Deskripsi","background.jpg", 2, 4, 4, 8, 1, CharacterType.OVERWORLD);
-        SummonedCharacter sumChar = new SummonedCharacter(1, charCard);
+        CharacterCard charCard1 = new CharacterCard("Rava", "Ini Deskripsi","background.jpg", 2, 4, 4, 8, 1, CharacterType.NETHER);
+        CharacterCard charCard2 = new CharacterCard("Attar", "Ini Deskripsi","background.jpg", 2, 4, 4, 8, 2, CharacterType.END);
+        SummonedCharacter summon1 = new SummonedCharacter(1, charCard1);
+        SummonedCharacter summon2 = new SummonedCharacter(2, charCard2);
         
         // spells operation
-        sumChar.addSpell(spellPotion);
-        sumChar.addSpell(spellLevel);
-        sumChar.addSpell(spellSwap);
-        sumChar.addSpell(spellMorph);
+        summon1.addSpell(spellPotion);
+        summon1.addSpell(spellLevel);
+        summon1.addSpell(spellSwap);
+        summon1.addSpell(spellMorph);
+
+        // battles
+        summon1.attackToCharacter(summon2);
 
         // earn exp operation
-        sumChar.earnExp(6); // 2/5 [3]
-        sumChar.earnExp(7); // 4/7 [4]
+        // summon1.earnExp(6); // 2/5 [3]
+        // summon1.earnExp(7); // 4/7 [4]
 
         // rendering SummonedCharacter
-        sumChar.render();
+        System.out.println("- Summon1 -");
+        summon1.render();
+        System.out.println("- Summon2 -");
+        summon2.render();
 
         System.out.println("- Done -");
     }
