@@ -35,6 +35,18 @@ public class AetherWars extends Application {
     }
   }
 
+  public boolean checkWinner() {
+    if (p1.getHp() <= 0 || p2.getHp() <= 0) {
+      return true;
+    }
+    else if (p1.getDeckCount() == 0 || p2.getDeckCount() == 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   @Override
   public void start(Stage stage) {
     p1 = new Player("Player 1");
@@ -50,6 +62,7 @@ public class AetherWars extends Application {
     }
 
     ctrl.setBoard(new Board(p1, p2));
+    ctrl.loadHand();
 
     Scene scene = new Scene(root);
     stage.setTitle("Minecraft: Aether Wars");
@@ -62,6 +75,7 @@ public class AetherWars extends Application {
     } catch (Exception e) {
 //      text.setText("Failed to load cards: " + e);
     }
+
   }
 
   public static void main(String[] args) {

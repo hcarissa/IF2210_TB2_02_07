@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.Image?>
@@ -156,20 +157,11 @@
             <Font name="Gadugi Bold" size="18.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7ebef" height="162.0" layoutX="382.0" layoutY="294.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="119.0" />
-      <HBox layoutX="30.0" layoutY="315.0" prefHeight="114.0" prefWidth="347.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7ebef" height="114.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="69.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7ebef" height="114.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="69.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7ebef" height="114.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="69.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7ebef" height="114.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="69.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7ebef" height="114.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="69.0" />
-         </children>
-      </HBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="162.0" layoutX="382.0" layoutY="294.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="119.0" />
       <HBox layoutX="507.0" layoutY="315.0" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7ebef" height="114.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="102.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7ebef" height="114.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="102.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="114.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="102.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="114.0" opacity="0.7" stroke="BLACK" strokeType="INSIDE" width="102.0" />
          </children>
       </HBox>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#306494" height="50.0" layoutX="733.0" layoutY="315.0" opacity="0.87" stroke="BLACK" strokeType="INSIDE" width="69.0" />
@@ -204,5 +196,12 @@
       </Pane>
       <ProgressBar fx:id="healthBar1" layoutX="24.0" layoutY="22.0" prefHeight="18.0" prefWidth="350.0" progress="1.0" />
       <ProgressBar fx:id="healthBar2" layoutX="500.0" layoutY="22.0" prefHeight="18.0" prefWidth="350.0" progress="1.0" rotate="180.0" />
+      <ImageView fitHeight="97.0" fitWidth="91.0" layoutX="318.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <HBox fx:id="hand" layoutX="28.0" layoutY="322.0" prefHeight="114.0" prefWidth="69.0" />
+      <Pane fx:id="hoverPane" layoutX="382.0" layoutY="294.0" prefHeight="162.0" prefWidth="119.0">
+         <padding>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </padding>
+      </Pane>
    </children>
 </AnchorPane>

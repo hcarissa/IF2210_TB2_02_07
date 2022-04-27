@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="69.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aetherwars.card.CardController">
+   <children>
+      <VBox alignment="CENTER" layoutX="-1.0" prefHeight="114.0" prefWidth="69.0">
+         <children>
+            <ImageView fx:id="img" fitHeight="78.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@card/image/character/Creeper.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+               <font>
+                  <Font name="Gadugi Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text fx:id="attr" strokeType="OUTSIDE" strokeWidth="0.0" text="Attribute" textAlignment="CENTER">
+               <font>
+                  <Font name="Gadugi" size="10.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

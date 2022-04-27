@@ -88,6 +88,12 @@ public class Player {
     return this.mana;
   }
 
+  public int getHp() { return this.hp; }
+
+  public List<Card> getHand() {
+    return this.hand;
+  }
+
 //  public static void main(String[] args) {
 //    Player p = new Player("Player 1", 40);
 //    p.addCard(new Card());
