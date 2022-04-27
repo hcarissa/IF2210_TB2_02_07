@@ -2,10 +2,10 @@ package com.aetherwars.card;
 
 public class CharacterCard extends Card {
     private int id;
-    private int attackUp;
-    private int healthUp;
-    private int baseAttack;
-    private int baseHealth;
+    private double attackUp;
+    private double healthUp;
+    private double baseAttack;
+    private double baseHealth;
     private CharacterType characterType;
 
     public CharacterCard() {
@@ -32,35 +32,35 @@ public class CharacterCard extends Card {
         return this.id;
     }
     
-    public int getAttackUp() {
+    public double getAttackUp() {
         return attackUp;
     }
 
-    public void setAttackUp(int attackUp) {
+    public void setAttackUp(double attackUp) {
         this.attackUp = attackUp;
     }
 
-    public int getHealthUp() {
+    public double getHealthUp() {
         return healthUp;
     }
 
-    public void setHealthUp(int healthUp) {
+    public void setHealthUp(double healthUp) {
         this.healthUp = healthUp;
     }
 
-    public int getBaseAttack() {
+    public double getBaseAttack() {
         return baseAttack;
     }
 
-    public void setBaseAttack(int baseAttack) {
+    public void setBaseAttack(double baseAttack) {
         this.baseAttack = baseAttack;
     }
 
-    public int getBaseHealth() {
+    public double getBaseHealth() {
         return baseHealth;
     }
 
-    public void setBaseHealth(int baseHealth) {
+    public void setBaseHealth(double baseHealth) {
         this.baseHealth = baseHealth;
     }
 
