@@ -1,6 +1,8 @@
 package com.aetherwars.fieldcard;
 import com.aetherwars.card.*;
 import com.aetherwars.player.*;
+
+// Implements on SummonedCharacter
 interface ISummoned {
     // getter
     public CharacterCard getCharacter();

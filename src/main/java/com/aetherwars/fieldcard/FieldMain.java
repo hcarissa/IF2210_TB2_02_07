@@ -4,6 +4,7 @@ import com.aetherwars.player.*;
 import java.util.List;
 import java.util.ArrayList;
 
+// File for testing features
 public class FieldMain {
     public static void main(String[] args) {
         List<CharacterCard> characterCards = new ArrayList<CharacterCard>();

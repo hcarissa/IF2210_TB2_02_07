@@ -1,8 +1,8 @@
 package com.aetherwars.card;
 
 public class SpellPotion extends SpellCard {
-    private int attack;
-    private int health;
+    private double attack;
+    private double health;
     private int duration;
     
     public SpellPotion() {
@@ -12,18 +12,18 @@ public class SpellPotion extends SpellCard {
         this.duration = 0;
     }
 
-    public SpellPotion(String name, String description, String imagePath, int mana, int attack, int health, int duration) {
+    public SpellPotion(String name, String description, String imagePath, int mana, double attack, double health, int duration) {
         super(name, description, imagePath, mana);
         this.attack = attack;
         this.health = health;
         this.duration = duration;
     }
 
-    public int getAttack() {
+    public double getAttack() {
         return this.attack;
     }
 
-    public int getHealth() {
+    public double getHealth() {
         return this.health;
     }
 
@@ -31,11 +31,11 @@ public class SpellPotion extends SpellCard {
         return this.duration;
     }
 
-    public void setAttack(int attack) {
+    public void setAttack(double attack) {
         this.attack = attack;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = health;
     }
 

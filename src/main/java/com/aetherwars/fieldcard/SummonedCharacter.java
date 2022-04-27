@@ -95,6 +95,10 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         this.health = health;
     }
 
+    // SummonedCharacter earn exp when (kill enemy's or given mana from player)
+    // this method including:
+    // - level up transformation
+    // - attack & health transformation
     public void earnExp(int exp) {
         int totalExp = getTotalExp();
         int lvlBefore = getLvl();
@@ -157,6 +161,7 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
             setHealth(this.character.getBaseHealth() + (modifier * this.character.getHealthUp()));
         }
     }
+    // adding spell to spellActives with condition
     public <T extends SpellCard> void addSpell(T spell) {
         if(spell.getSpellType() == SpellType.POTION) {
             this.activeSpells.add(spell);
@@ -167,6 +172,7 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         else if(spell.getSpellType() == SpellType.SWAP) {
             SpellSwap spellSwap = (SpellSwap)spell;
             if(isSwapAvailable()) {
+                // only add the SpellSwap duration if SwapAvailable
                 addSwapDuration(spellSwap.getDuration());
             }
             else {
@@ -181,16 +187,31 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
     }
 
     // ISpellEffect Implementation
+    // Potion effect to summonedcharacter
     public void PotionEffect(SpellPotion spellPotion){}
+    // Level effect to summonedcharacter
     public void LevelEffect(SpellLevel spellLevel){}
+    // Swap effect to summonedcharacter
     public void SwapEffect(SpellSwap spellSwap){
-        double temp = getAttack();
+        // Swap attack <-> health for each SpellPotion
+        for(SpellCard spell : getActiveSpells()) {
+            if(spell.getSpellType() == SpellType.POTION) {
+                double temp1 = ((SpellPotion)spell).getAttack();
+                ((SpellPotion)spell).setAttack(((SpellPotion)spell).getHealth());
+                ((SpellPotion)spell).setHealth(temp1);
+            }
+        }
+        // Swap attack <-> health SummonedCharacter
+        double temp2 = getAttack();
         setAttack(getHealth());
-        setHealth(temp);
+        setHealth(temp2);
+        // SummonedCharacter will be dead 
+        // if after swap health = 0
         if(getHealth() <= 0) {
             setIsDead(true);
         }
     }
+    // Morph effect to summonedcharacter
     public void MorphEffect(SpellMorph spellMorph){
         this.character = spellMorph.getCharacter();
         this.activeSpells = new ArrayList<SpellCard>();
@@ -201,7 +222,8 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         this.lvl = 1;
     }
 
-    // ISummonedBattle Implementation
+    // ISummonedBattle Implementation, 
+    // return attackModifier (0.5 or 1 or 2) depends on CharacterType
     public double attackModifier(SummonedCharacter enemy) {
         if (this.character.getCharacterType() == CharacterType.OVERWORLD) {
             if (enemy.getCharacter().getCharacterType() == CharacterType.NETHER) {
@@ -229,6 +251,7 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         }
         return 1;
     }
+    // Method to attack enemy summonedcharacter
     public void attackToCharacter(SummonedCharacter enemy) {
         double attackValue = this.attack * this.attackModifier(enemy);
         enemy.setHealth(enemy.getHealth() - attackValue);
@@ -238,10 +261,12 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
             enemy.setIsDead(true);
         }
     }
+    // Method to attack enemy Player's HP (not yet synchronize with Player)
     public void attackToHp(Player enemy) {
         enemy.setHp(enemy.getHp() - this.getAttack());
     }
 
+    // rendering SummonedCharacter info for debugging
     public void render() {
         System.out.printf("Position: %d\n", this.position);
         System.out.printf("ID: %s\n", this.character.getId());
