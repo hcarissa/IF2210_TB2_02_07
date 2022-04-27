@@ -1,11 +1,9 @@
 package com.aetherwars.fieldcard;
 import com.aetherwars.card.*;
 import com.aetherwars.player.*;
-import java.util.List;
 interface ISummoned {
     // getter
     public CharacterCard getCharacter();
-    public List<SpellCard> getActiveSpells();
     public double getAttack();
     public double getHealth();
     public int getExp();
@@ -19,7 +17,6 @@ interface ISummoned {
 
     // operation
     public void earnExp(int exp);
-    public <T extends SpellCard> void addSpell(T spell);
     public void render();
 }
 

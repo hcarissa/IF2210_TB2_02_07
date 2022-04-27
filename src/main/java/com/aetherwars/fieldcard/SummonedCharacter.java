@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEffect, ISummonedBattle {
     private CharacterCard character;
-    private List<SpellCard> activeSpells;
     private double attack;
     private double health;
     private int exp;
@@ -26,7 +25,6 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
     public SummonedCharacter(int position, CharacterCard character) {
         super(position);
         this.character = character;
-        this.activeSpells = new ArrayList<SpellCard>();
         this.attack = character.getBaseAttack();
         this.health = character.getBaseHealth();
         this.exp = 0;
@@ -37,9 +35,6 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
     // getter
     public CharacterCard getCharacter() {
         return this.character;
-    }
-    public List<SpellCard> getActiveSpells() {
-        return this.activeSpells;
     }
     public double getAttack() {
         return this.attack;
@@ -262,5 +257,4 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         System.out.printf("Status: %d/%d [%d]\n", this.exp, this.needsExp, this.lvl);
         System.out.printf("Is Dead: %s\n", this.isDead);
     }
-
 }
