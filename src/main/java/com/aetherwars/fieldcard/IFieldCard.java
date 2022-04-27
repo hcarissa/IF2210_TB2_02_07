@@ -14,4 +14,5 @@ interface IFieldCard {
 interface ISpellMonitoring {
     public boolean isPotionAvailable();
     public boolean isSwapAvailable();
+    public void addSwapDuration(int plusDuration);
 }

@@ -48,4 +48,13 @@ abstract class FieldCard implements IFieldCard, ISpellMonitoring {
         }
         return false;
     }
+
+    public void addSwapDuration(int plusDuration) {
+        for(SpellCard spell : getActiveSpells()) {
+            if(spell.getSpellType() == SpellType.SWAP) {
+                ((SpellSwap)spell).setDuration(((SpellSwap)spell).getDuration() + plusDuration);
+                break;
+            }
+        }
+    }
 }

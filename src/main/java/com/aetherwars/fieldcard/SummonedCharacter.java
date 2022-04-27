@@ -9,7 +9,7 @@ import java.util.ArrayList;
 // - Spells effect to card
     // Potion (TEMP)
     // Level (PERM)
-    // Swap (TEMP)
+    // Swap (TEMP)  - DONE
     // Morph (PERM) - DONE
 // - attackUp & healthUp if level up    - DONE
 // - kalo health = 0 (dead) gimana?     - DONE
@@ -165,19 +165,32 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
 
         }
         else if(spell.getSpellType() == SpellType.SWAP) {
-            this.activeSpells.add(spell);
+            SpellSwap spellSwap = (SpellSwap)spell;
+            if(isSwapAvailable()) {
+                addSwapDuration(spellSwap.getDuration());
+            }
+            else {
+                this.activeSpells.add(spellSwap);
+                SwapEffect(spellSwap);
+            }
         }
         else {
             SpellMorph spellMorph = (SpellMorph)spell;
             this.MorphEffect(spellMorph);
         }
-        this.activeSpells.add(spell);
     }
 
     // ISpellEffect Implementation
     public void PotionEffect(SpellPotion spellPotion){}
     public void LevelEffect(SpellLevel spellLevel){}
-    public void SwapEffect(SpellSwap spellSwap){}
+    public void SwapEffect(SpellSwap spellSwap){
+        double temp = getAttack();
+        setAttack(getHealth());
+        setHealth(temp);
+        if(getHealth() <= 0) {
+            setIsDead(true);
+        }
+    }
     public void MorphEffect(SpellMorph spellMorph){
         this.character = spellMorph.getCharacter();
         this.activeSpells = new ArrayList<SpellCard>();
@@ -252,6 +265,10 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
             if(spell.getSpellType() == SpellType.MORPH) {
                 SpellMorph spellMorph = (SpellMorph)spell;
                 System.out.printf("Target ID - %d\n", spellMorph.getTargetId());
+            }
+            else if(spell.getSpellType() == SpellType.SWAP) {
+                SpellSwap spellSwap = (SpellSwap)spell;
+                System.out.printf("Duration - %d\n", spellSwap.getDuration());
             }
         }
         System.out.printf("Status: %d/%d [%d]\n", this.exp, this.needsExp, this.lvl);
