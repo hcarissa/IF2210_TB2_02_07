@@ -1,23 +1,24 @@
 package com.aetherwars.fieldcard;
 import com.aetherwars.card.*;
+import com.aetherwars.player.*;
 import java.util.List;
 import java.util.ArrayList;
 
 // TODO
-// - Attack to another card/enemy's HP
+// - Attack to another card/enemy's HP (ON TESTING)
 // - Spells effect to card
     // Potion (TEMP)
     // Level (PERM)
     // Swap (TEMP)
     // Morph (PERM)
 // - attackUp & healthUp if level up
-// - kalo health=0 (dead) gimana?
+// - kalo health = 0 (dead) gimana? (ON TESTING)
 
-public class SummonedCharacter extends FieldCard implements ISummoned {
+public class SummonedCharacter extends FieldCard implements ISummoned, ISummonedBattle {
     private CharacterCard character;
     private List<SpellCard> activeSpells;
-    private int attack;
-    private int health;
+    private double attack;
+    private double health;
 
     public SummonedCharacter(int position, CharacterCard character) {
         super(position);
@@ -27,20 +28,68 @@ public class SummonedCharacter extends FieldCard implements ISummoned {
         this.health = character.getBaseHealth();
     }
 
-    public int getAttack() {
+    public CharacterCard getCharacter() {
+        return this.character;
+    }
+    public List<SpellCard> getActiveSpells() {
+        return this.activeSpells;
+    }
+    public double getAttack() {
         return this.attack;
     }
-
-    public int getHealth() {
+    public double getHealth() {
         return this.health;
     }
 
-    public List<SpellCard> getActiveSpells() {
-        return this.activeSpells;
+    public void setAttack(double attack) {
+        this.attack = attack;
+    }
+    public void setHealth(double health) {
+        this.health = health;
     }
 
     public void addSpell(SpellCard spell) {
         this.activeSpells.add(spell);
+    }
+
+    public double attackModifier(SummonedCharacter enemy) {
+        if (this.character.getCharacterType() == CharacterType.OVERWORLD) {
+            if (enemy.getCharacter().getCharacterType() == CharacterType.NETHER) {
+                return 0.5;
+            }
+            else if (enemy.getCharacter().getCharacterType() == CharacterType.END) {
+                return 2;
+            }
+        }
+        else if (this.character.getCharacterType() == CharacterType.END) {
+            if (enemy.getCharacter().getCharacterType() == CharacterType.OVERWORLD) {
+                return 0.5;
+            }
+            else if (enemy.getCharacter().getCharacterType() == CharacterType.NETHER) {
+                return 2;
+            }
+        }
+        else if (this.character.getCharacterType() == CharacterType.NETHER) {
+            if (enemy.getCharacter().getCharacterType() == CharacterType.END) {
+                return 0.5;
+            }
+            else if (enemy.getCharacter().getCharacterType() == CharacterType.OVERWORLD) {
+                return 2;
+            }
+        }
+        return 1;
+    }
+    public void attackToCharacter(SummonedCharacter enemy) {
+        double attackValue = this.attack * this.attackModifier(enemy);
+        enemy.setHealth(enemy.getHealth() - attackValue);
+        
+        if(enemy.getHealth() <= 0) {
+            this.earnExp(enemy.getLvl());
+            enemy.setIsDead(true);
+        }
+    }
+    public void attackToHp(Player enemy) {
+        enemy.setHp(enemy.getHp() - this.getAttack());
     }
 
     public void render() {

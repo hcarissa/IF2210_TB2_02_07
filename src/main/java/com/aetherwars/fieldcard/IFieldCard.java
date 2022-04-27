@@ -9,6 +9,9 @@ interface IFieldCard {
     public int getLvl();
     public boolean getIsDead();
 
+    // setter
+    public void setIsDead(boolean isDead);
+
     // operation
     public void earnExp(int exp);
 }

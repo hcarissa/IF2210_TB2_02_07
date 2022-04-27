@@ -25,7 +25,7 @@ import java.util.Queue;
 public class Player {
   // attributes
   private String name;
-  private int hp;
+  private double hp;
   private int mana;
   Deck deck;
   private List<Card> hand;
@@ -86,6 +86,14 @@ public class Player {
 
   public int getMana() {
     return this.mana;
+  }
+
+  public double getHp() {
+    return this.hp;
+  }
+
+  public void setHp(double hp) {
+    this.hp = hp;
   }
 
 //  public static void main(String[] args) {

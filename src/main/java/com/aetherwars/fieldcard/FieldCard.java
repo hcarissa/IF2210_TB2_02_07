@@ -1,6 +1,6 @@
 package com.aetherwars.fieldcard;
 
-public class FieldCard {
+public class FieldCard implements IFieldCard {
     protected int position;
     protected int exp;
     protected int needsExp;
@@ -65,6 +65,10 @@ public class FieldCard {
     }
     public boolean getIsDead() {
         return this.isDead;
+    }
+
+    public void setIsDead(boolean isDead) {
+        this.isDead = isDead;
     }
 
     public void earnExp(int exp) {
