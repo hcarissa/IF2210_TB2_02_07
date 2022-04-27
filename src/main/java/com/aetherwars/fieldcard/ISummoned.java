@@ -8,11 +8,17 @@ interface ISummoned {
     public List<SpellCard> getActiveSpells();
     public double getAttack();
     public double getHealth();
+    public int getExp();
+    public int getNeedsExp();
+    public int getTotalExp();
+    public int getLvl();
+
     // setter
     public void setAttack(double attack);
     public void setHealth(double health);
 
     // operation
+    public void earnExp(int exp);
     public void addSpell(SpellCard spell);
     public void render();
 }
