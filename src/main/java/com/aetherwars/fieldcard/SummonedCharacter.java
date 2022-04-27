@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.ArrayList;
 
 // TODO
-// - Attack to another card/enemy's HP (DONE)
+// - Attack to another card/enemy's HP  - DONE
 // - Spells effect to card
     // Potion (TEMP)
     // Level (PERM)
     // Swap (TEMP)
-    // Morph (PERM)
-// - attackUp & healthUp if level up (DONE)
-// - kalo health = 0 (dead) gimana? (DONE)
+    // Morph (PERM) - DONE
+// - attackUp & healthUp if level up    - DONE
+// - kalo health = 0 (dead) gimana?     - DONE
 
 public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEffect, ISummonedBattle {
     private CharacterCard character;
@@ -162,7 +162,7 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
             setHealth(this.character.getBaseHealth() + (modifier * this.character.getHealthUp()));
         }
     }
-    public void addSpell(SpellCard spell) {
+    public <T extends SpellCard> void addSpell(T spell) {
         if(spell.getSpellType() == SpellType.POTION) {
             this.activeSpells.add(spell);
         }
@@ -173,7 +173,8 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
             this.activeSpells.add(spell);
         }
         else {
-            // this.MorphEffect(spell);
+            SpellMorph spellMorph = (SpellMorph)spell;
+            this.MorphEffect(spellMorph);
         }
         this.activeSpells.add(spell);
     }
@@ -252,9 +253,10 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
 
         System.out.printf("Active Spells:\n");
         for(SpellCard spell : this.activeSpells) {
-            System.out.printf("- %s (%s)\n", spell.getName(), spell.getSpellType());
+            System.out.printf("- %s (%s) | ", spell.getName(), spell.getSpellType());
             if(spell.getSpellType() == SpellType.MORPH) {
-                // System.out.printf("%d", spell.getTargetId());
+                SpellMorph spellMorph = (SpellMorph)spell;
+                System.out.printf("Target ID - %d\n", spellMorph.getTargetId());
             }
         }
         System.out.printf("Status: %d/%d [%d]\n", this.exp, this.needsExp, this.lvl);
