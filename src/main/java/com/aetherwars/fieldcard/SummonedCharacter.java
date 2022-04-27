@@ -12,7 +12,7 @@ import java.util.ArrayList;
     // Swap (TEMP)
     // Morph (PERM)
 // - attackUp & healthUp if level up
-// - kalo health = 0 (dead) gimana? (ON TESTING)
+// - kalo health = 0 (dead) gimana? (DONE)
 
 public class SummonedCharacter extends FieldCard implements ISummoned, ISummonedBattle {
     private CharacterCard character;
