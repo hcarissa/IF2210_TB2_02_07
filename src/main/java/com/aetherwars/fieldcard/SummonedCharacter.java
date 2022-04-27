@@ -14,7 +14,7 @@ import java.util.ArrayList;
 // - attackUp & healthUp if level up (DONE)
 // - kalo health = 0 (dead) gimana? (DONE)
 
-public class SummonedCharacter extends FieldCard implements ISummoned, ISummonedBattle {
+public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEffect, ISummonedBattle {
     private CharacterCard character;
     private List<SpellCard> activeSpells;
     private double attack;
@@ -34,6 +34,7 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISummoned
         this.lvl = 1;
     }
 
+    // getter
     public CharacterCard getCharacter() {
         return this.character;
     }
@@ -91,6 +92,7 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISummoned
         return this.lvl;
     }
 
+    // setter
     public void setAttack(double attack) {
         this.attack = attack;
     }
@@ -160,11 +162,37 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISummoned
             setHealth(this.character.getBaseHealth() + (modifier * this.character.getHealthUp()));
         }
     }
-
     public void addSpell(SpellCard spell) {
+        if(spell.getSpellType() == SpellType.POTION) {
+            this.activeSpells.add(spell);
+        }
+        else if(spell.getSpellType() == SpellType.LEVEL) {
+
+        }
+        else if(spell.getSpellType() == SpellType.SWAP) {
+            this.activeSpells.add(spell);
+        }
+        else {
+            // this.MorphEffect(spell);
+        }
         this.activeSpells.add(spell);
     }
 
+    // ISpellEffect Implementation
+    public void PotionEffect(SpellPotion spellPotion){}
+    public void LevelEffect(SpellLevel spellLevel){}
+    public void SwapEffect(SpellSwap spellSwap){}
+    public void MorphEffect(SpellMorph spellMorph){
+        this.character = spellMorph.getCharacter();
+        this.activeSpells = new ArrayList<SpellCard>();
+        this.attack = spellMorph.getCharacter().getBaseAttack();
+        this.health = spellMorph.getCharacter().getBaseHealth();
+        this.exp = 0;
+        this.needsExp = 1;
+        this.lvl = 1;
+    }
+
+    // ISummonedBattle Implementation
     public double attackModifier(SummonedCharacter enemy) {
         if (this.character.getCharacterType() == CharacterType.OVERWORLD) {
             if (enemy.getCharacter().getCharacterType() == CharacterType.NETHER) {
@@ -225,59 +253,12 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISummoned
         System.out.printf("Active Spells:\n");
         for(SpellCard spell : this.activeSpells) {
             System.out.printf("- %s (%s)\n", spell.getName(), spell.getSpellType());
+            if(spell.getSpellType() == SpellType.MORPH) {
+                // System.out.printf("%d", spell.getTargetId());
+            }
         }
         System.out.printf("Status: %d/%d [%d]\n", this.exp, this.needsExp, this.lvl);
         System.out.printf("Is Dead: %s\n", this.isDead);
     }
 
-    public static void main(String[] args) {
-        System.out.println("- SummonedCharacter -");
-
-        // initialize spells
-        SpellPotion spellPotion = new SpellPotion("Potion1", "", "", 11, 12, 13, 14);
-        SpellLevel spellLevel = new SpellLevel("Level1", "", "", LevelSwitch.UP);
-        SpellSwap spellSwap = new SpellSwap("Swap1", "", "", 31, 32);
-        SpellMorph spellMorph = new SpellMorph("Morph1", "", "", 41, 1);
-
-        // initialize SummonedCharacter
-        CharacterCard charCard1 = new CharacterCard("Rava", "Ini Deskripsi","background.jpg", 2, 4, 4, 8, 1, CharacterType.NETHER);
-        CharacterCard charCard2 = new CharacterCard("Attar", "Ini Deskripsi","background.jpg", 2, 4, 4, 8, 2, CharacterType.END);
-        SummonedCharacter summon1 = new SummonedCharacter(1, charCard1);
-        SummonedCharacter summon2 = new SummonedCharacter(2, charCard2);
-        
-        // spells operation
-        // summon1.addSpell(spellPotion);
-        // summon1.addSpell(spellLevel);
-        // summon1.addSpell(spellSwap);
-        // summon1.addSpell(spellMorph);
-
-        // battles
-        // summon1.attackToCharacter(summon2);
-
-        System.out.println("- Summon1 -");
-        summon1.render();
-
-        // earn exp operation
-        // summon1.earnExp(6); // 2/5 [3]
-        // summon1.earnExp(7); // 4/7 [4]
-
-        // rendering SummonedCharacter
-        summon1.earnExp(1);
-        // attack: 6
-        // health: 12
-        // lvl: 0/3 [2]
-        System.out.println("- Summon1 -");
-        summon1.render();
-        
-        summon1.earnExp(7);
-        // attack: 8
-        // health: 16
-        // lvl: 4/5 [3]
-        System.out.println("- Summon1 -");
-        summon1.render();
-        // System.out.println("- Summon2 -");
-        // summon2.render();
-
-        System.out.println("- Done -");
-    }
 }

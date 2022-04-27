@@ -19,8 +19,15 @@ interface ISummoned {
 
     // operation
     public void earnExp(int exp);
-    public void addSpell(SpellCard spell);
+    public <T extends SpellCard> void addSpell(T spell);
     public void render();
+}
+
+interface ISpellEffect {
+    public void PotionEffect(SpellPotion spellPotion);
+    public void LevelEffect(SpellLevel spellLevel);
+    public void SwapEffect(SpellSwap spellSwap);
+    public void MorphEffect(SpellMorph spellMorph);
 }
 
 interface ISummonedBattle {
@@ -29,3 +36,4 @@ interface ISummonedBattle {
     public void attackToCharacter(SummonedCharacter enemy);
     public void attackToHp(Player enemy);
 }
+
