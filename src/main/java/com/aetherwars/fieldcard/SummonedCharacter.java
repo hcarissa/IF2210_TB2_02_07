@@ -1,7 +1,6 @@
 package com.aetherwars.fieldcard;
 import com.aetherwars.card.*;
 import com.aetherwars.player.*;
-import java.util.List;
 import java.util.ArrayList;
 
 // TODO
@@ -188,9 +187,25 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
 
     // ISpellEffect Implementation
     // Potion effect to summonedcharacter
-    public void PotionEffect(SpellPotion spellPotion){}
+    public void PotionEffect(SpellPotion spellPotion){
+        
+
+    }
     // Level effect to summonedcharacter
-    public void LevelEffect(SpellLevel spellLevel){}
+    public void LevelEffect(SpellLevel spellLevel){
+        if (spellLevel.getLevelSwitch()== LevelSwitch.UP) {
+            if(this.lvl < 10) {
+                this.lvl++;
+            }
+        }
+        else if (spellLevel.getLevelSwitch()== LevelSwitch.DOWN) {
+            if(this.lvl > 1) {
+                this.lvl--;
+            }
+        } 
+        this.exp = 0;
+
+    }
     // Swap effect to summonedcharacter
     public void SwapEffect(SpellSwap spellSwap){
         // Swap attack <-> health for each SpellPotion
