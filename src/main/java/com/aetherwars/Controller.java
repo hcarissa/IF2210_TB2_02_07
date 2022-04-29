@@ -166,7 +166,7 @@ public class Controller {
             hand.getChildren().clear();
             reload();
             board.setPhase(Phase.DRAW);
-            if (board.getRound() > 1) {
+            if (board.getRound() >= 1) {
                 loadTemp();
                 nextBtn.setDisable(true);
             }
