@@ -15,19 +15,20 @@ public class CardReader {
     private CardCollection swapCardCollection;
     private CardCollection potionCardCollection;
     private CardCollection morphCardCollection;
-    private static final String CHARACTER_CARD_FILE_NAME = "/com/aetherwars/resources/card/data/character.csv";
+    private static final String CHARACTER_CARD_FILE_NAME = "/com/aetherwars/card/data/character.csv";
     //private static final String LEVEL_CARD_FILE_NAME = "/com/aetherwars/resources/cards/data/spell_level.csv";
-    private static final String SWAP_CARD_FILE_NAME = "/com/aetherwars/resources/card/spell_swap.csv";
-    private static final String POTION_CARD_FILE_NAME = "/com/aetherwars/resources/card/spell_ptn.csv";
-    private static final String MORPH_CARD_FILE_NAME = "/com/aetherwars/resources/card/spell_morph.csv";
+    private static final String SWAP_CARD_FILE_NAME = "/com/aetherwars/card/data/spell_swap.csv";
+    private static final String POTION_CARD_FILE_NAME = "/com/aetherwars/card/data/spell_ptn.csv";
+    private static final String MORPH_CARD_FILE_NAME = "/com/aetherwars/card/data/spell_morph.csv";
 
     /**
      * Constructor of CardReader
      */
-    private CardReader() {
+    public CardReader() {
         try {
             loadCards();
         } catch (Exception e) {
+            System.out.println(e);
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Card loading failed");
             errorAlert.setContentText("Failed to load cards: " + e);
@@ -64,7 +65,7 @@ public class CardReader {
         characterReader.setSkipHeader(true);
         List<String[]> characterRows = characterReader.read();
         for (String[] row : characterRows) {
-            CharacterCard l = new CharacterCard(row[1], row[3], row[4],Integer.parseInt(row[8]), Integer.parseInt(row[9]), Integer.parseInt(row[5]), Integer.parseInt(row[6]), Integer.parseInt(row[0]), CharacterType.valueOf(row[7]));
+            CharacterCard l = new CharacterCard(row[1], row[3], row[4],Integer.parseInt(row[8]), Integer.parseInt(row[9]), Integer.parseInt(row[5]), Integer.parseInt(row[6]), Integer.parseInt(row[0]), CharacterType.valueOf(row[2]));
             characterCardCollection.addCard(l);
         }
 
