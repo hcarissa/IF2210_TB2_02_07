@@ -2,6 +2,7 @@ package com.aetherwars;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -37,7 +38,8 @@ import javafx.scene.transform.Scale;
 public class Controller {
     private Board board;
 
-    private SummonedCharacter dragged_char;
+    private CharacterCard dragged_char;
+    private int draggedCharIdx;
 
     private static final DataFormat dformat = new DataFormat("javafx.scene.layout.VBox");
 
@@ -63,6 +65,9 @@ public class Controller {
     private Pane cBoard1A, cBoard1B, cBoard1C, cBoard1D, cBoard1E;
     @FXML
     private Pane cBoard2A, cBoard2B, cBoard2C, cBoard2D, cBoard2E;
+
+    private Pane[] paneA = {cBoard1A, cBoard1B, cBoard1C, cBoard1D, cBoard1E};
+    private Pane[] paneB = {cBoard2A, cBoard2B, cBoard2C, cBoard2D, cBoard2E};
 
     @FXML
     private Text description;
@@ -110,7 +115,9 @@ public class Controller {
                 Dragboard db = e.getDragboard();
                 if (db.hasContent(dformat)) {
                     addToBoard(dragged_char, pane);
+                    this.board.getActivePlayer().discardCard(draggedCharIdx);
                     dragged_char = null;
+                    loadHand();
                 }
             });
         }
@@ -127,7 +134,9 @@ public class Controller {
                 Dragboard db = e.getDragboard();
                 if (db.hasContent(dformat)) {
                     addToBoard(dragged_char, pane);
+                    this.board.getActivePlayer().discardCard(draggedCharIdx);
                     dragged_char = null;
+                    loadHand();
                 }
             });
         }
@@ -329,10 +338,7 @@ public class Controller {
                             ClipboardContent cc = new ClipboardContent();
                             cc.put(dformat, "Character Card");
                             db.setContent(cc);
-                            SummonedCharacter newSummon = new SummonedCharacter(1, (CharacterCard) cardController.getCard());
-                            // newSummon harus ditambah ke board player
-                            setDraggged(newSummon);
-                            // dari card biasa -> cari karakternya -> character card
+                            setDraggged((CharacterCard) cardController.getCard(), idx);
                         }
                     }
                 });
@@ -367,11 +373,34 @@ public class Controller {
         // Card Detail belum
     }
 
-    public void addToBoard(SummonedCharacter sc, Pane target) {
+    public void loadBoard() {
+        try {
+            for (Pane pane : Arrays.asList(paneA)) {
+                // clear
+                for (SummonedCharacter sc : board.getActivePlayer().getbCards()) {
+                    addToBoard(sc.getCharacter(), sc.getPosition());
+                }
+            }
+            for (Pane pane : Arrays.asList(paneB)) {
+                // clear
+                for (SummonedCharacter sc : board.getActivePlayer().getbCards()) {
+                    addToBoard(sc.getCharacter(), sc.getPosition());
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void addToBoard(CharacterCard cc, Pane target) {
+        // ubah summoned character ke board character
+        // terus diadd
         try {
             FXMLLoader cardloader = new FXMLLoader(getClass().getResource("BoardCard.fxml"));
             Pane bCardPane = cardloader.load();
             BoardCardController cardController = cardloader.getController();
+            SummonedCharacter sc = new SummonedCharacter(target, cc);
             cardController.setCard(sc);
             target.getChildren().add(bCardPane);
             bCardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
@@ -384,7 +413,37 @@ public class Controller {
                     cardDescription.getChildren().clear();
                 }
             });
-            target.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+            final SummonedCharacter schar = sc;
+            bCardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            // double click event, mungkin bisa dipake buat throw
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 1 && board.getPhase().equals(Phase.PLAN)) {
+                        cBoard1A.setStyle(CARD_DEFAULT);
+                        cBoard1B.setStyle(CARD_DEFAULT);
+                        cBoard1C.setStyle(CARD_DEFAULT);
+                        cBoard1D.setStyle(CARD_DEFAULT);
+                        cBoard1E.setStyle(CARD_DEFAULT);
+                        cBoard2A.setStyle(CARD_DEFAULT);
+                        cBoard2B.setStyle(CARD_DEFAULT);
+                        cBoard2C.setStyle(CARD_DEFAULT);
+                        cBoard2D.setStyle(CARD_DEFAULT);
+                        cBoard2E.setStyle(CARD_DEFAULT);
+                        bCardPane.setStyle(CARD_FOCUS);
+                        board.setFocus(sc);
+                    }
+                    if (mouseEvent.getClickCount() == 2) {
+                        System.out.println("Double clicked");
+                        if (board.getPhase().equals(Phase.PLAN)) {
+                            board.getActivePlayer().discardBoardCard(schar.getPosition());
+                            loadBoard();
+                        }
+                    }
+                }
+            }
+        });
+            target.setStyle(CARD_DEFAULT);
             target.getChildren().add(bCardPane);
         }
         catch (Exception e) {
@@ -393,7 +452,8 @@ public class Controller {
 
     }
 
-    public void setDraggged(SummonedCharacter sc) {
-        this.dragged_char = sc;
+    public void setDraggged(CharacterCard c, int i) {
+        this.dragged_char = c;
+        this.draggedCharIdx = i;
     }
 }

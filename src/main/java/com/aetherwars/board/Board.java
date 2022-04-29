@@ -1,5 +1,6 @@
 package com.aetherwars.board;
 
+import com.aetherwars.fieldcard.SummonedCharacter;
 import com.aetherwars.player.*;
 import com.aetherwars.Controller.*;
 
@@ -10,6 +11,7 @@ public class Board {
     private Player p1;
     private Player p2;
     private boolean gameFin;
+    private SummonedCharacter focus;
 
     // health point, mana, deck, hand udah ada di masing-masing player
     // deskripsi dari setiap kartu ada di Cards
@@ -26,6 +28,7 @@ public class Board {
         round = 1;
         phase = Phase.DRAW;
     }
+    public void setFocus(SummonedCharacter x) { this.focus = x; }
 
     public int getTurn() {
         return turn;
