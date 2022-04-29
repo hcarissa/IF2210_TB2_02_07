@@ -17,8 +17,8 @@ public class Board {
         this.p2 = p2;
 
         // masing-masing player ambil 3 kartu dari deck
-        this.p1.drawCard();
-        this.p2.drawCard();
+        this.p1.draw(3);
+        this.p2.draw(3);
         turn = 1; // dimulai dari giliran player1
         round = 1;
         phase = Phase.DRAW;

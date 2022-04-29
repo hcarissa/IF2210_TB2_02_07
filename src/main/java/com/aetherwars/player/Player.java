@@ -41,6 +41,14 @@ public class Player {
   // methods
 
   // Mengambil kartu baru
+  public void draw(int n) {
+    // method untuk mengambil n buah kartu dari deck dan menambahkan ke hand
+    // bila deck habis atau hand penuh, tidak terjadi apa-apa
+    for (int i = 0; i < n && !this.deck.isEmpty(); i++) {
+      this.hand.add(this.deck.remove());
+    }
+  }
+
   public void drawCard() {
     // method untuk mengambil n buah kartu dari deck dan menambahkan ke hand
     // bila deck habis atau hand penuh, tidak terjadi apa-apa
@@ -96,6 +104,14 @@ public class Player {
       return;
     }
     this.hand.remove(index); // TODO: belum ditaro di board, baru dibuang
+  }
+
+  public void discardCard(int index) {
+    // method untuk membuang kartu (digunakan bila di akhir draw phase jumlah kartu > 5)
+    if (index < 0 || index > 4) {
+      return;
+    }
+    this.hand.remove(index);
   }
 
   public int getDeckCount() {
