@@ -83,7 +83,7 @@ public class Deck {
             Card a = d.remove();
             count += 1;
             if(a.getCardType() == CardType.SPELL){
-                System.out.println(count + a.getName());
+                a.printInfo();
             }
         }
     }
