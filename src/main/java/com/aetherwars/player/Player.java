@@ -34,7 +34,7 @@ public class Player {
   public Player(String name) {
     this.name = name;
     this.hp = 80;
-    this.mana = 0;
+    this.mana = 1;
     this.deck = new Deck();
     this.hand = new ArrayList<Card>();
     this.tempCard = new Card[3];
@@ -126,6 +126,10 @@ public class Player {
 
   public int getMana() {
     return this.mana;
+  }
+
+  public void setMana(int mana) {
+    this.mana = mana;
   }
 
   public List<Card> getHand() {

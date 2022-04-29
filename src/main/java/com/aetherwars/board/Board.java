@@ -1,6 +1,7 @@
 package com.aetherwars.board;
 
 import com.aetherwars.player.*;
+import com.aetherwars.Controller.*;
 
 public class Board {
     private int turn;
@@ -54,6 +55,7 @@ public class Board {
             turn = 1;
             round++;
         }
+        this.getActivePlayer().setMana(Math.min(round, 10));
     }
 
     public void setPhase(Phase nextPhase) {
