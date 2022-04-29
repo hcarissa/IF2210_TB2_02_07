@@ -39,11 +39,12 @@ public class Deck {
         int min = 5;
         Random r = new Random();
         CardReader cards = CardReader.getInstance();
-        int levelint = r.nextInt(7-min)+min;
-        int swapint = r.nextInt(10-min)+min;
-        int potionint = r.nextInt(12-min)+min;
-        int morphint = r.nextInt(13-min)+min;
+        int levelint = r.nextInt(2)+min;
+        int swapint = r.nextInt(5)+min;
+        int potionint = r.nextInt(7)+min;
+        int morphint = r.nextInt(8)+min;
         int charint = 60-levelint-swapint-potionint-morphint;
+
         CardCollection chars = cards.getCharacterCardCollection();
         CardCollection lev = cards.getLevelCardCollection();
         CardCollection swap = cards.getSwapCardCollection();
@@ -59,9 +60,15 @@ public class Deck {
     public void addSpecificCard(CardCollection x, int j){
         Random rnd = new Random();
         for(int i = 0; i < j; i++){
-            this.deckOfCards.add(x.getCardIdx(rnd.nextInt(x.getSize())));
+            if (x.getSize() > 0) {
+                this.deckOfCards.add(x.getCardIdx(rnd.nextInt(x.getSize())));
+            }
         }
     }
 
-
+    public static void main(String args[]) {
+        Random r = new Random();
+        int levelint = r.nextInt(2)+5;
+        Deck d = new Deck();
+    }
 }
