@@ -16,6 +16,8 @@ public class CardCollection {
 
     public int getSize() { return CardCollection.size(); }
 
+    public List<Card> getCardCollection() { return CardCollection; }
+
     public void shuffle(){
         Collections.shuffle(CardCollection);
     }
