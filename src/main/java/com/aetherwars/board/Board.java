@@ -55,6 +55,7 @@ public class Board {
             turn = 1;
             round++;
         }
+        this.getActivePlayer().setMana(Math.min(round, 10));
     }
 
     public void setPhase(Phase nextPhase) {

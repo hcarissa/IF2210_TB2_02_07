@@ -164,6 +164,7 @@ public class Controller {
         loadHand();
         updateDeck();
         updateMana();
+        updateTurn();
     }
 
     public void updateHP(int i, int hp) {
@@ -179,8 +180,8 @@ public class Controller {
         }
     }
 
-    public void updateTurn(int i) {
-        this.turn.setText(String.valueOf(i));
+    public void updateTurn() {
+        this.turn.setText(String.valueOf(board.getRound()));
     }
 
     public void updateDeck() {
