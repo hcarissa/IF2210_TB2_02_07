@@ -203,5 +203,15 @@
             <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
          </padding>
       </Pane>
+      <Pane fx:id="cBoard1A" layoutX="103.0" layoutY="75.0" prefHeight="64.0" prefWidth="60.0" />
+      <Pane fx:id="cBoard1B" layoutX="169.0" layoutY="75.0" prefHeight="64.0" prefWidth="60.0" />
+      <Pane fx:id="cBoard1C" layoutX="103.0" layoutY="145.0" prefHeight="64.0" prefWidth="60.0" />
+      <Pane fx:id="cBoard1D" layoutX="170.0" layoutY="144.0" prefHeight="64.0" prefWidth="60.0" />
+      <Pane fx:id="cBoard1E" layoutX="237.0" layoutY="113.0" prefHeight="64.0" prefWidth="60.0" />
+      <Pane fx:id="cBoard2A" layoutX="720.0" layoutY="75.0" prefHeight="64.0" prefWidth="60.0" />
+      <Pane fx:id="cBoard2B" layoutX="651.0" layoutY="74.0" prefHeight="64.0" prefWidth="60.0" />
+      <Pane fx:id="cBoard2C" layoutX="721.0" layoutY="144.0" prefHeight="64.0" prefWidth="60.0" />
+      <Pane fx:id="cBoard2D" layoutX="651.0" layoutY="145.0" prefHeight="64.0" prefWidth="60.0" />
+      <Pane fx:id="cBoard2E" layoutX="583.0" layoutY="113.0" prefHeight="64.0" prefWidth="60.0" />
    </children>
 </AnchorPane>

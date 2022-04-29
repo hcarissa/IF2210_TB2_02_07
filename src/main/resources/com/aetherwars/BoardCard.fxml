@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="60.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aetherwars.fieldcard.BoardCardController">
+   <children>
+      <ImageView fitHeight="7.0" fitWidth="9.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@card/image/character/Iron%20Sword.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="6.0" fitWidth="9.0" layoutX="48.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@card/image/character/heart.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="attack" layoutX="4.0" layoutY="13.0" prefHeight="10.0" prefWidth="13.0" />
+      <Pane fx:id="health" layoutX="44.0" layoutY="13.0" prefHeight="10.0" prefWidth="13.0" />
+      <Pane fx:id="expDetail" layoutX="18.0" layoutY="51.0" prefHeight="10.0" prefWidth="24.0" />
+      <ImageView fx:id="img" fitHeight="40.0" fitWidth="42.0" layoutX="9.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</Pane>
