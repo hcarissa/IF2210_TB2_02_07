@@ -1,89 +1,65 @@
 package com.aetherwars.deck;
 import com.aetherwars.card.*;
+import com.aetherwars.util.*;
 import java.util.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class Deck {
     private Queue<Card> deckOfCards;
-    private CardCollection charCollection;
-    private CardCollection levelCollection;
-    private CardCollection morphCollection;
-    private CardCollection potionCollection;
-    private CardCollection swapCollection;
+    private IntegerProperty neff;
+    private int size;
 
-    
-    public Deck(CardCollection charCollection, CardCollection levelCollection, CardCollection morphCollection, CardCollection swapCollection, CardCollection potionCollection){
-        this.charCollection = charCollection;
-        this.levelCollection = levelCollection;
-        this.morphCollection = morphCollection;
-        this.swapCollection = swapCollection;
-        this.potionCollection = potionCollection;
-        this.deckOfCards = new LinkedList<Card>();
+    public int getSize(){
+        return this.size;
+    }
+
+    public Deck(){
+        this.deckOfCards = new LinkedList<>();
+        this.neff = new SimpleIntegerProperty(0);
+        this.size = 0;
         fillDeck();
     }
 
-    public Deck() {
-        this.charCollection = new CardCollection();
-        this.levelCollection = new CardCollection();
-        this.morphCollection = new CardCollection();
-        this.swapCollection = new CardCollection();
-        this.potionCollection = new CardCollection();
-        this.deckOfCards = new LinkedList<Card>();
-        fillDeck();
+    public boolean isNotEmpty(){
+        return (this.neff.getValue()!=0);
     }
 
-    public boolean isEmpty() {
-        return (this.deckOfCards.size() == 0);
+    public Card remove(){
+        this.neff.setValue(this.neff.getValue()-1);
+        return this.deckOfCards.remove();
     }
 
-    public int getSize() {
-        return (this.deckOfCards.size());
+    public void addCard(Card card){
+        this.deckOfCards.add(card);
+        this.neff.setValue(this.neff.getValue()+1);
     }
 
-    public void addCard(Card card) {
-        deckOfCards.add(card);
-    }
-
-    public Card remove() {
-        return (this.deckOfCards.remove());
-    }
-
-    
     public void fillDeck(){
-        CardCollection finalCards = new CardCollection();
+        int min = 5;
         Random r = new Random();
-        // char 25, level 5, morph 5, swap 10, potion 15
-        for(int i = 0; i < 25; i++){
-            if(!deckOfCards.isEmpty()){
-                finalCards.addCard(charCollection.getCardIdx(r.nextInt(charCollection.getSize())));
-            }
-        }
-        for(int i = 0; i < 5; i++){
-            if(!deckOfCards.isEmpty()){
-                finalCards.addCard(levelCollection.getCardIdx(r.nextInt(levelCollection.getSize())));
-            }
+        CardReader cards = CardReader.getInstance();
+        int levelint = r.nextInt(7-min)+min;
+        int swapint = r.nextInt(10-min)+min;
+        int potionint = r.nextInt(12-min)+min;
+        int morphint = r.nextInt(13-min)+min;
+        int charint = 60-levelint-swapint-potionint-morphint;
+        CardCollection chars = cards.getCharacterCardCollection();
+        CardCollection lev = cards.getLevelCardCollection();
+        CardCollection swap = cards.getSwapCardCollection();
+        CardCollection potion = cards.getPotionCardCollection();
+        CardCollection morph = cards.getMorphCardCollection();
+        addSpecificCard(chars, charint);
+        addSpecificCard(lev, levelint);
+        addSpecificCard(swap, swapint);
+        addSpecificCard(potion, potionint);
+        addSpecificCard(morph, morphint);
+    }
 
-        }
-        for(int i = 0; i < 5; i++){
-            if(!deckOfCards.isEmpty()){
-                finalCards.addCard(morphCollection.getCardIdx(r.nextInt(morphCollection.getSize())));
-            }
-        }
-        for(int i = 0; i < 10; i++){
-            if(!deckOfCards.isEmpty()){
-                finalCards.addCard(swapCollection.getCardIdx(r.nextInt(swapCollection.getSize())));
-            }
-        }
-        for(int i = 0; i < 15; i++){
-            if(!deckOfCards.isEmpty()){
-                finalCards.addCard(potionCollection.getCardIdx(r.nextInt(potionCollection.getSize())));
-            }
-        }
-        finalCards.shuffle();
-        deckOfCards = new LinkedList<Card>();
-        for(int i = 0; i < 60; i++){
-            if(!deckOfCards.isEmpty()){
-                deckOfCards.add(finalCards.getCardIdx(i));
-            }
+    public void addSpecificCard(CardCollection x, int j){
+        Random rnd = new Random();
+        for(int i = 0; i < j; i++){
+            this.deckOfCards.add(x.getCardIdx(rnd.nextInt(x.getSize())));
         }
     }
 

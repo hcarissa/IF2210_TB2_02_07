@@ -25,7 +25,7 @@ public class Player {
   private String name;
   private double hp;
   private int mana;
-  Deck deck;
+  private Deck deck;
   private List<Card> hand;
   private Card[] tempCard;
   
@@ -44,7 +44,7 @@ public class Player {
   public void draw(int n) {
     // method untuk mengambil n buah kartu dari deck dan menambahkan ke hand
     // bila deck habis atau hand penuh, tidak terjadi apa-apa
-    for (int i = 0; i < n && !this.deck.isEmpty(); i++) {
+    for (int i = 0; i < n && !this.deck.isNotEmpty(); i++) {
       this.hand.add(this.deck.remove());
     }
   }
@@ -52,7 +52,7 @@ public class Player {
   public void drawCard() {
     // method untuk mengambil n buah kartu dari deck dan menambahkan ke hand
     // bila deck habis atau hand penuh, tidak terjadi apa-apa
-    for (int i = 0; i < 3 && !this.deck.isEmpty(); i++) {
+    for (int i = 0; i < 3 && !this.deck.isNotEmpty(); i++) {
       this.tempCard[i] = this.deck.remove();
     }
     this.viewTempCard();
