@@ -175,6 +175,17 @@ public class Controller {
         else {
             // deactivate end label, change turn, activate draw label
             reload();
+<<<<<<< HEAD
+            this.endTab.setFill(inactive);
+            this.drawTab.setFill(active);
+            board.switchTurn();
+            hand.getChildren().clear();
+            reload();
+            board.setPhase(Phase.DRAW);
+            if (board.getRound() >= 1) {
+                loadTemp();
+                nextBtn.setDisable(true);
+=======
             if (board.isWinner(board.getActivePlayer())) {
                 board.setFinished();
             }
@@ -189,6 +200,7 @@ public class Controller {
                     loadTemp();
                     nextBtn.setDisable(true);
                 }
+>>>>>>> 9dfd1711136f7a2cfc2f537917c0a690edbd3ea3
             }
         }
     }
