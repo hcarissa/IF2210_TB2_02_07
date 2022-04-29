@@ -116,7 +116,7 @@ public class Controller {
                 }
             });
             pane.setOnDragDropped (e -> {
-                if (board.getTurn() == 1) {
+                if (board.getTurn() == 1 && pane.getChildren().size() == 0) {
                     System.out.println("Drag released");
                     Dragboard db = e.getDragboard();
                     if (db.hasContent(dformat)) {
@@ -141,11 +141,11 @@ public class Controller {
                     }
                 }
                 else {
-                    System.out.println("Invalid drop target");
+                    System.out.println("Invalid drop target or pane is occupied");
                 }
             });
             pane.setOnDragDropped (e -> {
-                if (board.getTurn() == 2) {
+                if (board.getTurn() == 2 && pane.getChildren().size() == 0) {
                     System.out.println("Drag released");
                     Dragboard db = e.getDragboard();
                     if (db.hasContent(dformat)) {
@@ -156,7 +156,7 @@ public class Controller {
                     }
                 }
                 else {
-                    System.out.println("Invalid drop target");
+                    System.out.println("Invalid drop target or pane is occupied");
                 }
             });
         }
