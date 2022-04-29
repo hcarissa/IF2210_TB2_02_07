@@ -22,7 +22,7 @@ public class Deck {
     }
 
     public boolean isNotEmpty(){
-        return (this.neff.getValue()!=0);
+        return (this.deckOfCards.size()!=0);
     }
 
     public Card remove(){
