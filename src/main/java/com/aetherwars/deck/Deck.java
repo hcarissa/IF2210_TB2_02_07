@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class Deck {
     private Queue<Card> deckOfCards;
     private IntegerProperty neff;
+    private List<Card> finalCards;
     private int size;
 
     public int getSize(){
@@ -16,6 +17,7 @@ public class Deck {
 
     public Deck(){
         this.deckOfCards = new LinkedList<>();
+        this.finalCards = new ArrayList<>();
         this.neff = new SimpleIntegerProperty(0);
         this.size = 0;
         fillDeck();
@@ -51,17 +53,21 @@ public class Deck {
         CardCollection potion = cards.getPotionCardCollection();
         CardCollection morph = cards.getMorphCardCollection();
         addSpecificCard(chars, charint);
-        addSpecificCard(lev, levelint);
-        addSpecificCard(swap, swapint);
         addSpecificCard(potion, potionint);
         addSpecificCard(morph, morphint);
+        addSpecificCard(swap, swapint);
+        addSpecificCard(lev, levelint);
+        Collections.shuffle(this.finalCards);
+        for(int i = 0; i < 60; i ++){
+            this.deckOfCards.add(this.finalCards.get(i));
+        }
     }
 
     public void addSpecificCard(CardCollection x, int j){
         Random rnd = new Random();
         for(int i = 0; i < j; i++){
             if (x.getSize() > 0) {
-                this.deckOfCards.add(x.getCardIdx(rnd.nextInt(x.getSize())));
+                this.finalCards.add(x.getCardIdx(rnd.nextInt(x.getSize())));
             } else {
                 System.out.println(x.getClass());
             }
@@ -72,5 +78,13 @@ public class Deck {
         Random r = new Random();
         int levelint = r.nextInt(2)+5;
         Deck d = new Deck();
+        int count = 0;
+        for(int i = 0; i < 60; i++){
+            Card a = d.remove();
+            count += 1;
+            if(a.getCardType() == CardType.SPELL){
+                System.out.println(count + a.getName());
+            }
+        }
     }
 }
