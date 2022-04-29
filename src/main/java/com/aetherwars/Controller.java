@@ -161,6 +161,7 @@ public class Controller {
                         showHovered(cardController.getCard());
                     } else {
                         hoverPane.getChildren().clear();
+                        cardDescription.getChildren().clear();
                     }
                 });
                 cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -189,10 +190,14 @@ public class Controller {
         img.getTransforms().add(scale);
         this.hoverPane.getChildren().add(img);
 
-        Text desc = new Text("Ini Creeper, saya kurang tau juga sih dia siapa");
+        Text desc = new Text(c.getDescription());
         desc.setFont(Font.font ("Gadugi", 10));
         desc.setFill(Color.BLACK);
+        desc.setCaretPosition(10);
+        desc.relocate(0,8);
+        desc.wrappingWidthProperty().bind(cardDescription.widthProperty());
         cardDescription.getChildren().add(desc);
+
 
         // Card Detail belum
     }
