@@ -37,7 +37,7 @@ import javafx.scene.transform.Scale;
 public class Controller {
     private Board board;
 
-    private CharacterCard dragged_char;
+    private SummonedCharacter dragged_char;
 
     private static final DataFormat dformat = new DataFormat("javafx.scene.layout.VBox");
 
@@ -299,16 +299,22 @@ public class Controller {
                 });
 
                 cardPane.setOnDragDetected(new EventHandler <MouseEvent>() {
+                    // perlu dicek apakah kartu udah masuk di board atau belum
                     @Override
                     public void handle(MouseEvent event) {
                         System.out.println("Drag detected");
                         if (board.getPhase() == Phase.PLAN) {
+                            // fase plan, kartu belum ada di board, tambahkan kartu ke board
+
                             Dragboard db = cardPane.startDragAndDrop(TransferMode.ANY);
                             db.setDragView(cardPane.snapshot(null, null));
                             ClipboardContent cc = new ClipboardContent();
                             cc.put(dformat, "Character Card");
                             db.setContent(cc);
-                            setDraggged((CharacterCard) cardController.getCard());
+                            SummonedCharacter newSummon = new SummonedCharacter(1, (CharacterCard) cardController.getCard());
+                            // newSummon harus ditambah ke board player
+                            setDraggged(newSummon);
+                            // dari card biasa -> cari karakternya -> character card
                         }
                     }
                 });
@@ -336,9 +342,7 @@ public class Controller {
         // Card Detail belum
     }
 
-    public void addToBoard(CharacterCard sc, Pane target) {
-        // ubah summoned character ke board character
-        // terus diadd
+    public void addToBoard(SummonedCharacter sc, Pane target) {
         try {
             FXMLLoader cardloader = new FXMLLoader(getClass().getResource("BoardCard.fxml"));
             Pane bCardPane = cardloader.load();
@@ -363,7 +367,7 @@ public class Controller {
 
     }
 
-    public void setDraggged(CharacterCard c) {
-        this.dragged_char = c;
+    public void setDraggged(SummonedCharacter sc) {
+        this.dragged_char = sc;
     }
 }
