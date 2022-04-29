@@ -49,6 +49,8 @@ public class Controller {
 
     @FXML
     private Pane hoverPane, cardDetail, cardDescription;
+    @FXML
+    private Pane hand1, hand2, hand3, hand4, hand5;
 
     @FXML
     private Color active = new Color(1.0, 0.2431, 0.1216, 1.0);
@@ -89,6 +91,7 @@ public class Controller {
             board.switchTurn();
             hand.getChildren().clear();
             updateTurn(board.getRound());
+            loadHand();
         }
     }
 
@@ -137,6 +140,7 @@ public class Controller {
     public void loadHand() {
         this.hand.getChildren().clear();
         List<Card> handCards = board.getActivePlayer().getHand();
+        System.out.println("handCount : " + handCards.size());
         try {
             for (int i = 0; i < handCards.size(); i++) {
                 FXMLLoader cardloader = new FXMLLoader(getClass().getResource("CardView.fxml"));
