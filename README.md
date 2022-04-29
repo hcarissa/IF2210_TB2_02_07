@@ -1,21 +1,20 @@
-# IF2210 Project Template
+# IF2210 Minecraf Aetherwars
 
-Here is an example of project using gradle as the build tools.
-Try running these commands:
+> _This is a project done to fulfil one of IF2210's course assignment._
 
-`./gradlew run`
+## Description
+This program is a card-based game that mainly uses minceraft"s character and potions. But there are also many items that are fictive and made by the assistant team.
 
-You will notice that it will open a window that display 'Minecraft: Aether Wars'.
-In the command line you can see the data that is being read by `CSVReader.java`
+## Requirements
+To run the program, make sure you have installed minimum JDK 11.
 
-What happen is when you use `./gradlew run`, it will start the main function in your app.
-For this app, the main function lives in `AetherWars.java`.
+## Running the Program
+To run the program, you can directly open the repository in your terminal and run this :
 
-You can explore more about gradle [here](https://guides.gradle.org/creating-new-gradle-builds/)
+```./gradlew run```
 
-## JDK
+You will notice that it will open a window that display 'Minecraft: Aether Wars'. After it is opened, it is directly player1's turn and you can start to play Minecraft:Aether Wars!
 
-As of the creation of this template, the assistant team used and tested the JDK 8 installation from OpenJDK and Amazon Corretto (since JavaFX is readily available on those installations). You can easily pick and install your desired JDK version and variant by doing it via an IDE like [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 
 ## Credit
 
@@ -29,3 +28,27 @@ Other sources for "random" images are:
 - https://cdn.wccftech.com/wp-content/uploads/2021/06/nvidia-geforce-rtx-3080-ti-product-gallery-photo-003-scaled.jpg
 - https://twitter.com/GGumiliar
 - https://dota2.fandom.com/wiki/Spectre
+
+## Authors
+<table>
+    <tr>
+      <td><a href="https://github.com/chryes220"><b>Christine Hutabarat</b></a></td>
+      <td><b>13520005</b></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/FelineJTD"><b>Felicia Sutandijo</b></a></td>
+      <td><b>13520050</b></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/sivaren"><b>Rava Naufal Attar</b></a></td>
+      <td><b>13520077</b></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/febryola"><b>Febryola Kurnia Putri</b></a></td>
+      <td><b>13520140</b></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/hcarissa"><b>Hilda Carissa Widelia</b></a></td>
+      <td><b>13520164</b></td>
+    </tr>
+</table>
