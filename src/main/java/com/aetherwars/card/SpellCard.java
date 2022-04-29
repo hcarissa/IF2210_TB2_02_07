@@ -3,8 +3,7 @@ package com.aetherwars.card;
 public abstract class SpellCard extends Card {
     private int mana;
 
-    public SpellCard()
-    {
+    public SpellCard() {
         super();
         this.mana = 0;
     }

@@ -25,7 +25,7 @@ public class Player {
   private String name;
   private double hp;
   private int mana;
-  Deck deck;
+  private Deck deck;
   private List<Card> hand;
   private Card[] tempCard;
   
