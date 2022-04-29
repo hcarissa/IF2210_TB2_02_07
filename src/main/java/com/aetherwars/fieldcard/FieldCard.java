@@ -31,6 +31,8 @@ abstract class FieldCard implements IFieldCard, ISpellMonitoring {
 
     abstract <T extends SpellCard> void addSpell(T spell, CardCollection characterCollection);
 
+    abstract void adjustSpellDuration();
+
     public boolean isPotionAvailable() {
         for(SpellCard spell : getActiveSpells()) {
             if(spell.getSpellType() == SpellType.POTION) {

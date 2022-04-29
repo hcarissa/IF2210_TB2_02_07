@@ -33,19 +33,22 @@ public class FieldMain {
             // summon1.render();
 
         // TESTING SPELLPOTION
-            // SpellPotion spellPotion1 = new SpellPotion("Potion1", "", "", 10, 5, 2, 5);
-            // SpellPotion spellPotion2 = new SpellPotion("Potion2", "", "", 2, -2, -4, 0);
-            // System.out.println("- Summon1 Before -");
-            // summon1.render();
+            // SpellPotion spellPotion1 = new SpellPotion("Potion1", "", "", 10, 5, 2, 2);
+            // SpellPotion spellPotion2 = new SpellPotion("Potion2", "", "", 2, -2, -4, 3);
+            // // System.out.println("- Summon1 Before -");
+            // // summon1.render();
 
-            // summon1.addSpell(spellPotion1);
-            
+            // summon1.addSpell(spellPotion1, characterCards);
             // System.out.println("- Summon1 After1 -");
             // summon1.render();
             
-            // summon1.addSpell(spellPotion2);
-            
+            // summon1.addSpell(spellPotion2, characterCards);
+            // summon1.adjustSpellDuration();
             // System.out.println("- Summon1 After2 -");
+            // summon1.render();
+
+            // summon1.adjustSpellDuration();
+            // System.out.println("- Summon1 After3 -");
             // summon1.render();
         // TESTING SPELLPOTION
 
@@ -82,19 +85,48 @@ public class FieldMain {
         // TESTING SPELLSWAP
 
         // TESTING SPELLMORPH
-            summon1.earnExp(5);
-            System.out.println("- Summon1 Before -");
-            summon1.render();
+            // summon1.earnExp(5);
+            // System.out.println("- Summon1 Before -");
+            // summon1.render();
             
-            summon1.addSpell(spellPotion, characterCards);
+            // summon1.addSpell(spellPotion, characterCards);
+            // System.out.println("- Summon1 After1 -");
+            // summon1.render();
+
+            // // morph to target id = 2
+            // summon1.addSpell(spellMorph, characterCards);
+            // System.out.println("- Summon1 After2 -");
+            // summon1.render();
+        // TESTING SPELLMORPH
+
+        // TESTING adjustSpellDuration()
+            SpellPotion spellPotion1 = new SpellPotion("Potion1", "", "", 11, 2, 3, 2);
+            SpellPotion spellPotion2 = new SpellPotion("Potion2", "", "", 11, 4, 5, 3);
+            SpellSwap spellSwap1 = new SpellSwap("Swap1", "swap1", "", 10, 2);
+            
+            // System.out.println("- Summon1 Before -");
+            // summon1.render();
+
+            summon1.addSpell(spellPotion1, characterCards);
+            summon1.addSpell(spellPotion2, characterCards);
+
             System.out.println("- Summon1 After1 -");
             summon1.render();
-            
-            // morph to target id = 2
-            summon1.addSpell(spellMorph, characterCards);
+
+            summon1.addSpell(spellSwap1, characterCards);
             System.out.println("- Summon1 After2 -");
             summon1.render();
-        // TESTING SPELLMORPH
+
+            summon1.adjustSpellDuration();
+            System.out.println("- Summon1 After3 -");
+            summon1.render();
+            summon1.adjustSpellDuration();
+            System.out.println("- Summon1 After4 -");
+            summon1.render();
+            summon1.adjustSpellDuration();
+            System.out.println("- Summon1 After5 -");
+            summon1.render();
+        // TESTING adjustSpellDuration()
 
         System.out.println("== DONE ==");
     }
