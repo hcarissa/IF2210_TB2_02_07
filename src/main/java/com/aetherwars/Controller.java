@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 
 import com.aetherwars.board.*;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -31,9 +32,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 
+
+
 public class Controller {
     private Board board;
     private SummonedCharacter sc;
+    private String CARD_DEFAULT = "-fx-background-color: #efeaea; -fx-border-color: BLACK;";
+    private String CARD_FOCUS = "-fx-background-color: #efeaea; -fx-border-color: ROYALBLUE; -fx-border-width: 5px";
+    private String CARD_HOVER = "-fx-background-color: #efeaea; -fx-border-color: CYAN; -fx-border-width: 5px";
 
     @FXML
     private Rectangle drawTab, planTab, attackTab, endTab;
@@ -125,7 +131,6 @@ public class Controller {
                     if (event.getGestureSource() != pane) {
                         event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                     }
-
                     event.consume();
                 }
             });
@@ -142,7 +147,6 @@ public class Controller {
                     if (event.getGestureSource() != pane) {
                         event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                     }
-
                     event.consume();
                 }
             });
@@ -259,7 +263,7 @@ public class Controller {
                 CardController cardController = cardloader.getController();
 
                 cardController.setCard(handCards.get(i));
-                cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+                cardPane.setStyle(CARD_DEFAULT);
                 cardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                     // hover event
                     if (newValue) {
@@ -270,13 +274,24 @@ public class Controller {
                         cardDescription.getChildren().clear();
                     }
                 });
+                final int idx = i;
                 cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     // double click event, mungkin bisa dipake buat throw
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                            if(mouseEvent.getClickCount() == 2){
+                            if(mouseEvent.getClickCount() == 1 && board.getPhase().equals(Phase.PLAN)) {
+                                for (javafx.scene.Node node : hand.getChildren()) {
+                                    node.setStyle(CARD_DEFAULT);
+                                };
+                                cardPane.setStyle(CARD_FOCUS);
+                            }
+                            if(mouseEvent.getClickCount() == 2) {
                                 System.out.println("Double clicked");
+                                if (board.getPhase().equals(Phase.PLAN)) {
+                                    board.getActivePlayer().discardCard(idx);
+                                    loadHand();
+                                }
                             }
                         }
                     }
