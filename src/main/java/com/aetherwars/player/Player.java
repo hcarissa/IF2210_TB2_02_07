@@ -14,13 +14,11 @@
   Beberapa aksi terbatas pada fase tertentu. Lihat bagian Gameplay untuk lebih jelasnya.
 */
 package com.aetherwars.player;
-import com.aetherwars.card.Card;
+import com.aetherwars.card.*;
 import com.aetherwars.deck.Deck;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class Player {
   // attributes
@@ -29,6 +27,7 @@ public class Player {
   private int mana;
   Deck deck;
   private List<Card> hand;
+  private Card[] tempCard;
   
   // constructor
   public Player(String name) {
@@ -37,15 +36,42 @@ public class Player {
     this.mana = 0;
     this.deck = new Deck();
     this.hand = new ArrayList<Card>();
+    this.tempCard = new Card[3];
   }
   // methods
 
   // Mengambil kartu baru
-  public void draw(int n) {
+  public void drawCard() {
     // method untuk mengambil n buah kartu dari deck dan menambahkan ke hand
     // bila deck habis atau hand penuh, tidak terjadi apa-apa
-    for (int i = 0; i < n && !this.deck.isEmpty() && this.hand.size() < 5; i++) {
-      this.hand.add(this.deck.remove());
+    for (int i = 0; i < 3 && !this.deck.isEmpty(); i++) {
+      this.tempCard[i] = this.deck.remove();
+    }
+    this.viewTempCard();
+  }
+
+  // Memilih kartu yang di-draw
+  public void chooseCard(int n) {
+    // memilih kartu dengan indeks n
+    if (n < 0 || n > 2) { // indeks harus 0-2
+      return;
+    }
+    this.hand.add(tempCard[n]);
+    for (int i = 0; i < tempCard.length; i++) {
+      if (i != n && tempCard[i] != null) {
+        this.deck.addCard(tempCard[i]); // balikin kartu yang ga dipilih ke deck
+        tempCard[i] = null;
+      }
+    }
+  }
+
+  // Melihat 3 kartu yang di-draw
+  public void viewTempCard() {
+    System.out.println("Choose 1 out of these three cards: ");
+    for (Card card : this.tempCard) {
+      if (card != null) {
+        card.printInfo();
+      }
     }
   }
 
@@ -55,7 +81,9 @@ public class Player {
     // menampilkan deskripsi kartu yang ada di hand
     System.out.println("Your hand: ");
     for (Card card : this.hand) {
-      card.printInfo();
+      if (card != null) {
+        card.printInfo();
+      }
     }
   }
 
@@ -68,16 +96,6 @@ public class Player {
       return;
     }
     this.hand.remove(index); // TODO: belum ditaro di board, baru dibuang
-  }
-
-  // Menyerang musuh
-  public void attack() {
-    // TODO: implement
-  }
-
-  // Beralih ke fase selanjutnya
-  public void nextPhase() {
-    // TODO: implement
   }
 
   public int getDeckCount() {
@@ -101,20 +119,18 @@ public class Player {
 
   }
 
-//  public static void main(String[] args) {
-//    Player p = new Player("Player 1", 40);
-//    p.addCard(new Card());
-//    p.addCard(new Card());
-//    p.addCard(new Card());
-//    p.addCard(new Card());
-//    p.addCard(new Card());
-//    p.addCard(new Card());
-//    System.out.println(p.deck.size());
-//    System.out.println(p.hand.size());
-//    p.draw(6);
-//    System.out.println(p.deck.size());
-//    System.out.println(p.hand.size());
-//    // System.out.println(p.deck.size());
-//    // p.draw(1);
-//  }
+  // driver
+  public static void main(String[] args) {
+    Player p = new Player("Player 1");
+    p.deck.addCard(new CharacterCard());
+    p.deck.addCard(new SpellPotion());
+    p.deck.addCard(new SpellLevel());
+    p.viewHand();
+    p.drawCard();
+    p.viewTempCard();
+    p.chooseCard(1);
+    p.viewHand();
+    p.drawCard();
+    p.viewTempCard();
+  }
 }

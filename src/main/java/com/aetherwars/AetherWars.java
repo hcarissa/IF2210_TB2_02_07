@@ -57,7 +57,7 @@ public class AetherWars extends Application {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("AetherWars.fxml"));
       root = loader.load();
       ctrl = loader.getController();
-    } catch (IOException e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
 
