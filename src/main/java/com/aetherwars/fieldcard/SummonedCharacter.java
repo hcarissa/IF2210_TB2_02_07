@@ -163,10 +163,15 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
     // adding spell to spellActives with condition
     public <T extends SpellCard> void addSpell(T spell) {
         if(spell.getSpellType() == SpellType.POTION) {
-            this.activeSpells.add(spell);
+            SpellPotion spellPotion = (SpellPotion)spell;
+            if(spellPotion.getDuration() != 0) {
+                this.activeSpells.add(spellPotion);
+            }
+            PotionEffect(spellPotion);
         }
         else if(spell.getSpellType() == SpellType.LEVEL) {
-
+            SpellLevel spellLevel = (SpellLevel)spell;
+            LevelEffect(spellLevel);
         }
         else if(spell.getSpellType() == SpellType.SWAP) {
             SpellSwap spellSwap = (SpellSwap)spell;
@@ -181,7 +186,7 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         }
         else {
             SpellMorph spellMorph = (SpellMorph)spell;
-            this.MorphEffect(spellMorph);
+            MorphEffect(spellMorph);
         }
     }
 
@@ -191,34 +196,25 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         this.setHealth(this.getHealth() + spellPotion.getHealth());
         this.setAttack(this.getAttack() + spellPotion.getAttack());
 
-        if(this.getHealth() > this.getCharacter().getBaseHealth()) {
-            this.setHealth(this.getCharacter().getBaseHealth());
-        }
-
-        if(this.getAttack() > this.getCharacter().getBaseAttack()) {
-            this.setAttack(this.getCharacter().getBaseAttack());
-        }
-
-        this.activeSpells.remove(spellPotion);
-
-        if(this.getHealth() < this.getCharacter().getBaseHealth()) {
-            this.setIsDead(true);
+        if(getHealth() <= 0) {
+            setIsDead(true);
         }
     }
     // Level effect to summonedcharacter
     public void LevelEffect(SpellLevel spellLevel){
-        if (spellLevel.getLevelSwitch()== LevelSwitch.UP) {
-            if(this.lvl < 10) {
-                this.lvl++;
-            }
+        double lvlBefore = getLvl();
+        if (spellLevel.getLevelSwitch() == LevelSwitch.UP && getLvl() < 10) {
+            this.lvl++;
         }
-        else if (spellLevel.getLevelSwitch()== LevelSwitch.DOWN) {
-            if(this.lvl > 1) {
-                this.lvl--;
-            }
+        else if (spellLevel.getLevelSwitch() == LevelSwitch.DOWN && getLvl() > 1) {
+            this.lvl--;
         } 
+        if (lvlBefore != getLvl()) {
+            double modifier = getLvl() - 1;
+            setAttack(this.character.getBaseAttack() + (modifier * this.character.getAttackUp()));
+            setHealth(this.character.getBaseHealth() + (modifier * this.character.getHealthUp()));
+        }
         this.exp = 0;
-
     }
     // Swap effect to summonedcharacter
     public void SwapEffect(SpellSwap spellSwap){
