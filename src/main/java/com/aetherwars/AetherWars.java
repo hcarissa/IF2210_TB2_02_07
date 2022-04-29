@@ -35,18 +35,6 @@ public class AetherWars extends Application {
     }
   }
 
-  public boolean checkWinner() {
-    if (p1.getHp() <= 0 || p2.getHp() <= 0) {
-      return true;
-    }
-    else if (p1.getDeckCount() == 0 || p2.getDeckCount() == 0) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
   @Override
   public void start(Stage stage) {
     p1 = new Player("Player 1");
