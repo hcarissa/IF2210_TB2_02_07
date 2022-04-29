@@ -211,8 +211,14 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         } 
         if (lvlBefore != getLvl()) {
             double modifier = getLvl() - 1;
-            setAttack(this.character.getBaseAttack() + (modifier * this.character.getAttackUp()));
-            setHealth(this.character.getBaseHealth() + (modifier * this.character.getHealthUp()));
+            double attackTemp = this.character.getBaseAttack() + (modifier * this.character.getAttackUp());
+            double healthTemp = this.character.getBaseHealth() + (modifier * this.character.getHealthUp());
+            if(getAttack() < attackTemp) {
+                setAttack(attackTemp);
+            }
+            if(getHealth() < healthTemp) {
+                setHealth(healthTemp);
+            }
 
             if(getLvl() == 1) { this.needsExp = 1; }
             else if(getLvl() == 2)  { this.needsExp = 3;  }
@@ -325,7 +331,7 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
             System.out.printf("- %s (%s) | ", spell.getName(), spell.getSpellType());
             if(spell.getSpellType() == SpellType.POTION) {
                 SpellPotion spellPotion = (SpellPotion)spell;
-                System.out.printf("Duration - %d\n", spellPotion.getDuration());
+                System.out.printf("%.2f/%.2f | Duration - %d\n", spellPotion.getAttack(), spellPotion.getHealth(), spellPotion.getDuration());
             }
             else if(spell.getSpellType() == SpellType.LEVEL) {
                 SpellLevel spellLevel = (SpellLevel)spell;

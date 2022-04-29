@@ -25,11 +25,12 @@ public class FieldMain {
         SummonedCharacter summon1 = new SummonedCharacter(1, charCard1);
         SummonedCharacter summon2 = new SummonedCharacter(2, charCard2);
 
-        // spells operation
-        // summon1.addSpell(spellPotion);
-        // summon1.addSpell(spellLevel);
-        // summon1.addSpell(spellSwap);
-        // summon1.addSpell(spellMorph);
+        // TESTING SPELLS
+        summon1.addSpell(spellMorph);   // 8/10
+        summon1.addSpell(spellPotion);  // 20/23
+        summon1.addSpell(spellLevel);   // (should be 12/18 at Level 2); but there's potion 20/23
+        summon1.addSpell(spellSwap);    // 23/20
+        summon1.render();
 
         // TESTING SPELLPOTION
             // SpellPotion spellPotion1 = new SpellPotion("Potion1", "", "", 10, 5, 2, 5);
@@ -49,22 +50,22 @@ public class FieldMain {
         // TESTING SPELLPOTION
 
         // TESTING SPELLLEVEL
-            SpellLevel spellLevel1 = new SpellLevel("Level1", "", "", LevelSwitch.UP);
-            SpellLevel spellLevel2 = new SpellLevel("Level1", "", "", LevelSwitch.DOWN);
-            System.out.println("- Summon1 Before -");
-            summon1.render();
+            // SpellLevel spellLevel1 = new SpellLevel("Level1", "", "", LevelSwitch.UP);
+            // SpellLevel spellLevel2 = new SpellLevel("Level1", "", "", LevelSwitch.DOWN);
+            // System.out.println("- Summon1 Before -");
+            // summon1.render();
 
-            summon1.earnExp(5);
-            System.out.println("- Summon1 After1 -");
-            summon1.render();
+            // summon1.earnExp(5);
+            // System.out.println("- Summon1 After1 -");
+            // summon1.render();
 
-            summon1.addSpell(spellLevel1);
-            System.out.println("- Summon1 After2 -");
-            summon1.render();
+            // summon1.addSpell(spellLevel1);
+            // System.out.println("- Summon1 After2 -");
+            // summon1.render();
 
-            summon1.addSpell(spellLevel2);
-            System.out.println("- Summon1 After3 -");
-            summon1.render();
+            // summon1.addSpell(spellLevel2);
+            // System.out.println("- Summon1 After3 -");
+            // summon1.render();
         // TESTING SPELLLEVEL
 
         // TESTING SPELLSWAP
