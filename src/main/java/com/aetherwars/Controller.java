@@ -38,8 +38,8 @@ public class Controller {
     private Board board;
     private SummonedCharacter sc;
     private String CARD_DEFAULT = "-fx-background-color: #efeaea; -fx-border-color: BLACK;";
-    private String CARD_FOCUS = "-fx-background-color: #efeaea; -fx-border-color: ROYALBLUE; -fx-border-width: 5px";
-    private String CARD_HOVER = "-fx-background-color: #efeaea; -fx-border-color: CYAN; -fx-border-width: 5px";
+    private String CARD_FOCUS = "-fx-background-color: PALETURQUOISE; -fx-border-color: ROYALBLUE; -fx-border-width: 3px";
+    private String CARD_HOVER = "-fx-background-color: PALETURQUOISE; -fx-border-color: ROYALBLUE; -fx-border-width: 3px; -fx-margin-bottom: 5px";
 
     @FXML
     private Rectangle drawTab, planTab, attackTab, endTab;
@@ -57,6 +57,12 @@ public class Controller {
     private Pane cBoard1A, cBoard1B, cBoard1C, cBoard1D, cBoard1E;
     @FXML
     private Pane cBoard2A, cBoard2B, cBoard2C, cBoard2D, cBoard2E;
+
+    @FXML
+    private Text description;
+
+    @FXML
+    private Text details;
 
     @FXML
     private Pane hoverPane, cardDetail, cardDescription;
@@ -207,17 +213,17 @@ public class Controller {
                 CardController cardController = cardloader.getController();
 
                 cardController.setCard(in[i]);
-                cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+                cardPane.setStyle(CARD_DEFAULT);
                 cardPane.setOnMouseEntered(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: CYAN; -fx-border-width: 5px");
+                        cardPane.setStyle(CARD_HOVER);
                     }
                 });
                 cardPane.setOnMouseExited(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+                        cardPane.setStyle(CARD_DEFAULT);
                     }
                 });
 //                cardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
@@ -270,8 +276,8 @@ public class Controller {
                         showHovered(cardController.getCard());
                     } else {
                         hoverPane.getChildren().clear();
-                        cardDetail.getChildren().clear();
-                        cardDescription.getChildren().clear();
+                        details.setVisible(false);
+                        description.setVisible(false);
                     }
                 });
                 final int idx = i;
@@ -327,10 +333,17 @@ public class Controller {
         img.getTransforms().add(scale);
         this.hoverPane.getChildren().add(img);
 
-        Text desc = new Text("Ini Creeper, saya kurang tau juga sih dia siapa");
-        desc.setFont(Font.font ("Gadugi", 10));
-        desc.setFill(Color.WHITE);
-        cardDescription.getChildren().add(desc);
+        description.setVisible(true);
+        description.setFont(Font.font("Gadugi", 8));
+        description.setText(c.getDescription());
+
+        details.setVisible(true);
+        details.setFont(Font.font("Gadugi", 8));
+        details.setText(c.getName());
+//        Text desc = new Text("Ini Creeper, saya kurang tau juga sih dia siapa");
+//        desc.setFont(Font.font ("Gadugi", 10));
+//        desc.setFill(Color.WHITE);
+//        cardDescription.getChildren().add(desc);
 
         // Card Detail belum
     }
