@@ -100,11 +100,12 @@ public class Controller {
             this.drawTab.setFill(active);
             board.switchTurn();
             hand.getChildren().clear();
-            updateTurn(board.getRound());
             reload();
             board.setPhase(Phase.DRAW);
-            loadTemp();
-            nextBtn.setDisable(true);
+            if (board.getRound() > 1) {
+                loadTemp();
+                nextBtn.setDisable(true);
+            }
         }
     }
 

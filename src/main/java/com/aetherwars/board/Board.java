@@ -1,6 +1,7 @@
 package com.aetherwars.board;
 
 import com.aetherwars.player.*;
+import com.aetherwars.Controller.*;
 
 public class Board {
     private int turn;
