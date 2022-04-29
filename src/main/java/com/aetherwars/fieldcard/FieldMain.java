@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class FieldMain {
     public static void main(String[] args) {
         List<CharacterCard> characterCards = new ArrayList<CharacterCard>();
-        CharacterCard charCard1 = new CharacterCard("Rava", "Deskripsi1","background.jpg", 2, 4, 0, 8, 1, CharacterType.NETHER);
+        CharacterCard charCard1 = new CharacterCard("Rava", "Deskripsi1","background.jpg", 2, 4, 4, 8, 1, CharacterType.NETHER);
         CharacterCard charCard2 = new CharacterCard("Attar", "Deskripsi2","background.jpg", 4, 8, 8, 10, 2, CharacterType.END);
         characterCards.add(charCard1);
         characterCards.add(charCard2);
@@ -32,17 +32,34 @@ public class FieldMain {
         // summon1.addSpell(spellMorph);
 
         // TESTING SPELLSWAP
-        SpellSwap spellSwap1 = new SpellSwap("Swap1", "swap1", "", 10, 3);
-        SpellSwap spellSwap2 = new SpellSwap("Swap2", "swap2", "", 5, 5);
-        System.out.println("- Summon1 Before -");
-        summon1.render();
-        
-        // summon1.addSpell(spellSwap1);
-        summon1.addSpell(spellSwap2);
-        
-        System.out.println("- Summon1 After -");
-        summon1.render();
+            // SpellSwap spellSwap1 = new SpellSwap("Swap1", "swap1", "", 10, 3);
+            // SpellSwap spellSwap2 = new SpellSwap("Swap2", "swap2", "", 5, 5);
+            // System.out.println("- Summon1 Before -");
+            // summon1.render();
+            
+            // // summon1.addSpell(spellSwap1);
+            // summon1.addSpell(spellSwap2);
+            
+            // System.out.println("- Summon1 After -");
+            // summon1.render();
         // TESTING SPELLSWAP
+        
+        // TESTING SPELLPOTION
+            // SpellPotion spellPotion1 = new SpellPotion("Potion1", "", "", 10, 5, 2, 5);
+            // SpellPotion spellPotion2 = new SpellPotion("Potion2", "", "", 2, -2, -4, 0);
+            // System.out.println("- Summon1 Before -");
+            // summon1.render();
+
+            // summon1.addSpell(spellPotion1);
+            
+            // System.out.println("- Summon1 After1 -");
+            // summon1.render();
+            
+            // summon1.addSpell(spellPotion2);
+            
+            // System.out.println("- Summon1 After2 -");
+            // summon1.render();
+        // TESTING SPELLPOTION
 
         // TESTING SPELLMORPH
             // summon1.earnExp(5);

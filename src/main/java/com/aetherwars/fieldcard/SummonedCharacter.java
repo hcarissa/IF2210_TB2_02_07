@@ -6,8 +6,8 @@ import java.util.ArrayList;
 // TODO
 // - Attack to another card/enemy's HP  - DONE
 // - Spells effect to card
-    // Potion (TEMP)
-    // Level (PERM)
+    // Potion (TEMP)- DONE   
+    // Level (PERM) -
     // Swap (TEMP)  - DONE
     // Morph (PERM) - DONE
 // - attackUp & healthUp if level up    - DONE
@@ -319,6 +319,10 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
             else if(spell.getSpellType() == SpellType.SWAP) {
                 SpellSwap spellSwap = (SpellSwap)spell;
                 System.out.printf("Duration - %d\n", spellSwap.getDuration());
+            }
+            else if(spell.getSpellType() == SpellType.POTION) {
+                SpellPotion spellPotion = (SpellPotion)spell;
+                System.out.printf("Duration - %d\n", spellPotion.getDuration());
             }
         }
         System.out.printf("Status: %d/%d [%d]\n", this.exp, this.needsExp, this.lvl);
