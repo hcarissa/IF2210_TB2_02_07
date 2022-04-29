@@ -62,6 +62,8 @@ public class Deck {
         for(int i = 0; i < j; i++){
             if (x.getSize() > 0) {
                 this.deckOfCards.add(x.getCardIdx(rnd.nextInt(x.getSize())));
+            } else {
+                System.out.println(x.getClass());
             }
         }
     }

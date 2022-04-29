@@ -85,15 +85,18 @@ public class CardReader {
             potionCardCollection.addCard(l);
         }
 
-        //CSVReader morphReader = new CSVReader(morphCSVFile, "\t");
-        //morphReader.setSkipHeader(true);
-        //List<String[]> morphRows = morphReader.read();
-        //for (String[] row : morphRows) {
-        //    SpellMorph l = new SpellMorph(row[1], row[2], row[3], Integer.parseInt(row[5]), Integer.parseInt(row[4]), );
-        //    morphCardCollection.addCard(l);
-        //}
+        CSVReader morphReader = new CSVReader(morphCSVFile, "\t");
+        morphReader.setSkipHeader(true);
+        List<String[]> morphRows = morphReader.read();
+        for (String[] row : morphRows) {
+            SpellMorph l = new SpellMorph(row[1], row[2], row[3], Integer.parseInt(row[5]), Integer.parseInt(row[4]));
+            morphCardCollection.addCard(l);
+        }
 
-
+        SpellLevel up = new SpellLevel("Level Up", "A card used to level up a character", "-", LevelSwitch.UP);
+        SpellLevel down = new SpellLevel("Level Down", "A card used to level down a character", "-", LevelSwitch.DOWN);
+        levelCardCollection.addCard(up);
+        levelCardCollection.addCard(down);
     }
 
     public CardCollection getCharacterCardCollection() {
