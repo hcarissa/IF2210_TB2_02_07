@@ -161,7 +161,7 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         }
     }
     // adding spell to spellActives with condition
-    public <T extends SpellCard> void addSpell(T spell) {
+    public <T extends SpellCard> void addSpell(T spell, CardCollection characterCollection) {
         if(spell.getSpellType() == SpellType.POTION) {
             SpellPotion spellPotion = (SpellPotion)spell;
             if(spellPotion.getDuration() != 0) {
@@ -186,7 +186,7 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         }
         else {
             SpellMorph spellMorph = (SpellMorph)spell;
-            MorphEffect(spellMorph);
+            MorphEffect(spellMorph, characterCollection);
         }
     }
 
@@ -254,11 +254,17 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         }
     }
     // Morph effect to summonedcharacter
-    public void MorphEffect(SpellMorph spellMorph){
-        this.character = spellMorph.getCharacter();
+    public void MorphEffect(SpellMorph spellMorph, CardCollection characterCollection){
+        for(Card c : characterCollection.getCardCollection()) {
+            CharacterCard charCard = (CharacterCard)c;
+            if(charCard.getId() == spellMorph.getTargetId()) {
+                this.character = charCard;
+                this.attack = charCard.getBaseAttack();
+                this.health = charCard.getBaseHealth();
+                break;
+            }
+        }
         this.activeSpells = new ArrayList<SpellCard>();
-        this.attack = spellMorph.getCharacter().getBaseAttack();
-        this.health = spellMorph.getCharacter().getBaseHealth();
         this.exp = 0;
         this.needsExp = 1;
         this.lvl = 1;
