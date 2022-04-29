@@ -413,6 +413,15 @@ public class Controller {
         }
     }
 
+    public void battle(SummonedCharacter cc, MouseEvent event) {
+        if (event.getClickCount() == 2 && board.getPhase().equals(Phase.ATTACK)) {
+            
+        }
+
+
+
+
+    }
     public void addToBoard(CharacterCard cc, Pane target) {
         // ubah summoned character ke board character
         // terus diadd
