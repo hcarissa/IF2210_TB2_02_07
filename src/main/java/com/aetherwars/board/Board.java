@@ -1,6 +1,7 @@
 package com.aetherwars.board;
 
 import com.aetherwars.player.*;
+import com.aetherwars.Controller.*;
 
 public class Board {
     private int turn;
@@ -19,7 +20,6 @@ public class Board {
         // masing-masing player ambil 3 kartu dari deck
         this.p1.draw(3);
         this.p2.draw(3);
-        p1.viewHand();
         turn = 1; // dimulai dari giliran player1
         round = 1;
         phase = Phase.DRAW;
@@ -54,6 +54,7 @@ public class Board {
             turn = 1;
             round++;
         }
+        this.getActivePlayer().setMana(Math.min(round, 10));
     }
 
     public void setPhase(Phase nextPhase) {
@@ -63,8 +64,11 @@ public class Board {
 
     public void action(Phase phase) {
         if (phase.equals(Phase.DRAW) && round != 1) {
-            System.out.println("Action draaww");
             this.getActivePlayer().drawCard();
+        } else if (phase.equals(Phase.PLAN)) {
+
+        } else if (phase.equals(Phase.ATTACK)) {
+
         }
     }
 

@@ -18,6 +18,8 @@ import javafx.fxml.FXML;
 
 import com.aetherwars.board.*;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,11 +32,20 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 
+
+
 public class Controller {
     private Board board;
+
     private CharacterCard dragged_char;
 
     private static final DataFormat dformat = new DataFormat("javafx.scene.layout.VBox");
+
+    private SummonedCharacter sc;
+    private String CARD_DEFAULT = "-fx-background-color: #efeaea; -fx-border-color: BLACK;";
+    private String CARD_FOCUS = "-fx-background-color: #efeaea; -fx-border-color: ROYALBLUE; -fx-border-width: 5px";
+    private String CARD_HOVER = "-fx-background-color: #efeaea; -fx-border-color: CYAN; -fx-border-width: 5px";
+
 
     @FXML
     private Rectangle drawTab, planTab, attackTab, endTab;
@@ -66,6 +77,7 @@ public class Controller {
 
     @FXML
     private URL location;
+    private Button nextBtn;
 
     @FXML
     void initialize() {
@@ -114,35 +126,42 @@ public class Controller {
     }
 
     @FXML
-    void changePhase(ActionEvent event) {
+    void changePhase() {
         if (board.getPhase() == Phase.DRAW) {
             // deactivate draw label, activate plan label
+            reload();
             this.drawTab.setFill(inactive);
             this.planTab.setFill(active);
+            //nextBtn.setDisable(false);
             board.setPhase(Phase.PLAN);
         }
         else if (board.getPhase() == Phase.PLAN) {
             // deactivate plan label, activate attack label
+            reload();
             this.planTab.setFill(inactive);
             this.attackTab.setFill(active);
             board.setPhase(Phase.ATTACK);
         }
         else if (board.getPhase() == Phase.ATTACK) {
             // deactivate attack label, activate end label
+            reload();
             this.attackTab.setFill(inactive);
             this.endTab.setFill(active);
             board.setPhase(Phase.END);
         }
         else {
             // deactivate end label, change turn, activate draw label
+            reload();
             this.endTab.setFill(inactive);
             this.drawTab.setFill(active);
             board.switchTurn();
             hand.getChildren().clear();
-            updateTurn(board.getRound());
             reload();
             board.setPhase(Phase.DRAW);
-            loadTemp();
+            if (board.getRound() > 1) {
+                loadTemp();
+                nextBtn.setDisable(true);
+            }
         }
     }
 
@@ -155,6 +174,7 @@ public class Controller {
         loadHand();
         updateDeck();
         updateMana();
+        updateTurn();
     }
 
     public void updateHP(int i, int hp) {
@@ -170,8 +190,8 @@ public class Controller {
         }
     }
 
-    public void updateTurn(int i) {
-        this.turn.setText(String.valueOf(i));
+    public void updateTurn() {
+        this.turn.setText(String.valueOf(board.getRound()));
     }
 
     public void updateDeck() {
@@ -194,6 +214,20 @@ public class Controller {
 
                 cardController.setCard(in[i]);
                 cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+
+                cardPane.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: CYAN; -fx-border-width: 5px");
+                    }
+                });
+                cardPane.setOnMouseExited(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+                    }
+                });
+
                 final int idx = i;
                 cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
@@ -203,7 +237,7 @@ public class Controller {
                                 System.out.println("clicked");
                                 board.getActivePlayer().chooseCard(idx);
                                 tempCards.getChildren().clear();
-                                reload();
+                                changePhase();
                             }
                         }
                     }
@@ -230,7 +264,7 @@ public class Controller {
                 CardController cardController = cardloader.getController();
 
                 cardController.setCard(handCards.get(i));
-                cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+                cardPane.setStyle(CARD_DEFAULT);
                 cardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                     // hover event
                     if (newValue) {
@@ -241,19 +275,31 @@ public class Controller {
                         cardDescription.getChildren().clear();
                     }
                 });
+                final int idx = i;
                 cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     // double click event, mungkin bisa dipake buat throw
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                            if(mouseEvent.getClickCount() == 2){
+                            if(mouseEvent.getClickCount() == 1 && board.getPhase().equals(Phase.PLAN)) {
+                                for (javafx.scene.Node node : hand.getChildren()) {
+                                    node.setStyle(CARD_DEFAULT);
+                                };
+                                cardPane.setStyle(CARD_FOCUS);
+                            }
+                            if(mouseEvent.getClickCount() == 2) {
                                 System.out.println("Double clicked");
+                                if (board.getPhase().equals(Phase.PLAN)) {
+                                    board.getActivePlayer().discardCard(idx);
+                                    loadHand();
+                                }
                             }
                         }
                     }
                 });
 
                 cardPane.setOnDragDetected(new EventHandler <MouseEvent>() {
+                    @Override
                     public void handle(MouseEvent event) {
                         System.out.println("Drag detected");
                         if (board.getPhase() == Phase.PLAN) {
