@@ -22,8 +22,8 @@ public class FieldMain {
         SpellMorph spellMorph = new SpellMorph("Morph1", "", "", 4, 2);
 
         // initialize SummonedCharacter
-        SummonedCharacter summon1 = new SummonedCharacter(1, charCard1);
-        SummonedCharacter summon2 = new SummonedCharacter(2, charCard2);
+//        SummonedCharacter summon1 = new SummonedCharacter(1, charCard1);
+//        SummonedCharacter summon2 = new SummonedCharacter(2, charCard2);
 
         // TESTING SPELLS
             // summon1.addSpell(spellMorph);   // 8/10
@@ -107,25 +107,25 @@ public class FieldMain {
             // System.out.println("- Summon1 Before -");
             // summon1.render();
 
-            summon1.addSpell(spellPotion1, characterCards);
-            summon1.addSpell(spellPotion2, characterCards);
-
-            System.out.println("- Summon1 After1 -");
-            summon1.render();
-
-            summon1.addSpell(spellSwap1, characterCards);
-            System.out.println("- Summon1 After2 -");
-            summon1.render();
-
-            summon1.adjustSpellDuration();
-            System.out.println("- Summon1 After3 -");
-            summon1.render();
-            summon1.adjustSpellDuration();
-            System.out.println("- Summon1 After4 -");
-            summon1.render();
-            summon1.adjustSpellDuration();
-            System.out.println("- Summon1 After5 -");
-            summon1.render();
+//            summon1.addSpell(spellPotion1, characterCards);
+//            summon1.addSpell(spellPotion2, characterCards);
+//
+//            System.out.println("- Summon1 After1 -");
+//            summon1.render();
+//
+//            summon1.addSpell(spellSwap1, characterCards);
+//            System.out.println("- Summon1 After2 -");
+//            summon1.render();
+//
+//            summon1.adjustSpellDuration();
+//            System.out.println("- Summon1 After3 -");
+//            summon1.render();
+//            summon1.adjustSpellDuration();
+//            System.out.println("- Summon1 After4 -");
+//            summon1.render();
+//            summon1.adjustSpellDuration();
+//            System.out.println("- Summon1 After5 -");
+//            summon1.render();
         // TESTING adjustSpellDuration()
 
         System.out.println("== DONE ==");

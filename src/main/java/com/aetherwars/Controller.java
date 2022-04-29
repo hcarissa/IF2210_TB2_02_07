@@ -2,6 +2,7 @@ package com.aetherwars;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -38,6 +39,7 @@ public class Controller {
     private Board board;
 
     private CharacterCard dragged_char;
+    private int draggedCharIdx;
 
     private static final DataFormat dformat = new DataFormat("javafx.scene.layout.VBox");
 
@@ -63,6 +65,9 @@ public class Controller {
     private Pane cBoard1A, cBoard1B, cBoard1C, cBoard1D, cBoard1E;
     @FXML
     private Pane cBoard2A, cBoard2B, cBoard2C, cBoard2D, cBoard2E;
+
+    private Pane[] paneA = {cBoard1A, cBoard1B, cBoard1C, cBoard1D, cBoard1E};
+    private Pane[] paneB = {cBoard2A, cBoard2B, cBoard2C, cBoard2D, cBoard2E};
 
     @FXML
     private Text description;
@@ -99,35 +104,59 @@ public class Controller {
         hoverPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
         for (Pane pane : this.pBoard1) {
             pane.setOnDragOver(e -> {
-                System.out.println("Drag over detected");
-                Dragboard db = e.getDragboard();
-                if (db.hasContent(dformat)) {
-                    e.acceptTransferModes(TransferMode.ANY);
+                if (board.getTurn() == 1) {
+                    System.out.println("Drag over detected");
+                    Dragboard db = e.getDragboard();
+                    if (db.hasContent(dformat)) {
+                        e.acceptTransferModes(TransferMode.ANY);
+                    }
+                }
+                else {
+                    System.out.println("Invalid drop target");
                 }
             });
             pane.setOnDragDropped (e -> {
-                System.out.println("Drag released");
-                Dragboard db = e.getDragboard();
-                if (db.hasContent(dformat)) {
-                    addToBoard(dragged_char, pane);
-                    dragged_char = null;
+                if (board.getTurn() == 1) {
+                    System.out.println("Drag released");
+                    Dragboard db = e.getDragboard();
+                    if (db.hasContent(dformat)) {
+                        addToBoard(dragged_char, pane);
+                        this.board.getActivePlayer().discardCard(draggedCharIdx);
+                        dragged_char = null;
+                        loadHand();
+                    }
+                }
+                else {
+                    System.out.println("Invalid drop target");
                 }
             });
         }
         for (Pane pane : this.pBoard2) {
             pane.setOnDragOver(e -> {
-                System.out.println("Drag over detected");
-                Dragboard db = e.getDragboard();
-                if (db.hasContent(dformat)) {
-                    e.acceptTransferModes(TransferMode.ANY);
+                if (board.getTurn() == 2) {
+                    System.out.println("Drag over detected");
+                    Dragboard db = e.getDragboard();
+                    if (db.hasContent(dformat)) {
+                        e.acceptTransferModes(TransferMode.ANY);
+                    }
+                }
+                else {
+                    System.out.println("Invalid drop target");
                 }
             });
             pane.setOnDragDropped (e -> {
-                System.out.println("Drag released");
-                Dragboard db = e.getDragboard();
-                if (db.hasContent(dformat)) {
-                    addToBoard(dragged_char, pane);
-                    dragged_char = null;
+                if (board.getTurn() == 2) {
+                    System.out.println("Drag released");
+                    Dragboard db = e.getDragboard();
+                    if (db.hasContent(dformat)) {
+                        addToBoard(dragged_char, pane);
+                        this.board.getActivePlayer().discardCard(draggedCharIdx);
+                        dragged_char = null;
+                        loadHand();
+                    }
+                }
+                else {
+                    System.out.println("Invalid drop target");
                 }
             });
         }
@@ -137,11 +166,17 @@ public class Controller {
     void changePhase() {
         if (board.getPhase() == Phase.DRAW) {
             // deactivate draw label, activate plan label
-            reload();
-            this.drawTab.setFill(inactive);
-            this.planTab.setFill(active);
-            nextBtn.setDisable(false);
-            board.setPhase(Phase.PLAN);
+            // check active player deck
+            if (board.isWinner(board.getActivePlayer())) {
+                board.setFinished();
+            }
+            else {
+                reload();
+                this.drawTab.setFill(inactive);
+                this.planTab.setFill(active);
+                nextBtn.setDisable(false);
+                board.setPhase(Phase.PLAN);
+            }
         }
         else if (board.getPhase() == Phase.PLAN) {
             // deactivate plan label, activate attack label
@@ -160,15 +195,20 @@ public class Controller {
         else {
             // deactivate end label, change turn, activate draw label
             reload();
-            this.endTab.setFill(inactive);
-            this.drawTab.setFill(active);
-            board.switchTurn();
-            hand.getChildren().clear();
-            reload();
-            board.setPhase(Phase.DRAW);
-            if (board.getRound() > 1) {
-                loadTemp();
-                nextBtn.setDisable(true);
+            if (board.isWinner(board.getActivePlayer())) {
+                board.setFinished();
+            }
+            else {
+                this.endTab.setFill(inactive);
+                this.drawTab.setFill(active);
+                board.switchTurn();
+                hand.getChildren().clear();
+                reload();
+                board.setPhase(Phase.DRAW);
+                if (board.getRound() >= 1) {
+                    loadTemp();
+                    nextBtn.setDisable(true);
+                }
             }
         }
     }
@@ -306,16 +346,19 @@ public class Controller {
                 });
 
                 cardPane.setOnDragDetected(new EventHandler <MouseEvent>() {
+                    // perlu dicek apakah kartu udah masuk di board atau belum
                     @Override
                     public void handle(MouseEvent event) {
                         System.out.println("Drag detected");
                         if (board.getPhase() == Phase.PLAN) {
+                            // fase plan, kartu belum ada di board, tambahkan kartu ke board
+
                             Dragboard db = cardPane.startDragAndDrop(TransferMode.ANY);
                             db.setDragView(cardPane.snapshot(null, null));
                             ClipboardContent cc = new ClipboardContent();
                             cc.put(dformat, "Character Card");
                             db.setContent(cc);
-                            setDraggged((CharacterCard) cardController.getCard());
+                            setDraggged((CharacterCard) cardController.getCard(), idx);
                         }
                     }
                 });
@@ -350,13 +393,34 @@ public class Controller {
         // Card Detail belum
     }
 
-    public void addToBoard(CharacterCard sc, Pane target) {
+    public void loadBoard() {
+        try {
+            for (Pane pane : Arrays.asList(paneA)) {
+                // clear
+                for (SummonedCharacter sc : board.getActivePlayer().getbCards()) {
+                    addToBoard(sc.getCharacter(), sc.getPosition());
+                }
+            }
+            for (Pane pane : Arrays.asList(paneB)) {
+                // clear
+                for (SummonedCharacter sc : board.getActivePlayer().getbCards()) {
+                    addToBoard(sc.getCharacter(), sc.getPosition());
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void addToBoard(CharacterCard cc, Pane target) {
         // ubah summoned character ke board character
         // terus diadd
         try {
             FXMLLoader cardloader = new FXMLLoader(getClass().getResource("BoardCard.fxml"));
             Pane bCardPane = cardloader.load();
             BoardCardController cardController = cardloader.getController();
+            SummonedCharacter sc = new SummonedCharacter(target, cc);
             cardController.setCard(sc);
             target.getChildren().add(bCardPane);
             bCardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
@@ -369,7 +433,37 @@ public class Controller {
                     cardDescription.getChildren().clear();
                 }
             });
-            target.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+            final SummonedCharacter schar = sc;
+            bCardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            // double click event, mungkin bisa dipake buat throw
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 1 && board.getPhase().equals(Phase.PLAN)) {
+                        cBoard1A.setStyle(CARD_DEFAULT);
+                        cBoard1B.setStyle(CARD_DEFAULT);
+                        cBoard1C.setStyle(CARD_DEFAULT);
+                        cBoard1D.setStyle(CARD_DEFAULT);
+                        cBoard1E.setStyle(CARD_DEFAULT);
+                        cBoard2A.setStyle(CARD_DEFAULT);
+                        cBoard2B.setStyle(CARD_DEFAULT);
+                        cBoard2C.setStyle(CARD_DEFAULT);
+                        cBoard2D.setStyle(CARD_DEFAULT);
+                        cBoard2E.setStyle(CARD_DEFAULT);
+                        bCardPane.setStyle(CARD_FOCUS);
+                        board.setFocus(sc);
+                    }
+                    if (mouseEvent.getClickCount() == 2) {
+                        System.out.println("Double clicked");
+                        if (board.getPhase().equals(Phase.PLAN)) {
+                            board.getActivePlayer().discardBoardCard(schar.getPosition());
+                            loadBoard();
+                        }
+                    }
+                }
+            }
+        });
+            target.setStyle(CARD_DEFAULT);
             target.getChildren().add(bCardPane);
         }
         catch (Exception e) {
@@ -378,7 +472,8 @@ public class Controller {
 
     }
 
-    public void setDraggged(CharacterCard c) {
+    public void setDraggged(CharacterCard c, int i) {
         this.dragged_char = c;
+        this.draggedCharIdx = i;
     }
 }

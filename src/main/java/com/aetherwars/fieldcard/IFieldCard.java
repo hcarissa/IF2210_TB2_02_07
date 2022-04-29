@@ -1,11 +1,13 @@
 package com.aetherwars.fieldcard;
 import com.aetherwars.card.*;
+import javafx.scene.layout.Pane;
+
 import java.util.List;
 
 // Implements on FieldCard
 interface IFieldCard {
     // getter
-    public int getPosition();
+    public Pane getPosition();
     public List<SpellCard> getActiveSpells();
     public boolean getIsDead();
 

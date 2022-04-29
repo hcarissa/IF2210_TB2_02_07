@@ -1,6 +1,8 @@
 package com.aetherwars.fieldcard;
 import com.aetherwars.card.*;
 import com.aetherwars.player.*;
+import javafx.scene.layout.Pane;
+
 import java.util.ArrayList;
 import java.lang.Math;
 
@@ -22,7 +24,7 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
     private int needsExp;
     private int lvl;
 
-    public SummonedCharacter(int position, CharacterCard character) {
+    public SummonedCharacter(Pane position, CharacterCard character) {
         super(position);
         this.character = character;
         this.attack = character.getBaseAttack();
