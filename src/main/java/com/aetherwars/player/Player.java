@@ -16,6 +16,8 @@
 package com.aetherwars.player;
 import com.aetherwars.card.*;
 import com.aetherwars.deck.Deck;
+import com.aetherwars.fieldcard.SummonedCharacter;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,7 @@ public class Player {
   private Deck deck;
   private List<Card> hand;
   private Card[] tempCard;
+  private SummonedCharacter[] bCards;
   
   // constructor
   public Player(String name) {
@@ -38,6 +41,7 @@ public class Player {
     this.deck = new Deck();
     this.hand = new ArrayList<Card>();
     this.tempCard = new Card[3];
+    this.bCards = new SummonedCharacter[5];
   }
   // methods
 
@@ -102,14 +106,34 @@ public class Player {
   }
 
   // Mengeluarkan kartu / memindahkan kartu dari hand ke board
-  public void playCard(int index) {
+  public void playCard(int index, int bIdx, Pane position) {
     // method untuk mengeluarkan kartu dari hand ke board
     // index harus antara 0 - 4
     // bila index tidak valid, tidak terjadi apa-apa
     if (index < 0 || index > 4) {
       return;
     }
-    this.hand.remove(index); // TODO: belum ditaro di board, baru dibuang
+    if (this.hand.get(index).getCardType().equals(CardType.CHARACTER)) {
+      SummonedCharacter sc = new SummonedCharacter(position, (CharacterCard) this.hand.remove(index));
+      this.bCards[bIdx] = sc;
+    }
+  }
+
+  public void addBoardCard(SummonedCharacter sc, int index) {
+    if (bCards[index] != null) {
+      this.bCards[index] = sc;
+    }
+  }
+
+  public void discardBoardCard(Pane position) {
+    // method untuk membuang kartu di board pada phase plan
+    boolean found = false;
+    for (int i=0; i<5 && !found; i++) {
+      if (bCards[i].getPosition() == position) {
+        found = true;
+        bCards[i] = null;
+      }
+    }
   }
 
   public void discardCard(int index) {
@@ -142,6 +166,10 @@ public class Player {
 
   public double getHp() {
     return this.hp;
+  }
+
+  public SummonedCharacter[] getbCards() {
+    return this.bCards;
   }
 
   public void setHp(double hp) { this.hp = hp; }

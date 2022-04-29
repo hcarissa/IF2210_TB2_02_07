@@ -1,20 +1,22 @@
 package com.aetherwars.fieldcard;
 import com.aetherwars.card.*;
+import javafx.scene.layout.Pane;
+
 import java.util.List;
 import java.util.ArrayList;
 abstract class FieldCard implements IFieldCard, ISpellMonitoring {
-    protected int position;
+    protected Pane position;
     protected List<SpellCard> activeSpells;
     protected boolean isDead;
 
-    public FieldCard(int position) {
+    public FieldCard(Pane position) {
         this.position = position;
         this.activeSpells = new ArrayList<SpellCard>();
         this.isDead = false;
     }
 
     // getter
-    public int getPosition() {
+    public Pane getPosition() {
         return this.position;
     }
     public List<SpellCard> getActiveSpells() {
