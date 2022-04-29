@@ -28,11 +28,17 @@ public class CardController {
     }
 
     public void setCard(Card c) {
-        this.card = c;
-        Image image = new Image(c.getImagePath());
-        this.img.setImage(image);
-        this.name.setText(c.getName());
-        this.attr.setText(getAttributes(c, c.getCardType()));
+        try {
+            this.card = c;
+            Image image = new Image(c.getImagePath());
+            this.img.setImage(image);
+            this.name.setText(c.getName());
+            this.attr.setText(getAttributes(c, c.getCardType()));
+        }
+        catch (Exception e) {
+            System.out.println("Exception in CardController " + e);
+        }
+
     }
 
     public String getAttributes(Card c, CardType t){

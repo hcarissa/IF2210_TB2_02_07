@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import com.aetherwars.card.Card;
 import com.aetherwars.card.CardController;
+import com.aetherwars.card.CardType;
+import com.aetherwars.card.CharacterCard;
 import com.aetherwars.fieldcard.BoardCardController;
 import com.aetherwars.fieldcard.SummonedCharacter;
 import javafx.beans.value.ChangeListener;
@@ -20,8 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -32,6 +33,7 @@ import javafx.scene.transform.Scale;
 
 public class Controller {
     private Board board;
+    private SummonedCharacter sc;
 
     @FXML
     private Rectangle drawTab, planTab, attackTab, endTab;
@@ -52,8 +54,6 @@ public class Controller {
 
     @FXML
     private Pane hoverPane, cardDetail, cardDescription;
-    @FXML
-    private Pane hand1, hand2, hand3, hand4, hand5;
 
     @FXML
     private Color active = new Color(1.0, 0.2431, 0.1216, 1.0);
@@ -118,6 +118,40 @@ public class Controller {
         cardDetail.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
         cardDescription.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
         hoverPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+        for (Pane pane : this.pBoard1) {
+            pane.setOnDragOver(new EventHandler<DragEvent>() {
+                public void handle(DragEvent event) {
+                    if (event.getGestureSource() != pane) {
+                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                    }
+
+                    event.consume();
+                }
+            });
+
+            pane.setOnDragDropped((DragEvent event) -> {
+                Dragboard db = event.getDragboard();
+                System.out.println("Drag Released");
+                event.consume();
+            });
+        }
+        for (Pane pane : this.pBoard2) {
+            pane.setOnDragOver(new EventHandler<DragEvent>() {
+                public void handle(DragEvent event) {
+                    if (event.getGestureSource() != pane) {
+                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                    }
+
+                    event.consume();
+                }
+            });
+
+            pane.setOnDragDropped((DragEvent event) -> {
+                Dragboard db = event.getDragboard();
+                System.out.println("Drag Released");
+                event.consume();
+            });
+        }
     }
 
     public void setBoard(Board b) {
@@ -225,13 +259,17 @@ public class Controller {
                 cardController.setCard(handCards.get(i));
                 cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
                 cardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                    // hover event
                     if (newValue) {
                         showHovered(cardController.getCard());
                     } else {
                         hoverPane.getChildren().clear();
+                        cardDetail.getChildren().clear();
+                        cardDescription.getChildren().clear();
                     }
                 });
                 cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    // double click event, mungkin bisa dipake buat throw
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
@@ -239,6 +277,21 @@ public class Controller {
                                 System.out.println("Double clicked");
                             }
                         }
+                    }
+                });
+
+                cardPane.setOnDragDetected(new EventHandler <MouseEvent>() {
+
+                    public void handle(MouseEvent event) {
+                        /* drag was detected, start drag-and-drop gesture*/
+                        Dragboard dragboard = cardPane.startDragAndDrop(TransferMode.COPY_OR_MOVE);
+                        System.out.println("onDragDetected");
+                        // create board card from this
+                        if (cardController.getCard().getCardType() == CardType.CHARACTER) {
+                            // boleh di tambah ke board
+                            setSummoned(new SummonedCharacter(1, (CharacterCard) cardController.getCard()));
+                        }
+                        event.consume();
                     }
                 });
                 this.hand.getChildren().add(cardPane);
@@ -259,30 +312,39 @@ public class Controller {
 
         Text desc = new Text("Ini Creeper, saya kurang tau juga sih dia siapa");
         desc.setFont(Font.font ("Gadugi", 10));
-        desc.setFill(Color.BLACK);
+        desc.setFill(Color.WHITE);
         cardDescription.getChildren().add(desc);
 
         // Card Detail belum
     }
 
-    public void addToBoard(SummonedCharacter sc) {
+    public void addToBoard(CharacterCard sc, Pane target) {
+        // ubah summoned character ke board character
+        // terus diadd
         try {
-            FXMLLoader bCardloader = new FXMLLoader(getClass().getResource("BoardCard.fxml"));
-            Pane bCardPane = bCardloader.load();
-            BoardCardController bCardController = bCardloader.getController();
-
-            bCardController.setCard(sc);
-            bCardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
-            // cara masukin ke board masing-masing Player gmn?
-            if (board.getTurn() == 1) {
-                // tambahin ke pBoard1
-            }
-            else {
-                // tambahin ke pBoard2
-            }
+            FXMLLoader cardloader = new FXMLLoader(getClass().getResource("BoardCard.fxml"));
+            Pane bCardPane = cardloader.load();
+            BoardCardController cardController = cardloader.getController();
+            cardController.setCard(sc);
+            target.getChildren().add(bCardPane);
+            bCardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                // hover event
+                if (newValue) {
+                    showHovered(cardController.getCard());
+                } else {
+                    hoverPane.getChildren().clear();
+                    cardDetail.getChildren().clear();
+                    cardDescription.getChildren().clear();
+                }
+            });
         }
-        catch (IOException e) {
+        catch (Exception e) {
+            System.out.println(e);
         }
 
+    }
+
+    public void setSummoned (SummonedCharacter sc) {
+        this.sc = sc;
     }
 }
