@@ -10,6 +10,7 @@ public class Board {
     private Phase phase;
     private Player p1;
     private Player p2;
+    private boolean gameFin;
     private SummonedCharacter focus;
 
     // health point, mana, deck, hand udah ada di masing-masing player
@@ -18,6 +19,7 @@ public class Board {
     public Board(Player p1, Player p2) {
         this.p1 = p1;
         this.p2 = p2;
+        this.gameFin = false;
 
         // masing-masing player ambil 3 kartu dari deck
         this.p1.draw(3);
@@ -73,6 +75,33 @@ public class Board {
         } else if (phase.equals(Phase.ATTACK)) {
 
         }
+    }
+
+    public boolean isWinner(Player p) {
+        if (p == p1) {
+            if (p1.getDeckCount() == 0 || p2.getHp() <= 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            if (p2.getDeckCount() == 0 || p1.getHp() <= 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+
+    public boolean isFinished() {
+        return this.gameFin;
+    }
+
+    public void setFinished() {
+        this.gameFin = true;
     }
 
     public static void main(String[] args) {

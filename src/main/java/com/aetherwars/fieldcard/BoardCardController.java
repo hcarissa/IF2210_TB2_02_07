@@ -31,11 +31,11 @@ public class BoardCardController {
 
     }
 
-    public void setCard(SummonedCharacter c) {
-        this.card = c.getCharacter();
-        //this.attack.getChildren().add(new Text(String.valueOf(c.getAttack())));
-        //this.health.getChildren().add(new Text(String.valueOf(c.getHealth())));
-        //this.expDetail.getChildren().add(new Text(String.valueOf(c.getExp()) + "/" + String.valueOf(c.getNeedsExp()) + " [" + String.valueOf(c.getLvl()) + "]"));
+    public void setCard(SummonedCharacter sc) {
+        this.card = sc.getCharacter();
+        this.attack.getChildren().add(new Text(String.valueOf(sc.getAttack())));
+        this.health.getChildren().add(new Text(String.valueOf(sc.getHealth())));
+        this.expDetail.getChildren().add(new Text(String.valueOf(sc.getExp()) + "/" + String.valueOf(sc.getNeedsExp()) + " [" + String.valueOf(sc.getLvl()) + "]"));
         Image image = new Image(card.getImagePath());
         this.img.setImage(image);
     }

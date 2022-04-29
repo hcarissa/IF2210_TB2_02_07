@@ -146,11 +146,17 @@ public class Controller {
     void changePhase() {
         if (board.getPhase() == Phase.DRAW) {
             // deactivate draw label, activate plan label
-            reload();
-            this.drawTab.setFill(inactive);
-            this.planTab.setFill(active);
-            nextBtn.setDisable(false);
-            board.setPhase(Phase.PLAN);
+            // check active player deck
+            if (board.isWinner(board.getActivePlayer())) {
+                board.setFinished();
+            }
+            else {
+                reload();
+                this.drawTab.setFill(inactive);
+                this.planTab.setFill(active);
+                nextBtn.setDisable(false);
+                board.setPhase(Phase.PLAN);
+            }
         }
         else if (board.getPhase() == Phase.PLAN) {
             // deactivate plan label, activate attack label
@@ -169,15 +175,20 @@ public class Controller {
         else {
             // deactivate end label, change turn, activate draw label
             reload();
-            this.endTab.setFill(inactive);
-            this.drawTab.setFill(active);
-            board.switchTurn();
-            hand.getChildren().clear();
-            reload();
-            board.setPhase(Phase.DRAW);
-            if (board.getRound() > 1) {
-                loadTemp();
-                nextBtn.setDisable(true);
+            if (board.isWinner(board.getActivePlayer())) {
+                board.setFinished();
+            }
+            else {
+                this.endTab.setFill(inactive);
+                this.drawTab.setFill(active);
+                board.switchTurn();
+                hand.getChildren().clear();
+                reload();
+                board.setPhase(Phase.DRAW);
+                if (board.getRound() > 1) {
+                    loadTemp();
+                    nextBtn.setDisable(true);
+                }
             }
         }
     }
@@ -315,10 +326,13 @@ public class Controller {
                 });
 
                 cardPane.setOnDragDetected(new EventHandler <MouseEvent>() {
+                    // perlu dicek apakah kartu udah masuk di board atau belum
                     @Override
                     public void handle(MouseEvent event) {
                         System.out.println("Drag detected");
                         if (board.getPhase() == Phase.PLAN) {
+                            // fase plan, kartu belum ada di board, tambahkan kartu ke board
+
                             Dragboard db = cardPane.startDragAndDrop(TransferMode.ANY);
                             db.setDragView(cardPane.snapshot(null, null));
                             ClipboardContent cc = new ClipboardContent();
