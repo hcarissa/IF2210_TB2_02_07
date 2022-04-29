@@ -26,11 +26,16 @@ public class CardController {
     }
 
     public void setCard(Card c) {
-        this.card = c;
-        Image image = new Image(c.getImagePath());
-        this.img.setImage(image);
-        this.name.setText(c.getName());
-        //this.attr.setText(attr);
+        try {
+            this.card = c;
+            Image image = new Image(c.getImagePath());
+            this.img.setImage(image);
+            this.name.setText(c.getName());
+            //this.attr.setText(attr);
+        }
+        catch (Exception e) {
+            System.out.println("Exception in CardController " + e);
+        }
     }
 
     public Card getCard() {
