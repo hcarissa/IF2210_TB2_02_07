@@ -58,7 +58,7 @@ public class AetherWars extends Application {
       root = loader.load();
       ctrl = loader.getController();
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      System.err.println("Cannot load AetherWars.xml");
     }
 
     ctrl.setBoard(new Board(p1, p2));

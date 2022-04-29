@@ -26,7 +26,7 @@ interface ISpellEffect {
     public void PotionEffect(SpellPotion spellPotion);
     public void LevelEffect(SpellLevel spellLevel);
     public void SwapEffect(SpellSwap spellSwap);
-    public void MorphEffect(SpellMorph spellMorph);
+    public void MorphEffect(SpellMorph spellMorph, CardCollection characterCollection);
 }
 
 interface ISummonedBattle {

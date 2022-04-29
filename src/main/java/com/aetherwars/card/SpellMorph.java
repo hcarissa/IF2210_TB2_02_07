@@ -3,32 +3,19 @@ import java.util.List;
 
 public class SpellMorph extends SpellCard {
     private int targetId;
-    private CharacterCard character;
 
     public SpellMorph() {
         super();
         this.targetId = 0;
-        this.character = new CharacterCard();
     }
 
-    public SpellMorph(String name, String description, String imagePath, int mana, int targetId, List<CharacterCard> characters) {
+    public SpellMorph(String name, String description, String imagePath, int mana, int targetId) {
         super(name, description, imagePath, mana);
         this.targetId = targetId;
-
-        for(CharacterCard character : characters) {
-            if(character.getId() == targetId) {
-                this.character = character;
-                break;
-            }
-        }
     }
 
     public int getTargetId() {
         return this.targetId;
-    }
-
-    public CharacterCard getCharacter() {
-        return this.character;
     }
 
     @Override

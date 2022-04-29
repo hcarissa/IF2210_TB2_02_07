@@ -19,6 +19,7 @@ public class Board {
         // masing-masing player ambil 3 kartu dari deck
         this.p1.draw(3);
         this.p2.draw(3);
+        p1.viewHand();
         turn = 1; // dimulai dari giliran player1
         round = 1;
         phase = Phase.DRAW;
@@ -35,11 +36,13 @@ public class Board {
     }
 
     public Player getActivePlayer() {
-        if (turn == 1) {
-            return p1;
+        if (this.turn == 1) {
+            System.out.println("p1");
+            return this.p1;
         }
         else {
-            return p2;
+            System.out.println("p2");
+            return this.p2;
         }
     }
 
@@ -55,6 +58,12 @@ public class Board {
 
     public void setPhase(Phase nextPhase) {
         phase = nextPhase;
+    }
+
+    public static void main(String[] args) {
+        Player p = new Player("p");
+        p.draw(3);
+        p.viewHand();
     }
 
 }

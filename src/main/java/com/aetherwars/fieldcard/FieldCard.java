@@ -29,7 +29,7 @@ abstract class FieldCard implements IFieldCard, ISpellMonitoring {
         this.isDead = isDead;
     }
 
-    abstract <T extends SpellCard> void addSpell(T spell);
+    abstract <T extends SpellCard> void addSpell(T spell, CardCollection characterCollection);
 
     public boolean isPotionAvailable() {
         for(SpellCard spell : getActiveSpells()) {
