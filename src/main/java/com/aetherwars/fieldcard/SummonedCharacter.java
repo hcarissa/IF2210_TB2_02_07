@@ -188,8 +188,22 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
     // ISpellEffect Implementation
     // Potion effect to summonedcharacter
     public void PotionEffect(SpellPotion spellPotion){
-        
+        this.setHealth(this.getHealth() + spellPotion.getHealth());
+        this.setAttack(this.getAttack() + spellPotion.getAttack());
 
+        if(this.getHealth() > this.getCharacter().getBaseHealth()) {
+            this.setHealth(this.getCharacter().getBaseHealth());
+        }
+
+        if(this.getAttack() > this.getCharacter().getBaseAttack()) {
+            this.setAttack(this.getCharacter().getBaseAttack());
+        }
+
+        this.activeSpells.remove(spellPotion);
+
+        if(this.getHealth() < this.getCharacter().getBaseHealth()) {
+            this.setIsDead(true);
+        }
     }
     // Level effect to summonedcharacter
     public void LevelEffect(SpellLevel spellLevel){
