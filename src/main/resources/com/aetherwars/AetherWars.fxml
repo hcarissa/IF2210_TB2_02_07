@@ -24,7 +24,7 @@
             <Image url="@card/image/character/player1.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="805.0" layoutY="245.0" mnemonicParsing="false" onAction="#changePhase" prefHeight="13.0" prefWidth="44.0" text="&gt;&gt;" textFill="#122ee3">
+      <Button fx:id="nextBtn" layoutX="805.0" layoutY="245.0" mnemonicParsing="false" onAction="#changePhase" prefHeight="13.0" prefWidth="44.0" text="&gt;&gt;" textFill="#122ee3">
          <font>
             <Font name="Lucida Sans Unicode" size="12.0" />
          </font></Button>

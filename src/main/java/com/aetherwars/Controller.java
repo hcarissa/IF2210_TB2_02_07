@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 
 import com.aetherwars.board.*;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -66,27 +67,35 @@ public class Controller {
     private URL location;
 
     @FXML
-    void changePhase(ActionEvent event) {
+    private Button nextBtn;
+
+    @FXML
+    void changePhase() {
         if (board.getPhase() == Phase.DRAW) {
             // deactivate draw label, activate plan label
+            reload();
             this.drawTab.setFill(inactive);
             this.planTab.setFill(active);
+            nextBtn.setDisable(false);
             board.setPhase(Phase.PLAN);
         }
         else if (board.getPhase() == Phase.PLAN) {
             // deactivate plan label, activate attack label
+            reload();
             this.planTab.setFill(inactive);
             this.attackTab.setFill(active);
             board.setPhase(Phase.ATTACK);
         }
         else if (board.getPhase() == Phase.ATTACK) {
             // deactivate attack label, activate end label
+            reload();
             this.attackTab.setFill(inactive);
             this.endTab.setFill(active);
             board.setPhase(Phase.END);
         }
         else {
             // deactivate end label, change turn, activate draw label
+            reload();
             this.endTab.setFill(inactive);
             this.drawTab.setFill(active);
             board.switchTurn();
@@ -95,6 +104,7 @@ public class Controller {
             reload();
             board.setPhase(Phase.DRAW);
             loadTemp();
+            nextBtn.setDisable(true);
         }
     }
 
@@ -158,6 +168,18 @@ public class Controller {
 
                 cardController.setCard(in[i]);
                 cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+                cardPane.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: CYAN; -fx-border-width: 5px");
+                    }
+                });
+                cardPane.setOnMouseExited(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+                    }
+                });
 //                cardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
 //                    if (newValue) {
 //                        showHovered(cardController.getCard());
@@ -174,7 +196,7 @@ public class Controller {
                                 System.out.println("clicked");
                                 board.getActivePlayer().chooseCard(idx);
                                 tempCards.getChildren().clear();
-                                reload();
+                                changePhase();
                             }
                         }
                     }
