@@ -38,13 +38,13 @@ public class Deck {
     }
 
     public void fillDeck(){
-        int min = 5;
+        CardReader cards = new CardReader();
+        int min = 8;
         Random r = new Random();
-        CardReader cards = CardReader.getInstance();
         int levelint = r.nextInt(2)+min;
         int swapint = r.nextInt(5)+min;
         int potionint = r.nextInt(7)+min;
-        int morphint = r.nextInt(8)+min;
+        int morphint = r.nextInt(6)+min;
         int charint = 60-levelint-swapint-potionint-morphint;
 
         CardCollection chars = cards.getCharacterCardCollection();
@@ -81,10 +81,11 @@ public class Deck {
         int count = 0;
         for(int i = 0; i < 60; i++){
             Card a = d.remove();
-            count += 1;
             if(a.getCardType() == CardType.SPELL){
                 a.printInfo();
+                count += 1;
             }
         }
+        System.out.println(count);
     }
 }

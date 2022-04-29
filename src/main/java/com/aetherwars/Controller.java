@@ -220,7 +220,7 @@ public class Controller {
                 Pane cardPane = cardloader.load();
                 CardController cardController = cardloader.getController();
 
-                cardController.setCard(in[i]);
+                cardController.settingCard(in[i]);
                 cardPane.setStyle(CARD_DEFAULT);
                 cardPane.setOnMouseEntered(new EventHandler<MouseEvent>() {
                     @Override
@@ -270,7 +270,7 @@ public class Controller {
                 Pane cardPane = cardloader.load();
                 CardController cardController = cardloader.getController();
 
-                cardController.setCard(handCards.get(i));
+                cardController.settingCard(handCards.get(i));
                 cardPane.setStyle(CARD_DEFAULT);
                 cardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                     // hover event

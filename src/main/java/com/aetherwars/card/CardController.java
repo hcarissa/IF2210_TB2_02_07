@@ -27,15 +27,17 @@ public class CardController {
 
     }
 
-    public void setCard(Card c) {
+    public void settingCard(Card c) {
         try {
+            this.name.setText(c.getName());
             this.card = c;
+            this.attr.setText(getAttributes(c, c.getCardType()));
             Image image = new Image(c.getImagePath());
             this.img.setImage(image);
-            this.name.setText(c.getName());
-            this.attr.setText(getAttributes(c, c.getCardType()));
         }
         catch (Exception e) {
+            System.out.println(c.getName());
+            System.out.println(c.getImagePath());
             System.out.println("Exception in CardController " + e);
         }
 

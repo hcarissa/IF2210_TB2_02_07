@@ -61,33 +61,33 @@ public class CardReader {
         File potionCSVFile = new File(getClass().getResource(POTION_CARD_FILE_NAME).toURI());
         File morphCSVFile = new File(getClass().getResource(MORPH_CARD_FILE_NAME).toURI());
 
-        CSVReader characterReader = new CSVReader(characterCSVFile, "\t");
-        characterReader.setSkipHeader(true);
-        List<String[]> characterRows = characterReader.read();
+        CSVReader charReader = new CSVReader(characterCSVFile, "\t");
+        charReader.setSkipHeader(true);
+        List<String[]> characterRows = charReader.read();
         for (String[] row : characterRows) {
             CharacterCard l = new CharacterCard(row[1], row[3], row[4],Integer.parseInt(row[8]), Integer.parseInt(row[9]), Integer.parseInt(row[5]), Integer.parseInt(row[6]), Integer.parseInt(row[0]), CharacterType.valueOf(row[2]));
             characterCardCollection.addCard(l);
         }
 
-        CSVReader swapReader = new CSVReader(swapCSVFile, "\t");
-        swapReader.setSkipHeader(true);
-        List<String[]> swapRows = swapReader.read();
+        CSVReader swReader = new CSVReader(swapCSVFile, "\t");
+        swReader.setSkipHeader(true);
+        List<String[]> swapRows = swReader.read();
         for (String[] row : swapRows) {
             SpellSwap l = new SpellSwap(row[1], row[2], row[3], Integer.parseInt(row[5]), Integer.parseInt(row[4]));
             swapCardCollection.addCard(l);
         }
 
-        CSVReader potionReader = new CSVReader(potionCSVFile, "\t");
-        potionReader.setSkipHeader(true);
-        List<String[]> potionRows = potionReader.read();
+        CSVReader potReader = new CSVReader(potionCSVFile, "\t");
+        potReader.setSkipHeader(true);
+        List<String[]> potionRows = potReader.read();
         for (String[] row : potionRows) {
             SpellPotion l = new SpellPotion(row[1], row[2], row[3], Integer.parseInt(row[6]), Integer.parseInt(row[4]), Integer.parseInt(row[5]), Integer.parseInt(row[7]));
             potionCardCollection.addCard(l);
         }
 
-        CSVReader morphReader = new CSVReader(morphCSVFile, "\t");
-        morphReader.setSkipHeader(true);
-        List<String[]> morphRows = morphReader.read();
+        CSVReader morReader = new CSVReader(morphCSVFile, "\t");
+        morReader.setSkipHeader(true);
+        List<String[]> morphRows = morReader.read();
         for (String[] row : morphRows) {
             SpellMorph l = new SpellMorph(row[1], row[2], row[3], Integer.parseInt(row[5]), Integer.parseInt(row[4]));
             morphCardCollection.addCard(l);
@@ -101,8 +101,8 @@ public class CardReader {
         //    levelCardCollection.addCard(l);
         //}
 
-        SpellLevel up = new SpellLevel("Level Up", "A card used to level up a character", "-", LevelSwitch.UP);
-        SpellLevel down = new SpellLevel("Level Down", "A card used to level down a character", "-", LevelSwitch.DOWN);
+        SpellLevel up = new SpellLevel("Level Up", "A card used to level up a character", "card/image/spell/level.jpg", LevelSwitch.UP);
+        SpellLevel down = new SpellLevel("Level Down", "A card used to level down a character", "card/image/spell/level.jpg", LevelSwitch.DOWN);
         levelCardCollection.addCard(up);
         levelCardCollection.addCard(down);
     }
