@@ -7,8 +7,11 @@ import java.util.ResourceBundle;
 
 import com.aetherwars.card.Card;
 import com.aetherwars.card.CardController;
+import com.aetherwars.fieldcard.BoardCardController;
+import com.aetherwars.fieldcard.SummonedCharacter;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import com.aetherwars.board.*;
@@ -16,6 +19,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -35,6 +40,12 @@ public class Controller {
     private ProgressBar healthBar1, healthBar2;
     @FXML
     private HBox hand;
+    @FXML
+    private Pane[] pBoard1, pBoard2;
+    @FXML
+    private Pane cBoard1A, cBoard1B, cBoard1C, cBoard1D, cBoard1E;
+    @FXML
+    private Pane cBoard2A, cBoard2B, cBoard2C, cBoard2D, cBoard2E;
 
     @FXML
     private Pane hoverPane, cardDetail, cardDescription;
@@ -84,6 +95,8 @@ public class Controller {
     @FXML
     void initialize() {
         this.drawTab.setFill(active);
+        this.pBoard1 = new Pane[]{cBoard1A, cBoard1B, cBoard1C, cBoard1D, cBoard1E};
+        this.pBoard2 = new Pane[]{cBoard2A, cBoard2B, cBoard2C, cBoard2D, cBoard2E};
         this.healthBar1.setStyle("-fx-accent: #ff3e1f");
         this.healthBar2.setStyle("-fx-accent: #ff3e1f");
         cardDetail.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
@@ -139,6 +152,16 @@ public class Controller {
                         hoverPane.getChildren().clear();
                     }
                 });
+                cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                            if(mouseEvent.getClickCount() == 2){
+                                System.out.println("Double clicked");
+                            }
+                        }
+                    }
+                });
                 this.hand.getChildren().add(cardPane);
             }
         }
@@ -161,5 +184,26 @@ public class Controller {
         cardDescription.getChildren().add(desc);
 
         // Card Detail belum
+    }
+
+    public void addToBoard(SummonedCharacter sc) {
+        try {
+            FXMLLoader bCardloader = new FXMLLoader(getClass().getResource("BoardCard.fxml"));
+            Pane bCardPane = bCardloader.load();
+            BoardCardController bCardController = bCardloader.getController();
+
+            bCardController.setCard(sc);
+            bCardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+            // cara masukin ke board masing-masing Player gmn?
+            if (board.getTurn() == 1) {
+                // tambahin ke pBoard1
+            }
+            else {
+                // tambahin ke pBoard2
+            }
+        }
+        catch (IOException e) {
+        }
+
     }
 }
