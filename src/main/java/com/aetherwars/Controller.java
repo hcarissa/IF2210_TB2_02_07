@@ -104,39 +104,59 @@ public class Controller {
         hoverPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
         for (Pane pane : this.pBoard1) {
             pane.setOnDragOver(e -> {
-                System.out.println("Drag over detected");
-                Dragboard db = e.getDragboard();
-                if (db.hasContent(dformat)) {
-                    e.acceptTransferModes(TransferMode.ANY);
+                if (board.getTurn() == 1) {
+                    System.out.println("Drag over detected");
+                    Dragboard db = e.getDragboard();
+                    if (db.hasContent(dformat)) {
+                        e.acceptTransferModes(TransferMode.ANY);
+                    }
+                }
+                else {
+                    System.out.println("Invalid drop target");
                 }
             });
             pane.setOnDragDropped (e -> {
-                System.out.println("Drag released");
-                Dragboard db = e.getDragboard();
-                if (db.hasContent(dformat)) {
-                    addToBoard(dragged_char, pane);
-                    this.board.getActivePlayer().discardCard(draggedCharIdx);
-                    dragged_char = null;
-                    loadHand();
+                if (board.getTurn() == 1) {
+                    System.out.println("Drag released");
+                    Dragboard db = e.getDragboard();
+                    if (db.hasContent(dformat)) {
+                        addToBoard(dragged_char, pane);
+                        this.board.getActivePlayer().discardCard(draggedCharIdx);
+                        dragged_char = null;
+                        loadHand();
+                    }
+                }
+                else {
+                    System.out.println("Invalid drop target");
                 }
             });
         }
         for (Pane pane : this.pBoard2) {
             pane.setOnDragOver(e -> {
-                System.out.println("Drag over detected");
-                Dragboard db = e.getDragboard();
-                if (db.hasContent(dformat)) {
-                    e.acceptTransferModes(TransferMode.ANY);
+                if (board.getTurn() == 2) {
+                    System.out.println("Drag over detected");
+                    Dragboard db = e.getDragboard();
+                    if (db.hasContent(dformat)) {
+                        e.acceptTransferModes(TransferMode.ANY);
+                    }
+                }
+                else {
+                    System.out.println("Invalid drop target");
                 }
             });
             pane.setOnDragDropped (e -> {
-                System.out.println("Drag released");
-                Dragboard db = e.getDragboard();
-                if (db.hasContent(dformat)) {
-                    addToBoard(dragged_char, pane);
-                    this.board.getActivePlayer().discardCard(draggedCharIdx);
-                    dragged_char = null;
-                    loadHand();
+                if (board.getTurn() == 2) {
+                    System.out.println("Drag released");
+                    Dragboard db = e.getDragboard();
+                    if (db.hasContent(dformat)) {
+                        addToBoard(dragged_char, pane);
+                        this.board.getActivePlayer().discardCard(draggedCharIdx);
+                        dragged_char = null;
+                        loadHand();
+                    }
+                }
+                else {
+                    System.out.println("Invalid drop target");
                 }
             });
         }
@@ -185,7 +205,7 @@ public class Controller {
                 hand.getChildren().clear();
                 reload();
                 board.setPhase(Phase.DRAW);
-                if (board.getRound() > 1) {
+                if (board.getRound() >= 1) {
                     loadTemp();
                     nextBtn.setDisable(true);
                 }
