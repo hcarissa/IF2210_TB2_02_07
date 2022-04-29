@@ -44,7 +44,7 @@ public class Player {
   public void draw(int n) {
     // method untuk mengambil n buah kartu dari deck dan menambahkan ke hand
     // bila deck habis atau hand penuh, tidak terjadi apa-apa
-    for (int i = 0; i < n && !this.deck.isNotEmpty(); i++) {
+    for (int i = 0; i < n && this.deck.isNotEmpty(); i++) {
       this.hand.add(this.deck.remove());
     }
   }
@@ -52,7 +52,7 @@ public class Player {
   public void drawCard() {
     // method untuk mengambil n buah kartu dari deck dan menambahkan ke hand
     // bila deck habis atau hand penuh, tidak terjadi apa-apa
-    for (int i = 0; i < 3 && !this.deck.isNotEmpty(); i++) {
+    for (int i = 0; i < 3 && this.deck.isNotEmpty(); i++) {
       this.tempCard[i] = this.deck.remove();
     }
     this.viewTempCard();
@@ -141,12 +141,13 @@ public class Player {
     p.deck.addCard(new CharacterCard());
     p.deck.addCard(new SpellPotion());
     p.deck.addCard(new SpellLevel());
+    p.draw(3);
     p.viewHand();
-    p.drawCard();
-    p.viewTempCard();
-    p.chooseCard(1);
-    p.viewHand();
-    p.drawCard();
-    p.viewTempCard();
+//    p.drawCard();
+//    p.viewTempCard();
+//    p.chooseCard(1);
+//    p.viewHand();
+//    p.drawCard();
+//    p.viewTempCard();
   }
 }
