@@ -43,6 +43,8 @@ public class Controller {
     @FXML
     private HBox hand;
     @FXML
+    private HBox tempCards;
+    @FXML
     private Pane[] pBoard1, pBoard2;
     @FXML
     private Pane cBoard1A, cBoard1B, cBoard1C, cBoard1D, cBoard1E;
@@ -87,11 +89,12 @@ public class Controller {
             // deactivate end label, change turn, activate draw label
             this.endTab.setFill(inactive);
             this.drawTab.setFill(active);
-            board.setPhase(Phase.DRAW);
             board.switchTurn();
             hand.getChildren().clear();
             updateTurn(board.getRound());
-            loadHand();
+            reload();
+            board.setPhase(Phase.DRAW);
+            loadTemp();
         }
     }
 
@@ -143,7 +146,13 @@ public class Controller {
 
     public void setBoard(Board b) {
         this.board = b;
+        reload();
+    }
 
+    public void reload() {
+        loadHand();
+        updateDeck();
+        updateMana();
     }
 
     public void updateHP(int i, int hp) {
@@ -168,17 +177,54 @@ public class Controller {
     }
 
     public void updateMana() {
-        this.mana.setText(String.valueOf(board.getActivePlayer().getMana()) + "/");
+        this.mana.setText(String.valueOf(board.getActivePlayer().getMana()) + "/" + String.valueOf(Math.min(board.getRound(), 10)));
+    }
+
+    public void loadTemp() {
+        this.tempCards.getChildren().clear();
+        Card[] in = board.getActivePlayer().getTemp();
+        try {
+            for (int i = 0; i < 3; i++) {
+                System.out.println("Card i loaded");
+                FXMLLoader cardloader = new FXMLLoader(getClass().getResource("CardView.fxml"));
+                Pane cardPane = cardloader.load();
+                CardController cardController = cardloader.getController();
+
+                cardController.setCard(in[i]);
+                cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+//                cardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+//                    if (newValue) {
+//                        showHovered(cardController.getCard());
+//                    } else {
+//                        hoverPane.getChildren().clear();
+//                    }
+//                });
+                final int idx = i;
+                cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                            if(mouseEvent.getClickCount() == 1){
+                                System.out.println("clicked");
+                                board.getActivePlayer().chooseCard(idx);
+                                tempCards.getChildren().clear();
+                                reload();
+                            }
+                        }
+                    }
+                });
+                this.tempCards.getChildren().add(cardPane);
+            }
+        }
+        catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     public void loadHand() {
         this.hand.getChildren().clear();
-        System.out.println("here");
         List<Card> handCards = board.getActivePlayer().getHand();
-
         System.out.println("handCount : " + handCards.size());
-
-        System.out.println("here2");
         board.getActivePlayer().getName();
 
         try {

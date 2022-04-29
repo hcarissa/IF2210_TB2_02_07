@@ -2,6 +2,7 @@ package com.aetherwars.fieldcard;
 import com.aetherwars.card.*;
 import com.aetherwars.player.*;
 import java.util.ArrayList;
+import java.lang.Math;
 
 // TODO
 // - Attack to another card/enemy's HP  - DONE
@@ -190,11 +191,32 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         }
     }
 
+    public void adjustSpellDuration() {
+        for(SpellCard spell : getActiveSpells()) {
+            if(spell.getSpellType() == SpellType.POTION) {
+                ((SpellPotion)spell).setDuration(((SpellPotion)spell).getDuration() - 1);
+                if(((SpellPotion)spell).getDuration() <= 0) {
+                    PotionExpired((SpellPotion)spell);
+                }
+            }
+            else if(spell.getSpellType() == SpellType.SWAP) {
+                ((SpellSwap)spell).setDuration(((SpellSwap)spell).getDuration() - 1);
+                if(((SpellSwap)spell).getDuration() <= 0) {
+                    SwapExpired();
+                }
+            }
+        }
+        getActiveSpells().removeIf(spell -> (
+            (spell.getSpellType() == SpellType.POTION && ((SpellPotion)spell).getDuration() <= 0) ||
+            (spell.getSpellType() == SpellType.SWAP && ((SpellSwap)spell).getDuration() <= 0) 
+        ));
+    }
+
     // ISpellEffect Implementation
     // Potion effect to summonedcharacter
     public void PotionEffect(SpellPotion spellPotion){
         this.setHealth(this.getHealth() + spellPotion.getHealth());
-        this.setAttack(this.getAttack() + spellPotion.getAttack());
+        this.setAttack(Math.max(0, this.getAttack() + spellPotion.getAttack()));
 
         if(getHealth() <= 0) {
             setIsDead(true);
@@ -268,6 +290,37 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         this.exp = 0;
         this.needsExp = 1;
         this.lvl = 1;
+    }
+
+    // Spell duration expired
+    // Potion expired
+    public void PotionExpired(SpellPotion spellPotion) { 
+        setAttack(Math.max(0, getAttack() + ( spellPotion.getAttack() * -1 )));
+        setHealth(getHealth() + ( spellPotion.getHealth() * -1 ));
+        
+        if(getHealth() <= 0) {
+            setIsDead(true);
+        }
+    }
+    // Swap expired
+    public void SwapExpired() {
+        double attackTemp = getAttack();
+        setAttack(getHealth());
+        setHealth(attackTemp);
+
+        // Swap attack <-> health for each SpellPotion
+        if(isPotionAvailable()) {
+            for(SpellCard spell : getActiveSpells()) {
+                if(spell.getSpellType() == SpellType.POTION) {
+                    double temp1 = ((SpellPotion)spell).getAttack();
+                    ((SpellPotion)spell).setAttack(((SpellPotion)spell).getHealth());
+                    ((SpellPotion)spell).setHealth(temp1);
+                }
+            }
+        }
+        if(getHealth() <= 0) {
+            setIsDead(true);
+        }
     }
 
     // ISummonedBattle Implementation, 

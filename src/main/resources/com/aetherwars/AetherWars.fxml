@@ -213,5 +213,6 @@
       <Pane fx:id="cBoard2C" layoutX="721.0" layoutY="144.0" prefHeight="64.0" prefWidth="60.0" />
       <Pane fx:id="cBoard2D" layoutX="651.0" layoutY="145.0" prefHeight="64.0" prefWidth="60.0" />
       <Pane fx:id="cBoard2E" layoutX="583.0" layoutY="113.0" prefHeight="64.0" prefWidth="60.0" />
+      <HBox id="tempCards" fx:id="tempCards" layoutX="318.0" layoutY="195.0" prefHeight="100.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

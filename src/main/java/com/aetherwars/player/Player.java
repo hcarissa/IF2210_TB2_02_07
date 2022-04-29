@@ -19,6 +19,7 @@ import com.aetherwars.deck.Deck;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Player {
   // attributes
@@ -70,6 +71,11 @@ public class Player {
         this.deck.addCard(tempCard[i]); // balikin kartu yang ga dipilih ke deck
         tempCard[i] = null;
       }
+    }
+    while (this.hand.size()>5) {
+      // buang 1 kartu random (dari 5 yang lama, jangan buang yang baru, sayang wkwk)
+      Random r = new Random();
+      this.discardCard(r.nextInt(5));
     }
   }
 
@@ -126,6 +132,10 @@ public class Player {
     return this.hand;
   }
 
+  public Card[] getTemp() {
+    return this.tempCard;
+  }
+
   public double getHp() {
     return this.hp;
   }
@@ -137,14 +147,16 @@ public class Player {
   // driver
   public static void main(String[] args) {
     Player p = new Player("Player 1");
-    p.draw(59);
+    p.draw(4);
     p.viewHand();
     System.out.println(p.deck.isNotEmpty());
-//    p.drawCard();
-//    p.viewTempCard();
-//    p.chooseCard(1);
-//    p.viewHand();
-//    p.drawCard();
-//    p.viewTempCard();
+    p.drawCard();
+    p.viewTempCard();
+    p.chooseCard(1);
+    p.viewHand();
+    p.drawCard();
+    p.viewTempCard();
+    p.chooseCard(1);
+    System.out.println(p.hand.size());
   }
 }

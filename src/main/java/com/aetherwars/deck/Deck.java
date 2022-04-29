@@ -11,7 +11,7 @@ public class Deck {
     private int size;
 
     public int getSize(){
-        return this.size;
+        return this.deckOfCards.size();
     }
 
     public Deck(){

@@ -16,7 +16,7 @@ public class CardReader {
     private CardCollection potionCardCollection;
     private CardCollection morphCardCollection;
     private static final String CHARACTER_CARD_FILE_NAME = "/com/aetherwars/card/data/character.csv";
-    //private static final String LEVEL_CARD_FILE_NAME = "/com/aetherwars/resources/cards/data/spell_level.csv";
+    private static final String LEVEL_CARD_FILE_NAME = "/com/aetherwars/card/data/spell_level.csv";
     private static final String SWAP_CARD_FILE_NAME = "/com/aetherwars/card/data/spell_swap.csv";
     private static final String POTION_CARD_FILE_NAME = "/com/aetherwars/card/data/spell_ptn.csv";
     private static final String MORPH_CARD_FILE_NAME = "/com/aetherwars/card/data/spell_morph.csv";
@@ -56,7 +56,7 @@ public class CardReader {
         potionCardCollection = new CardCollection();
         morphCardCollection = new CardCollection();
         File characterCSVFile = new File(getClass().getResource(CHARACTER_CARD_FILE_NAME).toURI());
-        //File levelCSVFile = new File(getClass().getResource(LAND_CSV_FILE_PATH).toURI());
+        File levelCSVFile = new File(getClass().getResource(LEVEL_CARD_FILE_NAME).toURI());
         File swapCSVFile = new File(getClass().getResource(SWAP_CARD_FILE_NAME).toURI());
         File potionCSVFile = new File(getClass().getResource(POTION_CARD_FILE_NAME).toURI());
         File morphCSVFile = new File(getClass().getResource(MORPH_CARD_FILE_NAME).toURI());
@@ -92,6 +92,14 @@ public class CardReader {
             SpellMorph l = new SpellMorph(row[1], row[2], row[3], Integer.parseInt(row[5]), Integer.parseInt(row[4]));
             morphCardCollection.addCard(l);
         }
+
+        //CSVReader levelReader = new CSVReader(levelCSVFile, "\t");
+        //levelReader.setSkipHeader(true);
+        //List<String[]> levelRows = levelReader.read();
+        //for (String[] row : levelRows) {
+        //    SpellLevel l = new SpellLevel(row[1], row[2], row[3], LevelSwitch.valueOf(row[4]));
+        //    levelCardCollection.addCard(l);
+        //}
 
         SpellLevel up = new SpellLevel("Level Up", "A card used to level up a character", "-", LevelSwitch.UP);
         SpellLevel down = new SpellLevel("Level Down", "A card used to level down a character", "-", LevelSwitch.DOWN);
