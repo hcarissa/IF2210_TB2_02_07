@@ -36,10 +36,16 @@ import javafx.scene.transform.Scale;
 
 public class Controller {
     private Board board;
+
+    private CharacterCard dragged_char;
+
+    private static final DataFormat dformat = new DataFormat("javafx.scene.layout.VBox");
+
     private SummonedCharacter sc;
     private String CARD_DEFAULT = "-fx-background-color: #efeaea; -fx-border-color: BLACK;";
     private String CARD_FOCUS = "-fx-background-color: PALETURQUOISE; -fx-border-color: ROYALBLUE; -fx-border-width: 3px";
     private String CARD_HOVER = "-fx-background-color: PALETURQUOISE; -fx-border-color: ROYALBLUE; -fx-border-width: 3px; -fx-margin-bottom: 5px";
+
 
     @FXML
     private Rectangle drawTab, planTab, attackTab, endTab;
@@ -77,9 +83,55 @@ public class Controller {
 
     @FXML
     private URL location;
-
+    
     @FXML
     private Button nextBtn;
+
+    @FXML
+    void initialize() {
+        this.drawTab.setFill(active);
+        this.pBoard1 = new Pane[]{cBoard1A, cBoard1B, cBoard1C, cBoard1D, cBoard1E};
+        this.pBoard2 = new Pane[]{cBoard2A, cBoard2B, cBoard2C, cBoard2D, cBoard2E};
+        this.healthBar1.setStyle("-fx-accent: #ff3e1f");
+        this.healthBar2.setStyle("-fx-accent: #ff3e1f");
+        cardDetail.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+        cardDescription.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+        hoverPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+        for (Pane pane : this.pBoard1) {
+            pane.setOnDragOver(e -> {
+                System.out.println("Drag over detected");
+                Dragboard db = e.getDragboard();
+                if (db.hasContent(dformat)) {
+                    e.acceptTransferModes(TransferMode.ANY);
+                }
+            });
+            pane.setOnDragDropped (e -> {
+                System.out.println("Drag released");
+                Dragboard db = e.getDragboard();
+                if (db.hasContent(dformat)) {
+                    addToBoard(dragged_char, pane);
+                    dragged_char = null;
+                }
+            });
+        }
+        for (Pane pane : this.pBoard2) {
+            pane.setOnDragOver(e -> {
+                System.out.println("Drag over detected");
+                Dragboard db = e.getDragboard();
+                if (db.hasContent(dformat)) {
+                    e.acceptTransferModes(TransferMode.ANY);
+                }
+            });
+            pane.setOnDragDropped (e -> {
+                System.out.println("Drag released");
+                Dragboard db = e.getDragboard();
+                if (db.hasContent(dformat)) {
+                    addToBoard(dragged_char, pane);
+                    dragged_char = null;
+                }
+            });
+        }
+    }
 
     @FXML
     void changePhase() {
@@ -118,50 +170,6 @@ public class Controller {
                 loadTemp();
                 nextBtn.setDisable(true);
             }
-        }
-    }
-
-    @FXML
-    void initialize() {
-        this.drawTab.setFill(active);
-        this.pBoard1 = new Pane[]{cBoard1A, cBoard1B, cBoard1C, cBoard1D, cBoard1E};
-        this.pBoard2 = new Pane[]{cBoard2A, cBoard2B, cBoard2C, cBoard2D, cBoard2E};
-        this.healthBar1.setStyle("-fx-accent: #ff3e1f");
-        this.healthBar2.setStyle("-fx-accent: #ff3e1f");
-        cardDetail.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
-        cardDescription.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
-        hoverPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
-        for (Pane pane : this.pBoard1) {
-            pane.setOnDragOver(new EventHandler<DragEvent>() {
-                public void handle(DragEvent event) {
-                    if (event.getGestureSource() != pane) {
-                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-                    }
-                    event.consume();
-                }
-            });
-
-            pane.setOnDragDropped((DragEvent event) -> {
-                Dragboard db = event.getDragboard();
-                System.out.println("Drag Released");
-                event.consume();
-            });
-        }
-        for (Pane pane : this.pBoard2) {
-            pane.setOnDragOver(new EventHandler<DragEvent>() {
-                public void handle(DragEvent event) {
-                    if (event.getGestureSource() != pane) {
-                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-                    }
-                    event.consume();
-                }
-            });
-
-            pane.setOnDragDropped((DragEvent event) -> {
-                Dragboard db = event.getDragboard();
-                System.out.println("Drag Released");
-                event.consume();
-            });
         }
     }
 
@@ -226,13 +234,7 @@ public class Controller {
                         cardPane.setStyle(CARD_DEFAULT);
                     }
                 });
-//                cardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
-//                    if (newValue) {
-//                        showHovered(cardController.getCard());
-//                    } else {
-//                        hoverPane.getChildren().clear();
-//                    }
-//                });
+
                 final int idx = i;
                 cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
@@ -304,17 +306,17 @@ public class Controller {
                 });
 
                 cardPane.setOnDragDetected(new EventHandler <MouseEvent>() {
-
+                    @Override
                     public void handle(MouseEvent event) {
-                        /* drag was detected, start drag-and-drop gesture*/
-                        Dragboard dragboard = cardPane.startDragAndDrop(TransferMode.COPY_OR_MOVE);
-                        System.out.println("onDragDetected");
-                        // create board card from this
-                        if (cardController.getCard().getCardType() == CardType.CHARACTER) {
-                            // boleh di tambah ke board
-                            setSummoned(new SummonedCharacter(1, (CharacterCard) cardController.getCard()));
+                        System.out.println("Drag detected");
+                        if (board.getPhase() == Phase.PLAN) {
+                            Dragboard db = cardPane.startDragAndDrop(TransferMode.ANY);
+                            db.setDragView(cardPane.snapshot(null, null));
+                            ClipboardContent cc = new ClipboardContent();
+                            cc.put(dformat, "Character Card");
+                            db.setContent(cc);
+                            setDraggged((CharacterCard) cardController.getCard());
                         }
-                        event.consume();
                     }
                 });
                 this.hand.getChildren().add(cardPane);
@@ -367,6 +369,8 @@ public class Controller {
                     cardDescription.getChildren().clear();
                 }
             });
+            target.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+            target.getChildren().add(bCardPane);
         }
         catch (Exception e) {
             System.out.println(e);
@@ -374,7 +378,7 @@ public class Controller {
 
     }
 
-    public void setSummoned (SummonedCharacter sc) {
-        this.sc = sc;
+    public void setDraggged(CharacterCard c) {
+        this.dragged_char = c;
     }
 }
