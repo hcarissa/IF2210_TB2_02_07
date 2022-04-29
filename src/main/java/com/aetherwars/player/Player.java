@@ -132,6 +132,10 @@ public class Player {
     return this.hand;
   }
 
+  public Card[] getTemp() {
+    return this.tempCard;
+  }
+
   public double getHp() {
     return this.hp;
   }

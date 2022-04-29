@@ -58,6 +58,14 @@ public class Board {
 
     public void setPhase(Phase nextPhase) {
         phase = nextPhase;
+        action(nextPhase);
+    }
+
+    public void action(Phase phase) {
+        if (phase.equals(Phase.DRAW) && round != 1) {
+            System.out.println("Action draaww");
+            this.getActivePlayer().drawCard();
+        }
     }
 
     public static void main(String[] args) {
