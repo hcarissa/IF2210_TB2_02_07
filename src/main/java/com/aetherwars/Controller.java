@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import com.aetherwars.card.Card;
 import com.aetherwars.card.CardController;
+import com.aetherwars.card.CardType;
+import com.aetherwars.card.CharacterCard;
 import com.aetherwars.fieldcard.BoardCardController;
 import com.aetherwars.fieldcard.SummonedCharacter;
 import javafx.beans.value.ChangeListener;
@@ -16,11 +18,12 @@ import javafx.fxml.FXML;
 
 import com.aetherwars.board.*;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -29,8 +32,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 
+
+
 public class Controller {
     private Board board;
+    private SummonedCharacter sc;
+    private String CARD_DEFAULT = "-fx-background-color: #efeaea; -fx-border-color: BLACK;";
+    private String CARD_FOCUS = "-fx-background-color: #efeaea; -fx-border-color: ROYALBLUE; -fx-border-width: 5px";
+    private String CARD_HOVER = "-fx-background-color: #efeaea; -fx-border-color: CYAN; -fx-border-width: 5px";
 
     @FXML
     private Rectangle drawTab, planTab, attackTab, endTab;
@@ -51,8 +60,6 @@ public class Controller {
 
     @FXML
     private Pane hoverPane, cardDetail, cardDescription;
-    @FXML
-    private Pane hand1, hand2, hand3, hand4, hand5;
 
     @FXML
     private Color active = new Color(1.0, 0.2431, 0.1216, 1.0);
@@ -66,35 +73,45 @@ public class Controller {
     private URL location;
 
     @FXML
-    void changePhase(ActionEvent event) {
+    private Button nextBtn;
+
+    @FXML
+    void changePhase() {
         if (board.getPhase() == Phase.DRAW) {
             // deactivate draw label, activate plan label
+            reload();
             this.drawTab.setFill(inactive);
             this.planTab.setFill(active);
+            nextBtn.setDisable(false);
             board.setPhase(Phase.PLAN);
         }
         else if (board.getPhase() == Phase.PLAN) {
             // deactivate plan label, activate attack label
+            reload();
             this.planTab.setFill(inactive);
             this.attackTab.setFill(active);
             board.setPhase(Phase.ATTACK);
         }
         else if (board.getPhase() == Phase.ATTACK) {
             // deactivate attack label, activate end label
+            reload();
             this.attackTab.setFill(inactive);
             this.endTab.setFill(active);
             board.setPhase(Phase.END);
         }
         else {
             // deactivate end label, change turn, activate draw label
+            reload();
             this.endTab.setFill(inactive);
             this.drawTab.setFill(active);
             board.switchTurn();
             hand.getChildren().clear();
-            updateTurn(board.getRound());
             reload();
             board.setPhase(Phase.DRAW);
-            loadTemp();
+            if (board.getRound() > 1) {
+                loadTemp();
+                nextBtn.setDisable(true);
+            }
         }
     }
 
@@ -108,6 +125,38 @@ public class Controller {
         cardDetail.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
         cardDescription.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
         hoverPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+        for (Pane pane : this.pBoard1) {
+            pane.setOnDragOver(new EventHandler<DragEvent>() {
+                public void handle(DragEvent event) {
+                    if (event.getGestureSource() != pane) {
+                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                    }
+                    event.consume();
+                }
+            });
+
+            pane.setOnDragDropped((DragEvent event) -> {
+                Dragboard db = event.getDragboard();
+                System.out.println("Drag Released");
+                event.consume();
+            });
+        }
+        for (Pane pane : this.pBoard2) {
+            pane.setOnDragOver(new EventHandler<DragEvent>() {
+                public void handle(DragEvent event) {
+                    if (event.getGestureSource() != pane) {
+                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                    }
+                    event.consume();
+                }
+            });
+
+            pane.setOnDragDropped((DragEvent event) -> {
+                Dragboard db = event.getDragboard();
+                System.out.println("Drag Released");
+                event.consume();
+            });
+        }
     }
 
     public void setBoard(Board b) {
@@ -119,6 +168,7 @@ public class Controller {
         loadHand();
         updateDeck();
         updateMana();
+        updateTurn();
     }
 
     public void updateHP(int i, int hp) {
@@ -134,8 +184,8 @@ public class Controller {
         }
     }
 
-    public void updateTurn(int i) {
-        this.turn.setText(String.valueOf(i));
+    public void updateTurn() {
+        this.turn.setText(String.valueOf(board.getRound()));
     }
 
     public void updateDeck() {
@@ -158,6 +208,18 @@ public class Controller {
 
                 cardController.setCard(in[i]);
                 cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+                cardPane.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: CYAN; -fx-border-width: 5px");
+                    }
+                });
+                cardPane.setOnMouseExited(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+                    }
+                });
 //                cardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
 //                    if (newValue) {
 //                        showHovered(cardController.getCard());
@@ -174,7 +236,7 @@ public class Controller {
                                 System.out.println("clicked");
                                 board.getActivePlayer().chooseCard(idx);
                                 tempCards.getChildren().clear();
-                                reload();
+                                changePhase();
                             }
                         }
                     }
@@ -201,23 +263,52 @@ public class Controller {
                 CardController cardController = cardloader.getController();
 
                 cardController.setCard(handCards.get(i));
-                cardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
+                cardPane.setStyle(CARD_DEFAULT);
                 cardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                    // hover event
                     if (newValue) {
                         showHovered(cardController.getCard());
                     } else {
                         hoverPane.getChildren().clear();
+                        cardDetail.getChildren().clear();
                         cardDescription.getChildren().clear();
                     }
                 });
+                final int idx = i;
                 cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    // double click event, mungkin bisa dipake buat throw
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                            if(mouseEvent.getClickCount() == 2){
+                            if(mouseEvent.getClickCount() == 1 && board.getPhase().equals(Phase.PLAN)) {
+                                for (javafx.scene.Node node : hand.getChildren()) {
+                                    node.setStyle(CARD_DEFAULT);
+                                };
+                                cardPane.setStyle(CARD_FOCUS);
+                            }
+                            if(mouseEvent.getClickCount() == 2) {
                                 System.out.println("Double clicked");
+                                if (board.getPhase().equals(Phase.PLAN)) {
+                                    board.getActivePlayer().discardCard(idx);
+                                    loadHand();
+                                }
                             }
                         }
+                    }
+                });
+
+                cardPane.setOnDragDetected(new EventHandler <MouseEvent>() {
+
+                    public void handle(MouseEvent event) {
+                        /* drag was detected, start drag-and-drop gesture*/
+                        Dragboard dragboard = cardPane.startDragAndDrop(TransferMode.COPY_OR_MOVE);
+                        System.out.println("onDragDetected");
+                        // create board card from this
+                        if (cardController.getCard().getCardType() == CardType.CHARACTER) {
+                            // boleh di tambah ke board
+                            setSummoned(new SummonedCharacter(1, (CharacterCard) cardController.getCard()));
+                        }
+                        event.consume();
                     }
                 });
                 this.hand.getChildren().add(cardPane);
@@ -236,36 +327,41 @@ public class Controller {
         img.getTransforms().add(scale);
         this.hoverPane.getChildren().add(img);
 
-        Text desc = new Text(c.getDescription());
+        Text desc = new Text("Ini Creeper, saya kurang tau juga sih dia siapa");
         desc.setFont(Font.font ("Gadugi", 10));
-        desc.setFill(Color.BLACK);
-        desc.setCaretPosition(10);
-        desc.relocate(0,8);
-        desc.wrappingWidthProperty().bind(cardDescription.widthProperty());
+        desc.setFill(Color.WHITE);
         cardDescription.getChildren().add(desc);
-
 
         // Card Detail belum
     }
 
-    public void addToBoard(SummonedCharacter sc) {
+    public void addToBoard(CharacterCard sc, Pane target) {
+        // ubah summoned character ke board character
+        // terus diadd
         try {
-            FXMLLoader bCardloader = new FXMLLoader(getClass().getResource("BoardCard.fxml"));
-            Pane bCardPane = bCardloader.load();
-            BoardCardController bCardController = bCardloader.getController();
-
-            bCardController.setCard(sc);
-            bCardPane.setStyle("-fx-background-color: #efeaea; -fx-border-color: BLACK;");
-            // cara masukin ke board masing-masing Player gmn?
-            if (board.getTurn() == 1) {
-                // tambahin ke pBoard1
-            }
-            else {
-                // tambahin ke pBoard2
-            }
+            FXMLLoader cardloader = new FXMLLoader(getClass().getResource("BoardCard.fxml"));
+            Pane bCardPane = cardloader.load();
+            BoardCardController cardController = cardloader.getController();
+            cardController.setCard(sc);
+            target.getChildren().add(bCardPane);
+            bCardPane.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                // hover event
+                if (newValue) {
+                    showHovered(cardController.getCard());
+                } else {
+                    hoverPane.getChildren().clear();
+                    cardDetail.getChildren().clear();
+                    cardDescription.getChildren().clear();
+                }
+            });
         }
-        catch (IOException e) {
+        catch (Exception e) {
+            System.out.println(e);
         }
 
+    }
+
+    public void setSummoned (SummonedCharacter sc) {
+        this.sc = sc;
     }
 }
