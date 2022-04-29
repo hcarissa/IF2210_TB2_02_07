@@ -69,12 +69,12 @@ public class AetherWars extends Application {
     stage.setScene(scene);
     stage.show();
 
-    try {
-      this.loadCards();
-//      text.setText("Minecraft: Aether Wars!");
-    } catch (Exception e) {
-//      text.setText("Failed to load cards: " + e);
-    }
+//    try {
+//      this.loadCards();
+////      text.setText("Minecraft: Aether Wars!");
+//    } catch (Exception e) {
+////      text.setText("Failed to load cards: " + e);
+//    }
 
   }
 
