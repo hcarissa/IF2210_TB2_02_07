@@ -136,8 +136,12 @@ public class Controller {
 
     public void loadHand() {
         this.hand.getChildren().clear();
+        System.out.println("here");
         List<Card> handCards = board.getActivePlayer().getHand();
+        System.out.println("here2");
+        board.getActivePlayer().getName();
         try {
+            System.out.println(handCards.size());
             for (int i = 0; i < handCards.size(); i++) {
                 FXMLLoader cardloader = new FXMLLoader(getClass().getResource("CardView.fxml"));
                 Pane cardPane = cardloader.load();
