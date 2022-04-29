@@ -7,7 +7,7 @@ import java.util.ArrayList;
 // - Attack to another card/enemy's HP  - DONE
 // - Spells effect to card
     // Potion (TEMP)- DONE   
-    // Level (PERM) -
+    // Level (PERM) - DONE
     // Swap (TEMP)  - DONE
     // Morph (PERM) - DONE
 // - attackUp & healthUp if level up    - DONE
@@ -213,6 +213,17 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
             double modifier = getLvl() - 1;
             setAttack(this.character.getBaseAttack() + (modifier * this.character.getAttackUp()));
             setHealth(this.character.getBaseHealth() + (modifier * this.character.getHealthUp()));
+
+            if(getLvl() == 1) { this.needsExp = 1; }
+            else if(getLvl() == 2)  { this.needsExp = 3;  }
+            else if(getLvl() == 3)  { this.needsExp = 5;  }
+            else if(getLvl() == 4)  { this.needsExp = 7;  }
+            else if(getLvl() == 5)  { this.needsExp = 9;  }
+            else if(getLvl() == 6)  { this.needsExp = 11; }
+            else if(getLvl() == 7)  { this.needsExp = 13; }
+            else if(getLvl() == 8)  { this.needsExp = 15; }
+            else if(getLvl() == 9)  { this.needsExp = 17; }
+            else if(getLvl() == 10) { this.needsExp = 19; }
         }
         this.exp = 0;
     }
@@ -312,17 +323,21 @@ public class SummonedCharacter extends FieldCard implements ISummoned, ISpellEff
         System.out.printf("Active Spells:\n");
         for(SpellCard spell : this.activeSpells) {
             System.out.printf("- %s (%s) | ", spell.getName(), spell.getSpellType());
-            if(spell.getSpellType() == SpellType.MORPH) {
-                SpellMorph spellMorph = (SpellMorph)spell;
-                System.out.printf("Target ID - %d\n", spellMorph.getTargetId());
+            if(spell.getSpellType() == SpellType.POTION) {
+                SpellPotion spellPotion = (SpellPotion)spell;
+                System.out.printf("Duration - %d\n", spellPotion.getDuration());
+            }
+            else if(spell.getSpellType() == SpellType.LEVEL) {
+                SpellLevel spellLevel = (SpellLevel)spell;
+                System.out.printf("Switch - %s\n", spellLevel.getLevelSwitch());
             }
             else if(spell.getSpellType() == SpellType.SWAP) {
                 SpellSwap spellSwap = (SpellSwap)spell;
                 System.out.printf("Duration - %d\n", spellSwap.getDuration());
             }
-            else if(spell.getSpellType() == SpellType.POTION) {
-                SpellPotion spellPotion = (SpellPotion)spell;
-                System.out.printf("Duration - %d\n", spellPotion.getDuration());
+            else if(spell.getSpellType() == SpellType.MORPH) {
+                SpellMorph spellMorph = (SpellMorph)spell;
+                System.out.printf("Target ID - %d\n", spellMorph.getTargetId());
             }
         }
         System.out.printf("Status: %d/%d [%d]\n", this.exp, this.needsExp, this.lvl);
